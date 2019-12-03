@@ -1,0 +1,37 @@
+query userDashboard {
+  me {
+    id
+    username
+    email
+    keyboards {
+      id
+      shortId
+      name
+      joins {
+        id
+      }
+      interestCheck
+      groupBuy
+      groupBuySoon
+      closed
+    }
+    keyboardjoins {
+      id
+      keyboard {
+        shortId
+        id
+        name
+      }
+    }
+    follows {
+      id
+      keyboard {
+        id
+        name
+        size
+        mount
+        shortId
+      }
+    }
+  }
+}

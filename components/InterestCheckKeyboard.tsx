@@ -1,0 +1,120 @@
+import React, { FC, useState } from "react";
+
+import css from "@emotion/css";
+import { flex, grid50, margins } from "styles/main";
+import { Button } from "styles/buttons";
+import { useJoinKeyboardMutation } from "generated/graphql";
+import FollowButton from "./shared/FollowButton";
+
+interface Props {
+  id?: string;
+  editions?: any;
+  refresh?: any;
+  layouts?: string[];
+  authUserJoins?: any;
+  follows?: any;
+}
+
+const InterestCheckKeyboard: FC<Props> = ({
+  editions,
+  layouts,
+  id,
+  authUserJoins,
+  follows
+}) => {
+  const [index, setIndex] = useState(0);
+  const [caseSelect, setCaseSelect] = useState("");
+  const [plateSelect, setPlateSelect] = useState("");
+  const [layoutSelect, setLayoutSelect] = useState("");
+  const [alreadyJoined, setAlreadyJoined] = useState(false);
+
+  const [joinKeyboard, res] = useJoinKeyboardMutation();
+
+  React.useEffect(() => {
+    for (let j of authUserJoins) {
+      if (j.keyboardId === id) {
+        setAlreadyJoined(true);
+      } else {
+        setAlreadyJoined(false);
+      }
+    }
+  }, []);
+
+  const handleJoin = async (e: any) => {
+    e.preventDefault();
+    let data = {
+      caseChoice: caseSelect,
+      plateChoice: plateSelect,
+      layoutChoice: layoutSelect
+    };
+    try {
+      let response = await joinKeyboard({
+        variables: { id, data }
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <div css={[flex.column]}>
+      <h4 css={margins("0 0 10px 0")}>Select a case material</h4>
+      <div css={grid50}>
+        {editions[index].cases.map((c: string, i: number) => (
+          <Button
+            className={caseSelect !== c ? undefined : "active"}
+            secondary="true"
+            key={i}
+            onClick={() => setCaseSelect(c)}
+          >
+            {c}
+          </Button>
+        ))}
+      </div>
+      <h4 css={margins("20px 0 10px 0")}>Select a plate material</h4>
+      <div css={grid50}>
+        {editions[index].plates.map((p: string, i: number) => (
+          <Button
+            className={plateSelect !== p ? undefined : "active"}
+            secondary="true"
+            key={i}
+            onClick={() => setPlateSelect(p)}
+          >
+            {p}
+          </Button>
+        ))}
+      </div>
+      <h4 css={margins("20px 0 10px 0")}>Select a layout</h4>
+      <div css={grid50}>
+        {layouts.map((l: string, i: number) => (
+          <Button
+            className={layoutSelect !== l ? undefined : "active"}
+            secondary="true"
+            key={i}
+            onClick={() => setLayoutSelect(l)}
+          >
+            {l}
+          </Button>
+        ))}
+      </div>
+      <div css={joinFollowContainer}>
+        <Button primary="true" margin="0 0 15px 0" onClick={e => handleJoin(e)}>
+          {!alreadyJoined ? "Join the interest check" : "You're in"}
+        </Button>
+        <FollowButton keyboardId={id} follows={follows} />
+      </div>
+    </div>
+  );
+};
+
+export default InterestCheckKeyboard;
+
+const joinFollowContainer = css`
+  margin-top: auto;
+  justify-self: flex-end;
+`;
+
+const heartIcon = css`
+  margin-left: 5px;
+`;

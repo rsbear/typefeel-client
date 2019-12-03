@@ -1,0 +1,16 @@
+query Me {
+  me {
+    id
+    email
+    username
+    keyboardjoins {
+      id
+    }
+    follows {
+      id
+      keyboard {
+        id
+      }
+    }
+  }
+}
