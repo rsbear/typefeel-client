@@ -29,6 +29,11 @@ const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
       {loading && <h2>loading bitch</h2>}
       {!loading && data && (
         <>
+          {!data.keyboard.announcement ? null : (
+            <div css={announcementDiv}>
+              <p>PSA: {data.keyboard.announcement}</p>
+            </div>
+          )}
           <h1 css={text.heading}>
             {data.keyboard.brand} {data.keyboard.name}
           </h1>
@@ -89,6 +94,17 @@ KeyboardPage.getInitialProps = async (context: any) => {
 };
 
 export default KeyboardPage;
+
+const announcementDiv = css`
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #5a929e;
+
+  p {
+    color: white;
+  }
+`;
 
 const specs = css`
   color: ${colors.black50};

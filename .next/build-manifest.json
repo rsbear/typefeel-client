@@ -4,6 +4,10 @@
     "static/development/dll/dll_2544119b15edf99f909d.js.map"
   ],
   "pages": {
+    "/": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/_app": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
@@ -12,7 +16,23 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/dashboard/update/keyboard/[shortId]/announcement": [
+    "/index": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/keyboards": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/keyset/[shortId]": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/keysets": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/keysets/interestchecks": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

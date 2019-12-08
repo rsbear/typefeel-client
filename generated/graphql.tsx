@@ -50,12 +50,13 @@ export type Edition = {
 };
 
 export type EditionInput = {
+  id?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
-  price: Scalars['Int'],
-  suggestedPrice: Scalars['Int'],
-  cases: Array<Scalars['String']>,
-  colors: Array<Scalars['String']>,
-  plates: Array<Scalars['String']>,
+  price?: Maybe<Scalars['Int']>,
+  suggestedPrice?: Maybe<Scalars['Int']>,
+  cases?: Maybe<Array<Scalars['String']>>,
+  colors?: Maybe<Array<Scalars['String']>>,
+  plates?: Maybe<Array<Scalars['String']>>,
 };
 
 export type Follow = {
@@ -92,6 +93,7 @@ export type JoinKeyboardInput = {
 export type Keyboard = {
    __typename?: 'Keyboard',
   angle?: Maybe<Scalars['String']>,
+  announcement?: Maybe<Scalars['String']>,
   brand?: Maybe<Scalars['String']>,
   connector?: Maybe<Scalars['String']>,
   details?: Maybe<Array<Scalars['String']>>,
@@ -122,23 +124,23 @@ export type Keyboard = {
 };
 
 export type KeyboardInput = {
-  angle: Scalars['String'],
-  brand: Scalars['String'],
-  connector: Scalars['String'],
-  details: Array<Scalars['String']>,
-  editions: Array<EditionInput>,
-  firmware: Scalars['String'],
-  mount: Scalars['String'],
-  layouts: Array<Scalars['String']>,
-  pcb: Scalars['String'],
+  angle?: Maybe<Scalars['String']>,
+  brand?: Maybe<Scalars['String']>,
+  connector?: Maybe<Scalars['String']>,
+  details?: Maybe<Array<Scalars['String']>>,
+  editions?: Maybe<Array<EditionInput>>,
+  firmware?: Maybe<Scalars['String']>,
+  mount?: Maybe<Scalars['String']>,
+  layouts?: Maybe<Array<Scalars['String']>>,
+  pcb?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
-  size: Scalars['String'],
-  support: Array<Scalars['String']>,
-  interestCheck: Scalars['Boolean'],
-  groupBuy: Scalars['Boolean'],
-  groupBuySoon: Scalars['Boolean'],
-  market: Scalars['Boolean'],
-  closed: Scalars['Boolean'],
+  size?: Maybe<Scalars['String']>,
+  support?: Maybe<Array<Scalars['String']>>,
+  interestCheck?: Maybe<Scalars['Boolean']>,
+  groupBuy?: Maybe<Scalars['Boolean']>,
+  groupBuySoon?: Maybe<Scalars['Boolean']>,
+  market?: Maybe<Scalars['Boolean']>,
+  closed?: Maybe<Scalars['Boolean']>,
 };
 
 export type Keyset = {
@@ -204,6 +206,7 @@ export type Mutation = {
   makeKeyboard: Scalars['Boolean'],
   updateKeyboardStage: Scalars['Boolean'],
   updateKeyboard: Scalars['Boolean'],
+  keyboardAnnouncement: Scalars['Boolean'],
   deleteKeyboard: Scalars['Boolean'],
   makeKeyset: Scalars['Boolean'],
   deleteKeyset: Scalars['Boolean'],
@@ -267,6 +270,12 @@ export type MutationUpdateKeyboardStageArgs = {
 
 export type MutationUpdateKeyboardArgs = {
   data: KeyboardInput,
+  id: Scalars['String']
+};
+
+
+export type MutationKeyboardAnnouncementArgs = {
+  announcement: Scalars['String'],
   id: Scalars['String']
 };
 
@@ -497,7 +506,7 @@ export type KeyboardQuery = (
   { __typename?: 'Query' }
   & { keyboard: (
     { __typename?: 'Keyboard' }
-    & Pick<Keyboard, 'angle' | 'brand' | 'closed' | 'connector' | 'details' | 'firmware' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'layouts' | 'market' | 'mount' | 'name' | 'pcb' | 'shortId' | 'size' | 'support'>
+    & Pick<Keyboard, 'angle' | 'announcement' | 'brand' | 'closed' | 'connector' | 'details' | 'firmware' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'layouts' | 'market' | 'mount' | 'name' | 'pcb' | 'shortId' | 'size' | 'support'>
     & { editions: Maybe<Array<(
       { __typename?: 'Edition' }
       & Pick<Edition, 'id' | 'name' | 'price' | 'suggestedPrice' | 'cases' | 'plates'>
@@ -506,6 +515,17 @@ export type KeyboardQuery = (
       & Pick<Post, 'id' | 'body'>
     )>> }
   ) }
+);
+
+export type KeyboardAnnouncementMutationVariables = {
+  id: Scalars['String'],
+  announcement: Scalars['String']
+};
+
+
+export type KeyboardAnnouncementMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'keyboardAnnouncement'>
 );
 
 export type KeyboardPostsQueryVariables = {
@@ -946,6 +966,7 @@ export const KeyboardDocument = gql`
     query Keyboard($shortId: String!) {
   keyboard(shortId: $shortId) {
     angle
+    announcement
     brand
     closed
     connector
@@ -1005,6 +1026,37 @@ export function useKeyboardLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type KeyboardQueryHookResult = ReturnType<typeof useKeyboardQuery>;
 export type KeyboardLazyQueryHookResult = ReturnType<typeof useKeyboardLazyQuery>;
 export type KeyboardQueryResult = ApolloReactCommon.QueryResult<KeyboardQuery, KeyboardQueryVariables>;
+export const KeyboardAnnouncementDocument = gql`
+    mutation keyboardAnnouncement($id: String!, $announcement: String!) {
+  keyboardAnnouncement(id: $id, announcement: $announcement)
+}
+    `;
+export type KeyboardAnnouncementMutationFn = ApolloReactCommon.MutationFunction<KeyboardAnnouncementMutation, KeyboardAnnouncementMutationVariables>;
+
+/**
+ * __useKeyboardAnnouncementMutation__
+ *
+ * To run a mutation, you first call `useKeyboardAnnouncementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useKeyboardAnnouncementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [keyboardAnnouncementMutation, { data, loading, error }] = useKeyboardAnnouncementMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      announcement: // value for 'announcement'
+ *   },
+ * });
+ */
+export function useKeyboardAnnouncementMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<KeyboardAnnouncementMutation, KeyboardAnnouncementMutationVariables>) {
+        return ApolloReactHooks.useMutation<KeyboardAnnouncementMutation, KeyboardAnnouncementMutationVariables>(KeyboardAnnouncementDocument, baseOptions);
+      }
+export type KeyboardAnnouncementMutationHookResult = ReturnType<typeof useKeyboardAnnouncementMutation>;
+export type KeyboardAnnouncementMutationResult = ApolloReactCommon.MutationResult<KeyboardAnnouncementMutation>;
+export type KeyboardAnnouncementMutationOptions = ApolloReactCommon.BaseMutationOptions<KeyboardAnnouncementMutation, KeyboardAnnouncementMutationVariables>;
 export const KeyboardPostsDocument = gql`
     query keyboardPosts($shortId: String!) {
   keyboard(shortId: $shortId) {

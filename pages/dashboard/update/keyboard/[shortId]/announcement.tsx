@@ -2,14 +2,33 @@ import React, { FC } from "react";
 import Layout from "components/layouts/Layout";
 import { text } from "styles/text";
 import { GetProps } from "interfaces/GetProps";
-import { useKeyboardQuery } from "generated/graphql";
+import {
+  useKeyboardQuery,
+  useKeyboardAnnouncementMutation
+} from "generated/graphql";
 import { Formik } from "formik";
 import { FormikInput, FormikArea } from "styles/inputs";
 import { Button } from "styles/buttons";
 
 const KeyboardMessage: GetProps<any> = ({ authUser, shortId }) => {
   const { loading, error, data } = useKeyboardQuery({ variables: { shortId } });
+  const [keyboardAnnouncement] = useKeyboardAnnouncementMutation();
   const kb = !loading && data && data.keyboard;
+
+  const handleSubmit = async (a: string) => {
+    event.preventDefault();
+    try {
+      let res = await keyboardAnnouncement({
+        variables: {
+          id: kb.id,
+          announcement: a
+        }
+      });
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Layout title="Announcement" authUser={authUser}>
       {loading && <h2>Loading...</h2>}
@@ -22,7 +41,7 @@ const KeyboardMessage: GetProps<any> = ({ authUser, shortId }) => {
           </h4>
           <Formik initialValues={{ message: "" }} onSubmit={() => {}}>
             {({ values }) => (
-              <form onSubmit={() => {}}>
+              <form onSubmit={() => handleSubmit(values.message)}>
                 <FormikArea
                   icon="icon ion-ios-information-circle"
                   margins="30px 0 10px 0"
@@ -30,7 +49,7 @@ const KeyboardMessage: GetProps<any> = ({ authUser, shortId }) => {
                   placeholder="Annoucement message"
                   name="message"
                 />
-                <Button primary="submit" type="button">
+                <Button primary="true" type="submit">
                   Post announcement
                 </Button>
               </form>

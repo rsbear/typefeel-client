@@ -34,8 +34,8 @@ const Navigation: FC<any> = ({ authUser, dynamicNav }) => {
               </Link>
             </li>
             <li className="subRoute">
-              <Link href="/keyboards/market">
-                <a>Market</a>
+              <Link href="/keyboards/catalog">
+                <a>Catalog</a>
               </Link>
             </li>
           </>
@@ -53,8 +53,8 @@ const Navigation: FC<any> = ({ authUser, dynamicNav }) => {
               </Link>
             </li>
             <li className="subRoute">
-              <Link href="/keysets/market">
-                <a>Market</a>
+              <Link href="/keysets/catalog">
+                <a>Catalog</a>
               </Link>
             </li>
           </>

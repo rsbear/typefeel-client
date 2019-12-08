@@ -1,6 +1,7 @@
 query Keyboard($shortId: String!) {
   keyboard(shortId: $shortId) {
     angle
+    announcement
     brand
     closed
     connector
