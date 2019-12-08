@@ -160,6 +160,11 @@ export type Keyset = {
   created: Scalars['DateTime'],
   updated: Scalars['DateTime'],
   maker?: Maybe<User>,
+  interestCheck?: Maybe<Scalars['Boolean']>,
+  market?: Maybe<Scalars['Boolean']>,
+  groupBuy?: Maybe<Scalars['Boolean']>,
+  groupBuySoon?: Maybe<Scalars['Boolean']>,
+  closed?: Maybe<Scalars['Boolean']>,
 };
 
 export type KeysetInput = {
@@ -678,6 +683,19 @@ export type SortKeyboardsQuery = (
   & { sortKeyboards: Array<(
     { __typename?: 'Keyboard' }
     & Pick<Keyboard, 'id' | 'shortId' | 'name' | 'mount' | 'size' | 'images600'>
+  )> }
+);
+
+export type SortKeysetsQueryVariables = {
+  where: SearchInput
+};
+
+
+export type SortKeysetsQuery = (
+  { __typename?: 'Query' }
+  & { sortKeysets: Array<(
+    { __typename?: 'Keyset' }
+    & Pick<Keyset, 'id' | 'shortId' | 'name' | 'profile' | 'images600'>
   )> }
 );
 
@@ -1439,6 +1457,43 @@ export function useSortKeyboardsLazyQuery(baseOptions?: ApolloReactHooks.LazyQue
 export type SortKeyboardsQueryHookResult = ReturnType<typeof useSortKeyboardsQuery>;
 export type SortKeyboardsLazyQueryHookResult = ReturnType<typeof useSortKeyboardsLazyQuery>;
 export type SortKeyboardsQueryResult = ApolloReactCommon.QueryResult<SortKeyboardsQuery, SortKeyboardsQueryVariables>;
+export const SortKeysetsDocument = gql`
+    query sortKeysets($where: SearchInput!) {
+  sortKeysets(where: $where) {
+    id
+    shortId
+    name
+    profile
+    images600
+  }
+}
+    `;
+
+/**
+ * __useSortKeysetsQuery__
+ *
+ * To run a query within a React component, call `useSortKeysetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSortKeysetsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSortKeysetsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useSortKeysetsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SortKeysetsQuery, SortKeysetsQueryVariables>) {
+        return ApolloReactHooks.useQuery<SortKeysetsQuery, SortKeysetsQueryVariables>(SortKeysetsDocument, baseOptions);
+      }
+export function useSortKeysetsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SortKeysetsQuery, SortKeysetsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SortKeysetsQuery, SortKeysetsQueryVariables>(SortKeysetsDocument, baseOptions);
+        }
+export type SortKeysetsQueryHookResult = ReturnType<typeof useSortKeysetsQuery>;
+export type SortKeysetsLazyQueryHookResult = ReturnType<typeof useSortKeysetsLazyQuery>;
+export type SortKeysetsQueryResult = ApolloReactCommon.QueryResult<SortKeysetsQuery, SortKeysetsQueryVariables>;
 export const UpdateKeyboardDocument = gql`
     mutation updateKeyboard($id: String!, $data: KeyboardInput!) {
   updateKeyboard(id: $id, data: $data)
