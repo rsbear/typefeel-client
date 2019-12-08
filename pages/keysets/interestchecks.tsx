@@ -3,19 +3,21 @@ import Link from "next/link";
 import Layout from "components/layouts/Layout";
 import Tile from "components/Tile";
 
-import { useKeysetsQuery } from "generated/graphql";
+import { useSortKeysetsQuery } from "generated/graphql";
 import { text } from "styles/text";
 import { grid50 } from "styles/main";
 
 const KeysetInterestChecks: FC<any> = ({ authUser }) => {
-  const { loading, error, data } = useKeysetsQuery();
+  const { loading, error, data } = useSortKeysetsQuery({
+    variables: { where: { interestCheck: true } }
+  });
 
   return (
-    <Layout title="Keyboards" authUser={authUser}>
+    <Layout title="Keyset interest checks" authUser={authUser}>
       <h1 css={text.heading}>Keysets</h1>
       {!loading && data && (
         <div css={grid50}>
-          {data.keysets.map((k: any) => (
+          {data.sortKeysets.map((k: any) => (
             <Link
               href="/keyset/[shortId]"
               as={`/keyset/${k.shortId}`}

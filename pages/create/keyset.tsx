@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import Layout from "components/layouts/Layout";
-import { Formik, Form, Field, useFormik, FieldArray } from "formik";
+import { Formik, FieldArray } from "formik";
 import { useMakeKeysetMutation, KeysetInput } from "generated/graphql";
 import Upload from "components/shared/Upload";
 import UploadPreview from "components/shared/UploadPreview";
@@ -17,7 +17,12 @@ const CreateKeyset: FC<any> = ({ authUser }) => {
     stem: "",
     kits: [{ kit: "", name: "", price: 0, suggestedPrice: 0 }],
     colors: [],
-    details: [""]
+    details: [""],
+    interestCheck: true,
+    market: false,
+    groupBuy: false,
+    groupBuySoon: false,
+    closed: false
   };
 
   const [makeKeyset] = useMakeKeysetMutation();
@@ -100,7 +105,7 @@ const CreateKeyset: FC<any> = ({ authUser }) => {
                     <Button
                       small="true"
                       type="button"
-                      onClick={() => push(initValues.kits[0])}
+                      onClick={() => push(values.kits[0])}
                     >
                       Add another kit
                     </Button>
