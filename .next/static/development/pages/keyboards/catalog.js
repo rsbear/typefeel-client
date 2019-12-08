@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/keysets.js"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static/development/pages/keyboards/catalog.js"],{
 
 /***/ "./components/Tile.tsx":
 /*!*****************************!*\
@@ -16590,21 +16590,21 @@ module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 /***/ }),
 
-/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fkeysets&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeysets%2Findex.tsx!./":
-/*!************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fkeysets&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeysets%2Findex.tsx ***!
-  \************************************************************************************************************************************************************************************/
+/***/ "./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fkeyboards%2Fcatalog&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeyboards%2Fcatalog.tsx!./":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fkeyboards%2Fcatalog&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeyboards%2Fcatalog.tsx ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    (window.__NEXT_P=window.__NEXT_P||[]).push(["/keysets", function() {
-      var mod = __webpack_require__(/*! ./pages/keysets/index.tsx */ "./pages/keysets/index.tsx")
+    (window.__NEXT_P=window.__NEXT_P||[]).push(["/keyboards/catalog", function() {
+      var mod = __webpack_require__(/*! ./pages/keyboards/catalog.tsx */ "./pages/keyboards/catalog.tsx")
       if(true) {
-        module.hot.accept(/*! ./pages/keysets/index.tsx */ "./pages/keysets/index.tsx", function() {
-          if(!next.router.components["/keysets"]) return
-          var updatedPage = __webpack_require__(/*! ./pages/keysets/index.tsx */ "./pages/keysets/index.tsx")
-          next.router.update("/keysets", updatedPage)
+        module.hot.accept(/*! ./pages/keyboards/catalog.tsx */ "./pages/keyboards/catalog.tsx", function() {
+          if(!next.router.components["/keyboards/catalog"]) return
+          var updatedPage = __webpack_require__(/*! ./pages/keyboards/catalog.tsx */ "./pages/keyboards/catalog.tsx")
+          next.router.update("/keyboards/catalog", updatedPage)
         })
       }
       return mod
@@ -24038,10 +24038,10 @@ if (hasSymbols()) {
 
 /***/ }),
 
-/***/ "./pages/keysets/index.tsx":
-/*!*********************************!*\
-  !*** ./pages/keysets/index.tsx ***!
-  \*********************************/
+/***/ "./pages/keyboards/catalog.tsx":
+/*!*************************************!*\
+  !*** ./pages/keyboards/catalog.tsx ***!
+  \*************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -24051,14 +24051,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_layouts_Layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/layouts/Layout */ "./components/layouts/Layout.tsx");
-/* harmony import */ var _generated_graphql__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../generated/graphql */ "./generated/graphql.tsx");
-/* harmony import */ var _styles_text__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../styles/text */ "./styles/text.ts");
-/* harmony import */ var _components_Tile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/Tile */ "./components/Tile.tsx");
+/* harmony import */ var _components_layouts_Layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/layouts/Layout */ "./components/layouts/Layout.tsx");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _styles_text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../styles/text */ "./styles/text.ts");
+/* harmony import */ var _components_Tile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/Tile */ "./components/Tile.tsx");
+/* harmony import */ var _generated_graphql__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../generated/graphql */ "./generated/graphql.tsx");
 
-var _jsxFileName = "/Users/rsbear/dev/typefeel/pages/keysets/index.tsx";
+var _jsxFileName = "/Users/rsbear/dev/typefeel/pages/keyboards/catalog.tsx";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
 
 
@@ -24068,72 +24068,78 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
 
 
 
-var Keysets = function Keysets(_ref) {
+var MarketKeyboards = function MarketKeyboards(_ref) {
   var authUser = _ref.authUser;
 
-  var _useKeysetsQuery = Object(_generated_graphql__WEBPACK_IMPORTED_MODULE_5__["useKeysetsQuery"])(),
-      loading = _useKeysetsQuery.loading,
-      error = _useKeysetsQuery.error,
-      data = _useKeysetsQuery.data;
+  var _useSortKeyboardsQuer = Object(_generated_graphql__WEBPACK_IMPORTED_MODULE_7__["useSortKeyboardsQuery"])({
+    variables: {
+      where: {
+        market: true
+      }
+    }
+  }),
+      loading = _useSortKeyboardsQuer.loading,
+      error = _useSortKeyboardsQuer.error,
+      data = _useSortKeyboardsQuer.data;
 
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(_components_layouts_Layout__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(_components_layouts_Layout__WEBPACK_IMPORTED_MODULE_3__["default"], {
     title: "Keyboards",
     authUser: authUser,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16
+      lineNumber: 18
     },
     __self: this
   }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("h1", {
-    css: _styles_text__WEBPACK_IMPORTED_MODULE_6__["text"].heading,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 17
-    },
-    __self: this
-  }, "Keysets"), !loading && data && Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("div", {
-    css: grid50,
+    css: _styles_text__WEBPACK_IMPORTED_MODULE_5__["text"].heading,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 19
     },
     __self: this
-  }, data.keysets.map(function (k) {
-    return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      href: "/keyset/[shortId]",
-      as: "/keyset/".concat(k.shortId),
+  }, "Keyboards"), !loading && data && Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("div", {
+    css: grid50,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21
+    },
+    __self: this
+  }, data.sortKeyboards.map(function (k) {
+    return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      href: "/keyboard/[shortId]",
+      as: "/keyboard/".concat(k.shortId),
       key: k.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 21
+        lineNumber: 23
       },
       __self: this
     }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("a", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 26
+        lineNumber: 28
       },
       __self: this
-    }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(_components_Tile__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(_components_Tile__WEBPACK_IMPORTED_MODULE_6__["default"], {
       image: k.images600[0],
-      mount: null,
+      mount: k.mount,
       name: k.name,
-      size: k.profile,
+      size: k.size,
       key: k.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 27
+        lineNumber: 29
       },
       __self: this
     })));
   })));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Keysets);
+/* harmony default export */ __webpack_exports__["default"] = (MarketKeyboards);
 var grid50 =  false ? undefined : {
   name: "186yoz4-grid50",
   styles: "display:grid;grid-template-columns:calc(50% - 10px) calc(50% - 10px);grid-column-gap:20px;grid-row-gap:20px;;label:grid50;",
-  map: "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL3BhZ2VzL2tleXNldHMvaW5kZXgudHN4Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQTRDa0IiLCJmaWxlIjoiL1VzZXJzL3JzYmVhci9kZXYvdHlwZWZlZWwvcGFnZXMva2V5c2V0cy9pbmRleC50c3giLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHsgRkMgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCBMaW5rIGZyb20gXCJuZXh0L2xpbmtcIjtcbmltcG9ydCBMYXlvdXQgZnJvbSBcImNvbXBvbmVudHMvbGF5b3V0cy9MYXlvdXRcIjtcbmltcG9ydCB7IEdldFByb3BzIH0gZnJvbSBcImludGVyZmFjZXMvR2V0UHJvcHNcIjtcblxuaW1wb3J0IHsgdXNlS2V5c2V0c1F1ZXJ5IH0gZnJvbSBcImdlbmVyYXRlZC9ncmFwaHFsXCI7XG5cbmltcG9ydCB7IHRleHQgfSBmcm9tIFwic3R5bGVzL3RleHRcIjtcbmltcG9ydCBjc3MgZnJvbSBcIkBlbW90aW9uL2Nzc1wiO1xuaW1wb3J0IFRpbGUgZnJvbSBcImNvbXBvbmVudHMvVGlsZVwiO1xuXG5jb25zdCBLZXlzZXRzOiBHZXRQcm9wczxhbnk+ID0gKHsgYXV0aFVzZXIgfSkgPT4ge1xuICBjb25zdCB7IGxvYWRpbmcsIGVycm9yLCBkYXRhIH0gPSB1c2VLZXlzZXRzUXVlcnkoKTtcblxuICByZXR1cm4gKFxuICAgIDxMYXlvdXQgdGl0bGU9XCJLZXlib2FyZHNcIiBhdXRoVXNlcj17YXV0aFVzZXJ9PlxuICAgICAgPGgxIGNzcz17dGV4dC5oZWFkaW5nfT5LZXlzZXRzPC9oMT5cbiAgICAgIHshbG9hZGluZyAmJiBkYXRhICYmIChcbiAgICAgICAgPGRpdiBjc3M9e2dyaWQ1MH0+XG4gICAgICAgICAge2RhdGEua2V5c2V0cy5tYXAoKGs6IGFueSkgPT4gKFxuICAgICAgICAgICAgPExpbmtcbiAgICAgICAgICAgICAgaHJlZj1cIi9rZXlzZXQvW3Nob3J0SWRdXCJcbiAgICAgICAgICAgICAgYXM9e2Ava2V5c2V0LyR7ay5zaG9ydElkfWB9XG4gICAgICAgICAgICAgIGtleT17ay5pZH1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgPGE+XG4gICAgICAgICAgICAgICAgPFRpbGVcbiAgICAgICAgICAgICAgICAgIGltYWdlPXtrLmltYWdlczYwMFswXX1cbiAgICAgICAgICAgICAgICAgIG1vdW50PXtudWxsfVxuICAgICAgICAgICAgICAgICAgbmFtZT17ay5uYW1lfVxuICAgICAgICAgICAgICAgICAgc2l6ZT17ay5wcm9maWxlfVxuICAgICAgICAgICAgICAgICAga2V5PXtrLmlkfVxuICAgICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICApKX1cbiAgICAgICAgPC9kaXY+XG4gICAgICApfVxuICAgIDwvTGF5b3V0PlxuICApO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgS2V5c2V0cztcblxuY29uc3QgZ3JpZDUwID0gY3NzYFxuICBkaXNwbGF5OiBncmlkO1xuICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IGNhbGMoNTAlIC0gMTBweCkgY2FsYyg1MCUgLSAxMHB4KTtcbiAgZ3JpZC1jb2x1bW4tZ2FwOiAyMHB4O1xuICBncmlkLXJvdy1nYXA6IDIwcHg7XG5gO1xuIl19 */"
+  map: "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL3BhZ2VzL2tleWJvYXJkcy9jYXRhbG9nLnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE4Q2tCIiwiZmlsZSI6Ii9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL3BhZ2VzL2tleWJvYXJkcy9jYXRhbG9nLnRzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBGQyB9IGZyb20gXCJyZWFjdFwiO1xuaW1wb3J0IExheW91dCBmcm9tIFwiY29tcG9uZW50cy9sYXlvdXRzL0xheW91dFwiO1xuXG5pbXBvcnQgTGluayBmcm9tIFwibmV4dC9saW5rXCI7XG5cbmltcG9ydCB7IEdldFByb3BzIH0gZnJvbSBcImludGVyZmFjZXMvR2V0UHJvcHNcIjtcbmltcG9ydCB7IHRleHQgfSBmcm9tIFwic3R5bGVzL3RleHRcIjtcbmltcG9ydCBjc3MgZnJvbSBcIkBlbW90aW9uL2Nzc1wiO1xuaW1wb3J0IFRpbGUgZnJvbSBcImNvbXBvbmVudHMvVGlsZVwiO1xuaW1wb3J0IHsgdXNlU29ydEtleWJvYXJkc1F1ZXJ5IH0gZnJvbSBcImdlbmVyYXRlZC9ncmFwaHFsXCI7XG5cbmNvbnN0IE1hcmtldEtleWJvYXJkczogR2V0UHJvcHM8YW55PiA9ICh7IGF1dGhVc2VyIH0pID0+IHtcbiAgY29uc3QgeyBsb2FkaW5nLCBlcnJvciwgZGF0YSB9ID0gdXNlU29ydEtleWJvYXJkc1F1ZXJ5KHtcbiAgICB2YXJpYWJsZXM6IHsgd2hlcmU6IHsgbWFya2V0OiB0cnVlIH0gfVxuICB9KTtcblxuICByZXR1cm4gKFxuICAgIDxMYXlvdXQgdGl0bGU9XCJLZXlib2FyZHNcIiBhdXRoVXNlcj17YXV0aFVzZXJ9PlxuICAgICAgPGgxIGNzcz17dGV4dC5oZWFkaW5nfT5LZXlib2FyZHM8L2gxPlxuICAgICAgeyFsb2FkaW5nICYmIGRhdGEgJiYgKFxuICAgICAgICA8ZGl2IGNzcz17Z3JpZDUwfT5cbiAgICAgICAgICB7ZGF0YS5zb3J0S2V5Ym9hcmRzLm1hcCgoazogYW55KSA9PiAoXG4gICAgICAgICAgICA8TGlua1xuICAgICAgICAgICAgICBocmVmPVwiL2tleWJvYXJkL1tzaG9ydElkXVwiXG4gICAgICAgICAgICAgIGFzPXtgL2tleWJvYXJkLyR7ay5zaG9ydElkfWB9XG4gICAgICAgICAgICAgIGtleT17ay5pZH1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgPGE+XG4gICAgICAgICAgICAgICAgPFRpbGVcbiAgICAgICAgICAgICAgICAgIGltYWdlPXtrLmltYWdlczYwMFswXX1cbiAgICAgICAgICAgICAgICAgIG1vdW50PXtrLm1vdW50fVxuICAgICAgICAgICAgICAgICAgbmFtZT17ay5uYW1lfVxuICAgICAgICAgICAgICAgICAgc2l6ZT17ay5zaXplfVxuICAgICAgICAgICAgICAgICAga2V5PXtrLmlkfVxuICAgICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICApKX1cbiAgICAgICAgPC9kaXY+XG4gICAgICApfVxuICAgIDwvTGF5b3V0PlxuICApO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgTWFya2V0S2V5Ym9hcmRzO1xuXG5jb25zdCBncmlkNTAgPSBjc3NgXG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogY2FsYyg1MCUgLSAxMHB4KSBjYWxjKDUwJSAtIDEwcHgpO1xuICBncmlkLWNvbHVtbi1nYXA6IDIwcHg7XG4gIGdyaWQtcm93LWdhcDogMjBweDtcbmA7XG4iXX0= */"
 };
 
 /***/ }),
@@ -24308,14 +24314,14 @@ var text = {
 
 /***/ }),
 
-/***/ 2:
-/*!****************************************************************************************************************************************!*\
-  !*** multi next-client-pages-loader?page=%2Fkeysets&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeysets%2Findex.tsx ***!
-  \****************************************************************************************************************************************/
+/***/ 0:
+/*!********************************************************************************************************************************************************!*\
+  !*** multi next-client-pages-loader?page=%2Fkeyboards%2Fcatalog&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeyboards%2Fcatalog.tsx ***!
+  \********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! next-client-pages-loader?page=%2Fkeysets&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeysets%2Findex.tsx! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fkeysets&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeysets%2Findex.tsx!./");
+module.exports = __webpack_require__(/*! next-client-pages-loader?page=%2Fkeyboards%2Fcatalog&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeyboards%2Fcatalog.tsx! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fkeyboards%2Fcatalog&absolutePagePath=%2FUsers%2Frsbear%2Fdev%2Ftypefeel%2Fpages%2Fkeyboards%2Fcatalog.tsx!./");
 
 
 /***/ }),
@@ -24331,5 +24337,5 @@ module.exports = dll_a66405c4faebaaeafeec;
 
 /***/ })
 
-},[[2,"static/runtime/webpack.js"]]]);
-//# sourceMappingURL=keysets.js.map
+},[[0,"static/runtime/webpack.js"]]]);
+//# sourceMappingURL=catalog.js.map

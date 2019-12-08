@@ -1,7 +1,7 @@
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-/******/ 	var installedModules = require('../../../ssr-module-cache.js');
+/******/ 	var installedModules = require('../../../../ssr-module-cache.js');
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -92,6 +92,93 @@ module.exports =
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./components/Tile.tsx":
+/*!*****************************!*\
+  !*** ./components/Tile.tsx ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _emotion_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/css */ "@emotion/css");
+/* harmony import */ var _emotion_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/core */ "@emotion/core");
+/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_emotion_core__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _styles_main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../styles/main */ "./styles/main.ts");
+
+var _jsxFileName = "/Users/rsbear/dev/typefeel/components/Tile.tsx";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
+
+
+
+
+const Tile = ({
+  image,
+  name,
+  size,
+  mount,
+  profile
+}) => {
+  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("div", {
+    css: wrapper,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 16
+    },
+    __self: undefined
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("div", {
+    className: "outer",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17
+    },
+    __self: undefined
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("div", {
+    className: "inner",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 18
+    },
+    __self: undefined
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("img", {
+    src: image,
+    alt: name,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 19
+    },
+    __self: undefined
+  }))), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("h4", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    },
+    __self: undefined
+  }, name), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("p", {
+    css: secondline,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23
+    },
+    __self: undefined
+  }, size));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Tile);
+
+const wrapper =
+/*#__PURE__*/
+_emotion_css__WEBPACK_IMPORTED_MODULE_0___default()("& .outer{position:relative;&:before{content:\"\";display:block;width:100%;height:440px;padding-top:(1/1) * 100%;}> .inner{position:absolute;top:0;right:0;bottom:0;left:0;background-color:", _styles_main__WEBPACK_IMPORTED_MODULE_3__["colors"].black10, ";& img{height:100%;width:100%;object-fit:cover;object-position:center;}}}h4{margin:10px 0 3px 0;};label:wrapper;" + ( false ? undefined : "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL2NvbXBvbmVudHMvVGlsZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNkJtQiIsImZpbGUiOiIvVXNlcnMvcnNiZWFyL2Rldi90eXBlZmVlbC9jb21wb25lbnRzL1RpbGUudHN4Iiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0LCB7IEZDIH0gZnJvbSBcInJlYWN0XCI7XG5pbXBvcnQgY3NzIGZyb20gXCJAZW1vdGlvbi9jc3NcIjtcbmltcG9ydCB7IHRleHQgfSBmcm9tIFwic3R5bGVzL3RleHRcIjtcbmltcG9ydCB7IGNvbG9ycyB9IGZyb20gXCJzdHlsZXMvbWFpblwiO1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBpbWFnZT86IHN0cmluZztcbiAgbmFtZT86IHN0cmluZztcbiAgbW91bnQ/OiBzdHJpbmc7XG4gIHNpemU/OiBzdHJpbmc7XG4gIHByb2ZpbGU/OiBzdHJpbmc7XG59XG5cbmNvbnN0IFRpbGU6IEZDPFByb3BzPiA9ICh7IGltYWdlLCBuYW1lLCBzaXplLCBtb3VudCwgcHJvZmlsZSB9KSA9PiB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjc3M9e3dyYXBwZXJ9PlxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJvdXRlclwiPlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImlubmVyXCI+XG4gICAgICAgICAgPGltZyBzcmM9e2ltYWdlfSBhbHQ9e25hbWV9IC8+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgICA8aDQ+e25hbWV9PC9oND5cbiAgICAgIDxwIGNzcz17c2Vjb25kbGluZX0+e3NpemV9PC9wPlxuICAgIDwvZGl2PlxuICApO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgVGlsZTtcblxuY29uc3Qgd3JhcHBlciA9IGNzc2BcbiAgJiAub3V0ZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAmOmJlZm9yZSB7XG4gICAgICBjb250ZW50OiBcIlwiO1xuICAgICAgZGlzcGxheTogYmxvY2s7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGhlaWdodDogNDQwcHg7XG4gICAgICBwYWRkaW5nLXRvcDogKDEvMSkgKiAxMDAlO1xuICAgIH1cbiAgICA+IC5pbm5lciB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICB0b3A6IDA7XG4gICAgICByaWdodDogMDtcbiAgICAgIGJvdHRvbTogMDtcbiAgICAgIGxlZnQ6IDA7XG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAke2NvbG9ycy5ibGFjazEwfTtcbiAgICAgICYgaW1nIHtcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xuICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgb2JqZWN0LWZpdDogY292ZXI7XG4gICAgICAgIG9iamVjdC1wb3NpdGlvbjogY2VudGVyO1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIGg0IHtcbiAgICBtYXJnaW46IDEwcHggMCAzcHggMDtcbiAgfVxuYDtcblxuY29uc3Qgc2Vjb25kbGluZSA9IGNzc2BcbiAgY29sb3I6ICR7Y29sb3JzLmJsYWNrNTB9O1xuYDtcbiJdfQ== */"));
+
+const secondline =
+/*#__PURE__*/
+_emotion_css__WEBPACK_IMPORTED_MODULE_0___default()("color:", _styles_main__WEBPACK_IMPORTED_MODULE_3__["colors"].black50, ";;label:secondline;" + ( false ? undefined : "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL2NvbXBvbmVudHMvVGlsZS50c3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBNERzQiIsImZpbGUiOiIvVXNlcnMvcnNiZWFyL2Rldi90eXBlZmVlbC9jb21wb25lbnRzL1RpbGUudHN4Iiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0LCB7IEZDIH0gZnJvbSBcInJlYWN0XCI7XG5pbXBvcnQgY3NzIGZyb20gXCJAZW1vdGlvbi9jc3NcIjtcbmltcG9ydCB7IHRleHQgfSBmcm9tIFwic3R5bGVzL3RleHRcIjtcbmltcG9ydCB7IGNvbG9ycyB9IGZyb20gXCJzdHlsZXMvbWFpblwiO1xuXG5pbnRlcmZhY2UgUHJvcHMge1xuICBpbWFnZT86IHN0cmluZztcbiAgbmFtZT86IHN0cmluZztcbiAgbW91bnQ/OiBzdHJpbmc7XG4gIHNpemU/OiBzdHJpbmc7XG4gIHByb2ZpbGU/OiBzdHJpbmc7XG59XG5cbmNvbnN0IFRpbGU6IEZDPFByb3BzPiA9ICh7IGltYWdlLCBuYW1lLCBzaXplLCBtb3VudCwgcHJvZmlsZSB9KSA9PiB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjc3M9e3dyYXBwZXJ9PlxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJvdXRlclwiPlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImlubmVyXCI+XG4gICAgICAgICAgPGltZyBzcmM9e2ltYWdlfSBhbHQ9e25hbWV9IC8+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG4gICAgICA8aDQ+e25hbWV9PC9oND5cbiAgICAgIDxwIGNzcz17c2Vjb25kbGluZX0+e3NpemV9PC9wPlxuICAgIDwvZGl2PlxuICApO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgVGlsZTtcblxuY29uc3Qgd3JhcHBlciA9IGNzc2BcbiAgJiAub3V0ZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAmOmJlZm9yZSB7XG4gICAgICBjb250ZW50OiBcIlwiO1xuICAgICAgZGlzcGxheTogYmxvY2s7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICAgIGhlaWdodDogNDQwcHg7XG4gICAgICBwYWRkaW5nLXRvcDogKDEvMSkgKiAxMDAlO1xuICAgIH1cbiAgICA+IC5pbm5lciB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICB0b3A6IDA7XG4gICAgICByaWdodDogMDtcbiAgICAgIGJvdHRvbTogMDtcbiAgICAgIGxlZnQ6IDA7XG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAke2NvbG9ycy5ibGFjazEwfTtcbiAgICAgICYgaW1nIHtcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xuICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgb2JqZWN0LWZpdDogY292ZXI7XG4gICAgICAgIG9iamVjdC1wb3NpdGlvbjogY2VudGVyO1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIGg0IHtcbiAgICBtYXJnaW46IDEwcHggMCAzcHggMDtcbiAgfVxuYDtcblxuY29uc3Qgc2Vjb25kbGluZSA9IGNzc2BcbiAgY29sb3I6ICR7Y29sb3JzLmJsYWNrNTB9O1xuYDtcbiJdfQ== */"));
+
+/***/ }),
 
 /***/ "./components/layouts/DynamicNav.tsx":
 /*!*******************************************!*\
@@ -712,6 +799,846 @@ const Navigation = ({
 const navStyle =
 /*#__PURE__*/
 _emotion_css__WEBPACK_IMPORTED_MODULE_0___default()("position:relative;height:100vh;width:140px;margin-right:40px;display:flex;flex-flow:column;justify-content:center;ul{position:sticky;top:40px;h4{font-style:italic;margin-bottom:20px;}li{padding:8px 0;margin:2px 0;font-size:", _styles_text__WEBPACK_IMPORTED_MODULE_7__["fontSize"].small, ";color:", _styles_main__WEBPACK_IMPORTED_MODULE_6__["colors"].black60, ";&.subRoute{font-size:13px;padding-left:10px;border-left:solid 1px ", _styles_main__WEBPACK_IMPORTED_MODULE_6__["colors"].black05, ";}}};label:navStyle;" + ( false ? undefined : "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL2NvbXBvbmVudHMvbGF5b3V0cy9OYXZpZ2F0aW9uLnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE0Rm9CIiwiZmlsZSI6Ii9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL2NvbXBvbmVudHMvbGF5b3V0cy9OYXZpZ2F0aW9uLnRzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBGQyB9IGZyb20gXCJyZWFjdFwiO1xuaW1wb3J0IExpbmsgZnJvbSBcIm5leHQvbGlua1wiO1xuaW1wb3J0IHsgdXNlUm91dGVyIH0gZnJvbSBcIm5leHQvcm91dGVyXCI7XG5pbXBvcnQgRHluYW1pY05hdiBmcm9tIFwiLi9EeW5hbWljTmF2XCI7XG5cbmltcG9ydCBjc3MgZnJvbSBcIkBlbW90aW9uL2Nzc1wiO1xuaW1wb3J0IHsgY29sb3JzIH0gZnJvbSBcInN0eWxlcy9tYWluXCI7XG5pbXBvcnQgeyBmb250U2l6ZSB9IGZyb20gXCJzdHlsZXMvdGV4dFwiO1xuXG5jb25zdCBOYXZpZ2F0aW9uOiBGQzxhbnk+ID0gKHsgYXV0aFVzZXIsIGR5bmFtaWNOYXYgfSkgPT4ge1xuICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKTtcblxuICBjb25zdCBrZXlib2FyZFBhdGhzID0gcm91dGVyLnBhdGhuYW1lLmluY2x1ZGVzKFwiL2tleWJvYXJkXCIpO1xuICBjb25zdCBrZXlzZXRQYXRocyA9IHJvdXRlci5wYXRobmFtZS5pbmNsdWRlcyhcIi9rZXlzZXRcIik7XG5cbiAgcmV0dXJuIChcbiAgICA8bmF2IGNzcz17bmF2U3R5bGV9PlxuICAgICAgPHVsPlxuICAgICAgICA8aDQ+XG4gICAgICAgICAgPExpbmsgaHJlZj1cIi9cIj5cbiAgICAgICAgICAgIDxhPnR5cGVmZWVsPC9hPlxuICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgPC9oND5cbiAgICAgICAgPGxpPlxuICAgICAgICAgIDxMaW5rIGhyZWY9XCIva2V5Ym9hcmRzXCI+XG4gICAgICAgICAgICA8YT5LZXlib2FyZHM8L2E+XG4gICAgICAgICAgPC9MaW5rPlxuICAgICAgICA8L2xpPlxuICAgICAgICB7a2V5Ym9hcmRQYXRocyAmJiAoXG4gICAgICAgICAgPD5cbiAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9XCJzdWJSb3V0ZVwiPlxuICAgICAgICAgICAgICA8TGluayBocmVmPVwiL2tleWJvYXJkcy9pbnRlcmVzdGNoZWNrc1wiPlxuICAgICAgICAgICAgICAgIDxhPkludGVyZXN0IGNoZWNrczwvYT5cbiAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9XCJzdWJSb3V0ZVwiPlxuICAgICAgICAgICAgICA8TGluayBocmVmPVwiL2tleWJvYXJkcy9jYXRhbG9nXCI+XG4gICAgICAgICAgICAgICAgPGE+Q2F0YWxvZzwvYT5cbiAgICAgICAgICAgICAgPC9MaW5rPlxuICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICA8Lz5cbiAgICAgICAgKX1cbiAgICAgICAgPGxpPlxuICAgICAgICAgIDxMaW5rIGhyZWY9XCIva2V5c2V0c1wiPlxuICAgICAgICAgICAgPGE+S2V5c2V0czwvYT5cbiAgICAgICAgICA8L0xpbms+XG4gICAgICAgIDwvbGk+XG4gICAgICAgIHtrZXlzZXRQYXRocyAmJiAoXG4gICAgICAgICAgPD5cbiAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9XCJzdWJSb3V0ZVwiPlxuICAgICAgICAgICAgICA8TGluayBocmVmPVwiL2tleXNldHMvaW50ZXJlc3RjaGVja3NcIj5cbiAgICAgICAgICAgICAgICA8YT5JbnRlcmVzdCBjaGVja3M8L2E+XG4gICAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICA8bGkgY2xhc3NOYW1lPVwic3ViUm91dGVcIj5cbiAgICAgICAgICAgICAgPExpbmsgaHJlZj1cIi9rZXlzZXRzL2NhdGFsb2dcIj5cbiAgICAgICAgICAgICAgICA8YT5DYXRhbG9nPC9hPlxuICAgICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICA8L2xpPlxuICAgICAgICAgIDwvPlxuICAgICAgICApfVxuICAgICAgICA8bGk+QXJ0aXNhbnM8L2xpPlxuICAgICAgICA8bGk+XG4gICAgICAgICAgPExpbmsgaHJlZj1cIi9jcmVhdGVcIj5cbiAgICAgICAgICAgIDxhPkNyZWF0ZTwvYT5cbiAgICAgICAgICA8L0xpbms+XG4gICAgICAgIDwvbGk+XG4gICAgICAgIHshYXV0aFVzZXIgPyAoXG4gICAgICAgICAgPGxpPlxuICAgICAgICAgICAgPExpbmsgaHJlZj1cIi9sb2dpblwiPlxuICAgICAgICAgICAgICA8YT5Mb2cgaW48L2E+XG4gICAgICAgICAgICA8L0xpbms+XG4gICAgICAgICAgICA8c3Bhbj4mbmJzcDsvJm5ic3A7PC9zcGFuPlxuICAgICAgICAgICAgPExpbmsgaHJlZj1cIi9zaWdudXBcIj5cbiAgICAgICAgICAgICAgPGE+U2lnbiB1cDwvYT5cbiAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICA8L2xpPlxuICAgICAgICApIDogKFxuICAgICAgICAgIDxsaT5cbiAgICAgICAgICAgIDxMaW5rIGhyZWY9XCIvZGFzaGJvYXJkXCI+XG4gICAgICAgICAgICAgIDxhPkRhc2hib2FyZDwvYT5cbiAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICA8L2xpPlxuICAgICAgICApfVxuICAgICAgICA8RHluYW1pY05hdiBkeW5hbWljTmF2PXtkeW5hbWljTmF2fSAvPlxuICAgICAgPC91bD5cbiAgICA8L25hdj5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IE5hdmlnYXRpb247XG5cbmNvbnN0IG5hdlN0eWxlID0gY3NzYFxuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogMTAwdmg7XG4gIHdpZHRoOiAxNDBweDtcbiAgbWFyZ2luLXJpZ2h0OiA0MHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWZsb3c6IGNvbHVtbjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG5cbiAgdWwge1xuICAgIHBvc2l0aW9uOiBzdGlja3k7XG4gICAgdG9wOiA0MHB4O1xuXG4gICAgaDQge1xuICAgICAgZm9udC1zdHlsZTogaXRhbGljO1xuICAgICAgbWFyZ2luLWJvdHRvbTogMjBweDtcbiAgICB9XG5cbiAgICBsaSB7XG4gICAgICBwYWRkaW5nOiA4cHggMDtcbiAgICAgIG1hcmdpbjogMnB4IDA7XG4gICAgICBmb250LXNpemU6ICR7Zm9udFNpemUuc21hbGx9O1xuICAgICAgY29sb3I6ICR7Y29sb3JzLmJsYWNrNjB9O1xuXG4gICAgICAmLnN1YlJvdXRlIHtcbiAgICAgICAgZm9udC1zaXplOiAxM3B4O1xuICAgICAgICBwYWRkaW5nLWxlZnQ6IDEwcHg7XG4gICAgICAgIGJvcmRlci1sZWZ0OiBzb2xpZCAxcHggJHtjb2xvcnMuYmxhY2swNX07XG4gICAgICB9XG4gICAgfVxuICB9XG5gO1xuIl19 */"));
+
+/***/ }),
+
+/***/ "./generated/graphql.tsx":
+/*!*******************************!*\
+  !*** ./generated/graphql.tsx ***!
+  \*******************************/
+/*! exports provided: AuthsDocument, useAuthsQuery, useAuthsLazyQuery, ByeDocument, useByeQuery, useByeLazyQuery, CreatePostDocument, useCreatePostMutation, FollowKeyboardDocument, useFollowKeyboardMutation, FollowKeyboardDeleteDocument, useFollowKeyboardDeleteMutation, GenerateAuthDocument, useGenerateAuthMutation, JoinKeyboardDocument, useJoinKeyboardMutation, KeyboardDocument, useKeyboardQuery, useKeyboardLazyQuery, KeyboardAnnouncementDocument, useKeyboardAnnouncementMutation, KeyboardPostsDocument, useKeyboardPostsQuery, useKeyboardPostsLazyQuery, KeyboardsDocument, useKeyboardsQuery, useKeyboardsLazyQuery, KeysetDocument, useKeysetQuery, useKeysetLazyQuery, KeysetsDocument, useKeysetsQuery, useKeysetsLazyQuery, LoginDocument, useLoginMutation, MakeKeyboardDocument, useMakeKeyboardMutation, MakeKeysetDocument, useMakeKeysetMutation, MeDocument, useMeQuery, useMeLazyQuery, SignupDocument, useSignupMutation, SortKeyboardsDocument, useSortKeyboardsQuery, useSortKeyboardsLazyQuery, UpdateKeyboardDocument, useUpdateKeyboardMutation, UserDashboardDocument, useUserDashboardQuery, useUserDashboardLazyQuery, VoteKeyboardDownDocument, useVoteKeyboardDownMutation, VoteKeyboardUpDocument, useVoteKeyboardUpMutation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthsDocument", function() { return AuthsDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuthsQuery", function() { return useAuthsQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useAuthsLazyQuery", function() { return useAuthsLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ByeDocument", function() { return ByeDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useByeQuery", function() { return useByeQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useByeLazyQuery", function() { return useByeLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreatePostDocument", function() { return CreatePostDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useCreatePostMutation", function() { return useCreatePostMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FollowKeyboardDocument", function() { return FollowKeyboardDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useFollowKeyboardMutation", function() { return useFollowKeyboardMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FollowKeyboardDeleteDocument", function() { return FollowKeyboardDeleteDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useFollowKeyboardDeleteMutation", function() { return useFollowKeyboardDeleteMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GenerateAuthDocument", function() { return GenerateAuthDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useGenerateAuthMutation", function() { return useGenerateAuthMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JoinKeyboardDocument", function() { return JoinKeyboardDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useJoinKeyboardMutation", function() { return useJoinKeyboardMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardDocument", function() { return KeyboardDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardQuery", function() { return useKeyboardQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardLazyQuery", function() { return useKeyboardLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardAnnouncementDocument", function() { return KeyboardAnnouncementDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardAnnouncementMutation", function() { return useKeyboardAnnouncementMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardPostsDocument", function() { return KeyboardPostsDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardPostsQuery", function() { return useKeyboardPostsQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardPostsLazyQuery", function() { return useKeyboardPostsLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeyboardsDocument", function() { return KeyboardsDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardsQuery", function() { return useKeyboardsQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeyboardsLazyQuery", function() { return useKeyboardsLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeysetDocument", function() { return KeysetDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeysetQuery", function() { return useKeysetQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeysetLazyQuery", function() { return useKeysetLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KeysetsDocument", function() { return KeysetsDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeysetsQuery", function() { return useKeysetsQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useKeysetsLazyQuery", function() { return useKeysetsLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginDocument", function() { return LoginDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLoginMutation", function() { return useLoginMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MakeKeyboardDocument", function() { return MakeKeyboardDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useMakeKeyboardMutation", function() { return useMakeKeyboardMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MakeKeysetDocument", function() { return MakeKeysetDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useMakeKeysetMutation", function() { return useMakeKeysetMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MeDocument", function() { return MeDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useMeQuery", function() { return useMeQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useMeLazyQuery", function() { return useMeLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupDocument", function() { return SignupDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useSignupMutation", function() { return useSignupMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortKeyboardsDocument", function() { return SortKeyboardsDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useSortKeyboardsQuery", function() { return useSortKeyboardsQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useSortKeyboardsLazyQuery", function() { return useSortKeyboardsLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateKeyboardDocument", function() { return UpdateKeyboardDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUpdateKeyboardMutation", function() { return useUpdateKeyboardMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDashboardDocument", function() { return UserDashboardDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUserDashboardQuery", function() { return useUserDashboardQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useUserDashboardLazyQuery", function() { return useUserDashboardLazyQuery; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VoteKeyboardDownDocument", function() { return VoteKeyboardDownDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useVoteKeyboardDownMutation", function() { return useVoteKeyboardDownMutation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VoteKeyboardUpDocument", function() { return VoteKeyboardUpDocument; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useVoteKeyboardUpMutation", function() { return useVoteKeyboardUpMutation; });
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @apollo/react-hooks */ "@apollo/react-hooks");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const AuthsDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query auths {
+  auths {
+    id
+    secret
+    email
+  }
+}
+    `;
+/**
+ * __useAuthsQuery__
+ *
+ * To run a query within a React component, call `useAuthsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuthsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuthsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+
+function useAuthsQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](AuthsDocument, baseOptions);
+}
+function useAuthsLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](AuthsDocument, baseOptions);
+}
+const ByeDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query bye {
+  bye
+}
+    `;
+/**
+ * __useByeQuery__
+ *
+ * To run a query within a React component, call `useByeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useByeQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useByeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+
+function useByeQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](ByeDocument, baseOptions);
+}
+function useByeLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](ByeDocument, baseOptions);
+}
+const CreatePostDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation createPost($id: String!, $body: String!) {
+  createPost(id: $id, body: $body)
+}
+    `;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      body: // value for 'body'
+ *   },
+ * });
+ */
+function useCreatePostMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](CreatePostDocument, baseOptions);
+}
+const FollowKeyboardDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation followKeyboard($id: String!) {
+  followKeyboard(id: $id)
+}
+    `;
+
+/**
+ * __useFollowKeyboardMutation__
+ *
+ * To run a mutation, you first call `useFollowKeyboardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowKeyboardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [followKeyboardMutation, { data, loading, error }] = useFollowKeyboardMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+function useFollowKeyboardMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](FollowKeyboardDocument, baseOptions);
+}
+const FollowKeyboardDeleteDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation followKeyboardDelete($id: String!) {
+  followKeyboardDelete(id: $id)
+}
+    `;
+
+/**
+ * __useFollowKeyboardDeleteMutation__
+ *
+ * To run a mutation, you first call `useFollowKeyboardDeleteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowKeyboardDeleteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [followKeyboardDeleteMutation, { data, loading, error }] = useFollowKeyboardDeleteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+function useFollowKeyboardDeleteMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](FollowKeyboardDeleteDocument, baseOptions);
+}
+const GenerateAuthDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation generateAuth($email: String!) {
+  generateAuth(email: $email)
+}
+    `;
+
+/**
+ * __useGenerateAuthMutation__
+ *
+ * To run a mutation, you first call `useGenerateAuthMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGenerateAuthMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [generateAuthMutation, { data, loading, error }] = useGenerateAuthMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+function useGenerateAuthMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](GenerateAuthDocument, baseOptions);
+}
+const JoinKeyboardDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation joinKeyboard($id: String!, $data: JoinKeyboardInput!) {
+  joinKeyboard(id: $id, data: $data)
+}
+    `;
+
+/**
+ * __useJoinKeyboardMutation__
+ *
+ * To run a mutation, you first call `useJoinKeyboardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useJoinKeyboardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [joinKeyboardMutation, { data, loading, error }] = useJoinKeyboardMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+function useJoinKeyboardMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](JoinKeyboardDocument, baseOptions);
+}
+const KeyboardDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query Keyboard($shortId: String!) {
+  keyboard(shortId: $shortId) {
+    angle
+    announcement
+    brand
+    closed
+    connector
+    editions {
+      id
+      name
+      price
+      suggestedPrice
+      cases
+      plates
+    }
+    details
+    firmware
+    groupBuy
+    groupBuySoon
+    id
+    images1500
+    interestCheck
+    layouts
+    market
+    mount
+    name
+    pcb
+    shortId
+    size
+    support
+    posts {
+      id
+      body
+    }
+  }
+}
+    `;
+/**
+ * __useKeyboardQuery__
+ *
+ * To run a query within a React component, call `useKeyboardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeyboardQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeyboardQuery({
+ *   variables: {
+ *      shortId: // value for 'shortId'
+ *   },
+ * });
+ */
+
+function useKeyboardQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](KeyboardDocument, baseOptions);
+}
+function useKeyboardLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](KeyboardDocument, baseOptions);
+}
+const KeyboardAnnouncementDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation keyboardAnnouncement($id: String!, $announcement: String!) {
+  keyboardAnnouncement(id: $id, announcement: $announcement)
+}
+    `;
+
+/**
+ * __useKeyboardAnnouncementMutation__
+ *
+ * To run a mutation, you first call `useKeyboardAnnouncementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useKeyboardAnnouncementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [keyboardAnnouncementMutation, { data, loading, error }] = useKeyboardAnnouncementMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      announcement: // value for 'announcement'
+ *   },
+ * });
+ */
+function useKeyboardAnnouncementMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](KeyboardAnnouncementDocument, baseOptions);
+}
+const KeyboardPostsDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query keyboardPosts($shortId: String!) {
+  keyboard(shortId: $shortId) {
+    id
+    shortId
+    images600
+    name
+    posts {
+      id
+      body
+      created
+      user {
+        username
+      }
+    }
+  }
+}
+    `;
+/**
+ * __useKeyboardPostsQuery__
+ *
+ * To run a query within a React component, call `useKeyboardPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeyboardPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeyboardPostsQuery({
+ *   variables: {
+ *      shortId: // value for 'shortId'
+ *   },
+ * });
+ */
+
+function useKeyboardPostsQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](KeyboardPostsDocument, baseOptions);
+}
+function useKeyboardPostsLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](KeyboardPostsDocument, baseOptions);
+}
+const KeyboardsDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query keyboards {
+  keyboards {
+    id
+    images600
+    mount
+    shortId
+    size
+    name
+  }
+}
+    `;
+/**
+ * __useKeyboardsQuery__
+ *
+ * To run a query within a React component, call `useKeyboardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeyboardsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeyboardsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+
+function useKeyboardsQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](KeyboardsDocument, baseOptions);
+}
+function useKeyboardsLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](KeyboardsDocument, baseOptions);
+}
+const KeysetDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query keyset($shortId: String!) {
+  keyset(shortId: $shortId) {
+    colors {
+      id
+      hex
+      ral
+    }
+    created
+    details
+    id
+    images1500
+    kits {
+      id
+      kit
+      name
+      price
+    }
+    maker {
+      username
+    }
+    name
+    profile
+    shortId
+    stem
+  }
+}
+    `;
+/**
+ * __useKeysetQuery__
+ *
+ * To run a query within a React component, call `useKeysetQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeysetQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeysetQuery({
+ *   variables: {
+ *      shortId: // value for 'shortId'
+ *   },
+ * });
+ */
+
+function useKeysetQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](KeysetDocument, baseOptions);
+}
+function useKeysetLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](KeysetDocument, baseOptions);
+}
+const KeysetsDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query keysets {
+  keysets {
+    id
+    shortId
+    name
+    profile
+    images600
+  }
+}
+    `;
+/**
+ * __useKeysetsQuery__
+ *
+ * To run a query within a React component, call `useKeysetsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeysetsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeysetsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+
+function useKeysetsQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](KeysetsDocument, baseOptions);
+}
+function useKeysetsLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](KeysetsDocument, baseOptions);
+}
+const LoginDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation login($email: String!, $secret: String!) {
+  login(email: $email, secret: $secret) {
+    accessToken
+    user {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      secret: // value for 'secret'
+ *   },
+ * });
+ */
+function useLoginMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](LoginDocument, baseOptions);
+}
+const MakeKeyboardDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation makeKeyboard($data: KeyboardInput!, $images: [Upload!]!) {
+  makeKeyboard(data: $data, images: $images)
+}
+    `;
+
+/**
+ * __useMakeKeyboardMutation__
+ *
+ * To run a mutation, you first call `useMakeKeyboardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMakeKeyboardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [makeKeyboardMutation, { data, loading, error }] = useMakeKeyboardMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      images: // value for 'images'
+ *   },
+ * });
+ */
+function useMakeKeyboardMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](MakeKeyboardDocument, baseOptions);
+}
+const MakeKeysetDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation makeKeyset($data: KeysetInput!, $images: [Upload!]!) {
+  makeKeyset(data: $data, images: $images)
+}
+    `;
+
+/**
+ * __useMakeKeysetMutation__
+ *
+ * To run a mutation, you first call `useMakeKeysetMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMakeKeysetMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [makeKeysetMutation, { data, loading, error }] = useMakeKeysetMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      images: // value for 'images'
+ *   },
+ * });
+ */
+function useMakeKeysetMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](MakeKeysetDocument, baseOptions);
+}
+const MeDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query Me {
+  me {
+    id
+    email
+    username
+    keyboardjoins {
+      id
+    }
+    follows {
+      id
+      keyboard {
+        id
+      }
+    }
+  }
+}
+    `;
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+
+function useMeQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](MeDocument, baseOptions);
+}
+function useMeLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](MeDocument, baseOptions);
+}
+const SignupDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation signup($username: String!, $email: String!, $secret: String!) {
+  signup(username: $username, email: $email, secret: $secret)
+}
+    `;
+
+/**
+ * __useSignupMutation__
+ *
+ * To run a mutation, you first call `useSignupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signupMutation, { data, loading, error }] = useSignupMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      email: // value for 'email'
+ *      secret: // value for 'secret'
+ *   },
+ * });
+ */
+function useSignupMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](SignupDocument, baseOptions);
+}
+const SortKeyboardsDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query sortKeyboards($where: SearchInput!) {
+  sortKeyboards(where: $where) {
+    id
+    shortId
+    name
+    mount
+    size
+    images600
+  }
+}
+    `;
+/**
+ * __useSortKeyboardsQuery__
+ *
+ * To run a query within a React component, call `useSortKeyboardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSortKeyboardsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSortKeyboardsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+
+function useSortKeyboardsQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](SortKeyboardsDocument, baseOptions);
+}
+function useSortKeyboardsLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](SortKeyboardsDocument, baseOptions);
+}
+const UpdateKeyboardDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation updateKeyboard($id: String!, $data: KeyboardInput!) {
+  updateKeyboard(id: $id, data: $data)
+}
+    `;
+
+/**
+ * __useUpdateKeyboardMutation__
+ *
+ * To run a mutation, you first call `useUpdateKeyboardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateKeyboardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateKeyboardMutation, { data, loading, error }] = useUpdateKeyboardMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+function useUpdateKeyboardMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](UpdateKeyboardDocument, baseOptions);
+}
+const UserDashboardDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    query userDashboard {
+  me {
+    id
+    username
+    email
+    keyboards {
+      id
+      shortId
+      name
+      joins {
+        id
+      }
+      interestCheck
+      groupBuy
+      groupBuySoon
+      closed
+    }
+    keyboardjoins {
+      id
+      keyboard {
+        shortId
+        id
+        name
+      }
+    }
+    follows {
+      id
+      keyboard {
+        id
+        name
+        size
+        mount
+        shortId
+      }
+    }
+  }
+}
+    `;
+/**
+ * __useUserDashboardQuery__
+ *
+ * To run a query within a React component, call `useUserDashboardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserDashboardQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserDashboardQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+
+function useUserDashboardQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"](UserDashboardDocument, baseOptions);
+}
+function useUserDashboardLazyQuery(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useLazyQuery"](UserDashboardDocument, baseOptions);
+}
+const VoteKeyboardDownDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation voteKeyboardDown($id: String!) {
+  voteKeyboardDown(id: $id)
+}
+    `;
+
+/**
+ * __useVoteKeyboardDownMutation__
+ *
+ * To run a mutation, you first call `useVoteKeyboardDownMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVoteKeyboardDownMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [voteKeyboardDownMutation, { data, loading, error }] = useVoteKeyboardDownMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+function useVoteKeyboardDownMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](VoteKeyboardDownDocument, baseOptions);
+}
+const VoteKeyboardUpDocument = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default.a`
+    mutation voteKeyboardUp($id: String!) {
+  voteKeyboardUp(id: $id)
+}
+    `;
+
+/**
+ * __useVoteKeyboardUpMutation__
+ *
+ * To run a mutation, you first call `useVoteKeyboardUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVoteKeyboardUpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [voteKeyboardUpMutation, { data, loading, error }] = useVoteKeyboardUpMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+function useVoteKeyboardUpMutation(baseOptions) {
+  return _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useMutation"](VoteKeyboardUpDocument, baseOptions);
+}
 
 /***/ }),
 
@@ -2659,47 +3586,109 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./pages/index.tsx":
-/*!*************************!*\
-  !*** ./pages/index.tsx ***!
-  \*************************/
+/***/ "./pages/keyboards/catalog.tsx":
+/*!*************************************!*\
+  !*** ./pages/keyboards/catalog.tsx ***!
+  \*************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/core */ "@emotion/core");
-/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_core__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_layouts_Layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/layouts/Layout */ "./components/layouts/Layout.tsx");
-var _jsxFileName = "/Users/rsbear/dev/typefeel/pages/index.tsx";
-var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+/* harmony import */ var _emotion_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/css */ "@emotion/css");
+/* harmony import */ var _emotion_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/core */ "@emotion/core");
+/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_emotion_core__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_layouts_Layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/layouts/Layout */ "./components/layouts/Layout.tsx");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _styles_text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../styles/text */ "./styles/text.ts");
+/* harmony import */ var _components_Tile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/Tile */ "./components/Tile.tsx");
+/* harmony import */ var _generated_graphql__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../generated/graphql */ "./generated/graphql.tsx");
+
+var _jsxFileName = "/Users/rsbear/dev/typefeel/pages/keyboards/catalog.tsx";
+var __jsx = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
 
 
 
 
-const Landing = ({
+
+
+
+
+const MarketKeyboards = ({
   authUser
 }) => {
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_0__["jsx"])(_components_layouts_Layout__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    title: "Home",
+  const {
+    loading,
+    error,
+    data
+  } = Object(_generated_graphql__WEBPACK_IMPORTED_MODULE_7__["useSortKeyboardsQuery"])({
+    variables: {
+      where: {
+        market: true
+      }
+    }
+  });
+  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(_components_layouts_Layout__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    title: "Keyboards",
     authUser: authUser,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 18
     },
     __self: undefined
-  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_0__["jsx"])("h2", {
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("h1", {
+    css: _styles_text__WEBPACK_IMPORTED_MODULE_5__["text"].heading,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 19
     },
     __self: undefined
-  }, "landing page"));
+  }, "Keyboards"), !loading && data && Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("div", {
+    css: grid50,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 21
+    },
+    __self: undefined
+  }, data.sortKeyboards.map(k => Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    href: "/keyboard/[shortId]",
+    as: `/keyboard/${k.shortId}`,
+    key: k.id,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 23
+    },
+    __self: undefined
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28
+    },
+    __self: undefined
+  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_1__["jsx"])(_components_Tile__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    image: k.images600[0],
+    mount: k.mount,
+    name: k.name,
+    size: k.size,
+    key: k.id,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 29
+    },
+    __self: undefined
+  }))))));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Landing);
+/* harmony default export */ __webpack_exports__["default"] = (MarketKeyboards);
+const grid50 =  false ? undefined : {
+  name: "186yoz4-grid50",
+  styles: "display:grid;grid-template-columns:calc(50% - 10px) calc(50% - 10px);grid-column-gap:20px;grid-row-gap:20px;;label:grid50;",
+  map: "/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL3BhZ2VzL2tleWJvYXJkcy9jYXRhbG9nLnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE4Q2tCIiwiZmlsZSI6Ii9Vc2Vycy9yc2JlYXIvZGV2L3R5cGVmZWVsL3BhZ2VzL2tleWJvYXJkcy9jYXRhbG9nLnRzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyBGQyB9IGZyb20gXCJyZWFjdFwiO1xuaW1wb3J0IExheW91dCBmcm9tIFwiY29tcG9uZW50cy9sYXlvdXRzL0xheW91dFwiO1xuXG5pbXBvcnQgTGluayBmcm9tIFwibmV4dC9saW5rXCI7XG5cbmltcG9ydCB7IEdldFByb3BzIH0gZnJvbSBcImludGVyZmFjZXMvR2V0UHJvcHNcIjtcbmltcG9ydCB7IHRleHQgfSBmcm9tIFwic3R5bGVzL3RleHRcIjtcbmltcG9ydCBjc3MgZnJvbSBcIkBlbW90aW9uL2Nzc1wiO1xuaW1wb3J0IFRpbGUgZnJvbSBcImNvbXBvbmVudHMvVGlsZVwiO1xuaW1wb3J0IHsgdXNlU29ydEtleWJvYXJkc1F1ZXJ5IH0gZnJvbSBcImdlbmVyYXRlZC9ncmFwaHFsXCI7XG5cbmNvbnN0IE1hcmtldEtleWJvYXJkczogR2V0UHJvcHM8YW55PiA9ICh7IGF1dGhVc2VyIH0pID0+IHtcbiAgY29uc3QgeyBsb2FkaW5nLCBlcnJvciwgZGF0YSB9ID0gdXNlU29ydEtleWJvYXJkc1F1ZXJ5KHtcbiAgICB2YXJpYWJsZXM6IHsgd2hlcmU6IHsgbWFya2V0OiB0cnVlIH0gfVxuICB9KTtcblxuICByZXR1cm4gKFxuICAgIDxMYXlvdXQgdGl0bGU9XCJLZXlib2FyZHNcIiBhdXRoVXNlcj17YXV0aFVzZXJ9PlxuICAgICAgPGgxIGNzcz17dGV4dC5oZWFkaW5nfT5LZXlib2FyZHM8L2gxPlxuICAgICAgeyFsb2FkaW5nICYmIGRhdGEgJiYgKFxuICAgICAgICA8ZGl2IGNzcz17Z3JpZDUwfT5cbiAgICAgICAgICB7ZGF0YS5zb3J0S2V5Ym9hcmRzLm1hcCgoazogYW55KSA9PiAoXG4gICAgICAgICAgICA8TGlua1xuICAgICAgICAgICAgICBocmVmPVwiL2tleWJvYXJkL1tzaG9ydElkXVwiXG4gICAgICAgICAgICAgIGFzPXtgL2tleWJvYXJkLyR7ay5zaG9ydElkfWB9XG4gICAgICAgICAgICAgIGtleT17ay5pZH1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgPGE+XG4gICAgICAgICAgICAgICAgPFRpbGVcbiAgICAgICAgICAgICAgICAgIGltYWdlPXtrLmltYWdlczYwMFswXX1cbiAgICAgICAgICAgICAgICAgIG1vdW50PXtrLm1vdW50fVxuICAgICAgICAgICAgICAgICAgbmFtZT17ay5uYW1lfVxuICAgICAgICAgICAgICAgICAgc2l6ZT17ay5zaXplfVxuICAgICAgICAgICAgICAgICAga2V5PXtrLmlkfVxuICAgICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgIDwvTGluaz5cbiAgICAgICAgICApKX1cbiAgICAgICAgPC9kaXY+XG4gICAgICApfVxuICAgIDwvTGF5b3V0PlxuICApO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgTWFya2V0S2V5Ym9hcmRzO1xuXG5jb25zdCBncmlkNTAgPSBjc3NgXG4gIGRpc3BsYXk6IGdyaWQ7XG4gIGdyaWQtdGVtcGxhdGUtY29sdW1uczogY2FsYyg1MCUgLSAxMHB4KSBjYWxjKDUwJSAtIDEwcHgpO1xuICBncmlkLWNvbHVtbi1nYXA6IDIwcHg7XG4gIGdyaWQtcm93LWdhcDogMjBweDtcbmA7XG4iXX0= */"
+};
 
 /***/ }),
 
@@ -2870,14 +3859,25 @@ const text = {
 /***/ }),
 
 /***/ 3:
-/*!*******************************!*\
-  !*** multi ./pages/index.tsx ***!
-  \*******************************/
+/*!*******************************************!*\
+  !*** multi ./pages/keyboards/catalog.tsx ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/rsbear/dev/typefeel/pages/index.tsx */"./pages/index.tsx");
+module.exports = __webpack_require__(/*! /Users/rsbear/dev/typefeel/pages/keyboards/catalog.tsx */"./pages/keyboards/catalog.tsx");
 
+
+/***/ }),
+
+/***/ "@apollo/react-hooks":
+/*!**************************************!*\
+  !*** external "@apollo/react-hooks" ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("@apollo/react-hooks");
 
 /***/ }),
 
@@ -2980,6 +3980,17 @@ module.exports = require("core-js/library/fn/promise");
 
 /***/ }),
 
+/***/ "graphql-tag":
+/*!******************************!*\
+  !*** external "graphql-tag" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql-tag");
+
+/***/ }),
+
 /***/ "next/head":
 /*!****************************!*\
   !*** external "next/head" ***!
@@ -3047,4 +4058,4 @@ module.exports = require("url");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=catalog.js.map
