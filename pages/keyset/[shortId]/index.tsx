@@ -8,6 +8,8 @@ import { text } from "styles/text";
 import { grid50, margins, colors } from "styles/main";
 import { Button } from "styles/buttons";
 import MarketKeyset from "components/MarketKeyset";
+import InterestCheckKeyset from "components/InterestCheckKeyset";
+import FollowButton from "components/shared/FollowButton";
 
 const Keyset: GetProps<any> = ({ authUser, shortId }) => {
   const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
@@ -29,7 +31,14 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
               alt={data.keyset.name}
             />
             <div>
-              <MarketKeyset kits={data.keyset.kits} />
+              {data.keyset.market && <MarketKeyset kits={data.keyset.kits} />}
+              {data.keyset.interestCheck && (
+                <InterestCheckKeyset kits={data.keyset.kits} />
+              )}
+              <FollowButton
+                keyboardId={data.keyset.id}
+                follows={authUser ? authUser.follows : []}
+              />
             </div>
           </div>
           {data.keyset.details.map((d: string, i: number) => (

@@ -22,5 +22,10 @@ query keyset($shortId: String!) {
     profile
     shortId
     stem
+    interestCheck
+    groupBuy
+    groupBuySoon
+    market
+    closed
   }
 }

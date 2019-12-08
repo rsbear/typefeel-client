@@ -1,23 +1,27 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import { Button } from "styles/buttons";
 
-const InterestCheckKeyset: FC<any> = () => {
+interface Props {
+  kits?: any;
+}
+
+interface Kit {
+  id: string;
+  kit: string;
+  name: string;
+}
+const InterestCheckKeyset: FC<Props> = ({ kits }) => {
+  const [selectedKits, setSelectedKits] = useState([]);
   return (
     <div>
-      <h3> InterestCheckKeyset</h3>
-      {/* {kits.map(({ kit, id }) => (
-                <div key={id}>
-                  <Button
-                    className={
-                      selectedKits.includes(kit) ? "active" : undefined
-                    }
-                    secondary="true"
-                    margin="0 0 10px 0"
-                    onClick={() => handleKitSelect(kit)}
-                  >
-                    {kit}
-                  </Button>
-                </div>
-              ))} */}
+      {kits.map(({ id, kit, name }: Kit) => (
+        <div>
+          <Button secondary="true" key={id}>
+            {name}
+          </Button>
+        </div>
+      ))}
+      <Button primary="true">Join keyset</Button>
     </div>
   );
 };

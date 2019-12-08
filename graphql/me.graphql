@@ -8,7 +8,11 @@ query Me {
     }
     follows {
       id
+      productId
       keyboard {
+        id
+      }
+      keyset {
         id
       }
     }

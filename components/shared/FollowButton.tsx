@@ -2,7 +2,8 @@ import React, { FC, useState } from "react";
 import { Button } from "styles/buttons";
 import {
   useFollowKeyboardMutation,
-  useFollowKeyboardDeleteMutation
+  useFollowKeyboardDeleteMutation,
+  useCreateFollowMutation
 } from "generated/graphql";
 import css from "@emotion/css";
 
@@ -15,12 +16,12 @@ const FollowButton: FC<Props> = ({ keyboardId, follows }) => {
   const [following, setFollowing] = useState(false);
   const [followId, setFollowId] = useState("");
 
-  const [followMut] = useFollowKeyboardMutation();
+  const [followMut] = useCreateFollowMutation();
   const [unfollowMut] = useFollowKeyboardDeleteMutation();
 
   React.useEffect(() => {
     for (let k of follows) {
-      if (k.keyboard.id === keyboardId) {
+      if (k.productId === keyboardId) {
         setFollowing(true);
         setFollowId(k.id);
       } else {

@@ -62,14 +62,13 @@ export type EditionInput = {
 export type Follow = {
    __typename?: 'Follow',
   id: Scalars['String'],
-  keyboardId?: Maybe<Scalars['String']>,
-  keysetId?: Maybe<Scalars['String']>,
-  keyboard: Keyboard,
+  productId?: Maybe<Scalars['String']>,
+  keyboard?: Maybe<Keyboard>,
+  keyset?: Maybe<Keyset>,
 };
 
 export type FollowInput = {
-  keyboardId?: Maybe<Scalars['String']>,
-  keysetId?: Maybe<Scalars['String']>,
+  productId?: Maybe<Scalars['String']>,
 };
 
 export type JoinKeyboard = {
@@ -174,6 +173,11 @@ export type KeysetInput = {
   kits: Array<KitInput>,
   colors: Array<ColorInput>,
   details: Array<Scalars['String']>,
+  interestCheck?: Maybe<Scalars['Boolean']>,
+  groupBuy?: Maybe<Scalars['Boolean']>,
+  groupBuySoon?: Maybe<Scalars['Boolean']>,
+  market?: Maybe<Scalars['Boolean']>,
+  closed?: Maybe<Scalars['Boolean']>,
 };
 
 export type Kit = {
@@ -223,8 +227,11 @@ export type Mutation = {
   deleteJoin: Scalars['Boolean'],
   createPost: Scalars['Boolean'],
   deletePost: Scalars['Boolean'],
+  createFollow: Scalars['Boolean'],
   followKeyboard: Scalars['Boolean'],
   followKeyboardDelete: Scalars['Boolean'],
+  followKeyset: Scalars['Boolean'],
+  followKeysetDelete: Scalars['Boolean'],
   deleteFollow: Scalars['Boolean'],
 };
 
@@ -343,12 +350,27 @@ export type MutationDeletePostArgs = {
 };
 
 
+export type MutationCreateFollowArgs = {
+  id: Scalars['String']
+};
+
+
 export type MutationFollowKeyboardArgs = {
   id: Scalars['String']
 };
 
 
 export type MutationFollowKeyboardDeleteArgs = {
+  id: Scalars['String']
+};
+
+
+export type MutationFollowKeysetArgs = {
+  id: Scalars['String']
+};
+
+
+export type MutationFollowKeysetDeleteArgs = {
   id: Scalars['String']
 };
 
@@ -448,6 +470,16 @@ export type ByeQueryVariables = {};
 export type ByeQuery = (
   { __typename?: 'Query' }
   & Pick<Query, 'bye'>
+);
+
+export type CreateFollowMutationVariables = {
+  id: Scalars['String']
+};
+
+
+export type CreateFollowMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createFollow'>
 );
 
 export type CreatePostMutationVariables = {
@@ -574,7 +606,7 @@ export type KeysetQuery = (
   { __typename?: 'Query' }
   & { keyset: (
     { __typename?: 'Keyset' }
-    & Pick<Keyset, 'created' | 'details' | 'id' | 'images1500' | 'name' | 'profile' | 'shortId' | 'stem'>
+    & Pick<Keyset, 'created' | 'details' | 'id' | 'images1500' | 'name' | 'profile' | 'shortId' | 'stem' | 'interestCheck' | 'groupBuy' | 'groupBuySoon' | 'market' | 'closed'>
     & { colors: Maybe<Array<(
       { __typename?: 'Color' }
       & Pick<Color, 'id' | 'hex' | 'ral'>
@@ -652,11 +684,14 @@ export type MeQuery = (
       & Pick<JoinKeyboard, 'id'>
     )>, follows: Array<(
       { __typename?: 'Follow' }
-      & Pick<Follow, 'id'>
-      & { keyboard: (
+      & Pick<Follow, 'id' | 'productId'>
+      & { keyboard: Maybe<(
         { __typename?: 'Keyboard' }
         & Pick<Keyboard, 'id'>
-      ) }
+      )>, keyset: Maybe<(
+        { __typename?: 'Keyset' }
+        & Pick<Keyset, 'id'>
+      )> }
     )> }
   )> }
 );
@@ -735,10 +770,10 @@ export type UserDashboardQuery = (
     )>, follows: Array<(
       { __typename?: 'Follow' }
       & Pick<Follow, 'id'>
-      & { keyboard: (
+      & { keyboard: Maybe<(
         { __typename?: 'Keyboard' }
         & Pick<Keyboard, 'id' | 'name' | 'size' | 'mount' | 'shortId'>
-      ) }
+      )> }
     )> }
   )> }
 );
@@ -828,6 +863,36 @@ export function useByeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpti
 export type ByeQueryHookResult = ReturnType<typeof useByeQuery>;
 export type ByeLazyQueryHookResult = ReturnType<typeof useByeLazyQuery>;
 export type ByeQueryResult = ApolloReactCommon.QueryResult<ByeQuery, ByeQueryVariables>;
+export const CreateFollowDocument = gql`
+    mutation createFollow($id: String!) {
+  createFollow(id: $id)
+}
+    `;
+export type CreateFollowMutationFn = ApolloReactCommon.MutationFunction<CreateFollowMutation, CreateFollowMutationVariables>;
+
+/**
+ * __useCreateFollowMutation__
+ *
+ * To run a mutation, you first call `useCreateFollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFollowMutation, { data, loading, error }] = useCreateFollowMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCreateFollowMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateFollowMutation, CreateFollowMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateFollowMutation, CreateFollowMutationVariables>(CreateFollowDocument, baseOptions);
+      }
+export type CreateFollowMutationHookResult = ReturnType<typeof useCreateFollowMutation>;
+export type CreateFollowMutationResult = ApolloReactCommon.MutationResult<CreateFollowMutation>;
+export type CreateFollowMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateFollowMutation, CreateFollowMutationVariables>;
 export const CreatePostDocument = gql`
     mutation createPost($id: String!, $body: String!) {
   createPost(id: $id, body: $body)
@@ -1181,6 +1246,11 @@ export const KeysetDocument = gql`
     profile
     shortId
     stem
+    interestCheck
+    groupBuy
+    groupBuySoon
+    market
+    closed
   }
 }
     `;
@@ -1355,7 +1425,11 @@ export const MeDocument = gql`
     }
     follows {
       id
+      productId
       keyboard {
+        id
+      }
+      keyset {
         id
       }
     }

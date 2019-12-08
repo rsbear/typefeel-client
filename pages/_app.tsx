@@ -22,7 +22,12 @@ const AUTH = gql`
       }
       follows {
         id
+        productId
         keyboard {
+          id
+          shortId
+        }
+        keyset {
           id
           shortId
         }
