@@ -102,7 +102,7 @@ const InterestCheckKeyboard: FC<Props> = ({
         <Button primary="true" margin="0 0 15px 0" onClick={e => handleJoin(e)}>
           {!alreadyJoined ? "Join the interest check" : "You're in"}
         </Button>
-        <FollowButton keyboardId={id} follows={follows} />
+        <FollowButton id={id} follows={follows} />
       </div>
     </div>
   );

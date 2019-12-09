@@ -8,11 +8,11 @@ import {
 import css from "@emotion/css";
 
 interface Props {
-  keyboardId?: string;
+  id: string;
   follows?: any;
 }
 
-const FollowButton: FC<Props> = ({ keyboardId, follows }) => {
+const FollowButton: FC<Props> = ({ id, follows }) => {
   const [following, setFollowing] = useState(false);
   const [followId, setFollowId] = useState("");
 
@@ -20,47 +20,44 @@ const FollowButton: FC<Props> = ({ keyboardId, follows }) => {
   const [unfollowMut] = useFollowKeyboardDeleteMutation();
 
   React.useEffect(() => {
-    for (let k of follows) {
-      if (k.productId === keyboardId) {
+    for (let f of follows) {
+      if (f.productId === id) {
         setFollowing(true);
-        setFollowId(k.id);
-      } else {
-        setFollowing(false);
-        setFollowId("");
+        setFollowId(f.id);
       }
     }
-  }, []);
+  }, [follows]);
 
-  const handleFollow = async e => {
-    e.preventDefault();
-    try {
-      await followMut({
-        variables: { id: keyboardId }
-      });
-      setFollowing(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleUnfollow = async e => {
-    e.preventDefault();
-    try {
-      await unfollowMut({
-        variables: { id: followId }
-      });
-      setFollowing(false);
-    } catch (err) {
-      console.log(err);
+  const handleFollow = async () => {
+    event.preventDefault();
+    if (!following) {
+      try {
+        await followMut({
+          variables: { id }
+        });
+        setFollowing(true);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        await unfollowMut({
+          variables: { id: followId }
+        });
+        setFollowing(false);
+        setFollowId("");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   return !following ? (
-    <Button secondary="true" onClick={e => handleFollow(e)}>
+    <Button secondary="true" onClick={handleFollow}>
       Follow <i className="icon ion-ios-heart-empty" css={heartIcon} />
     </Button>
   ) : (
-    <Button secondary="true" onClick={e => handleUnfollow(e)}>
+    <Button secondary="true" onClick={handleFollow}>
       Following <i className="icon ion-ios-heart" css={heartIcon} />
     </Button>
   );

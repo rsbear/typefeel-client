@@ -14,8 +14,16 @@ import FollowButton from "components/shared/FollowButton";
 const Keyset: GetProps<any> = ({ authUser, shortId }) => {
   const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
 
+  const dynamicNav = {
+    name: !loading ? data.keyset.profile + " " + data.keyset.name : "",
+    discussionHref: "/keyset/[shortId]/discussion",
+    discussionAs: `/keyset/${shortId}/discussion`,
+    dataHref: "/keyset/[shortId]/data",
+    dataAs: `/keyset/${shortId}/data`
+  };
+
   return (
-    <Layout title="keyset" authUser={authUser}>
+    <Layout title="keyset" authUser={authUser} dynamicNav={dynamicNav}>
       {!loading && data && data.keyset && (
         <div>
           <h1 css={text.heading}>
@@ -40,7 +48,7 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
                 />
               )}
               <FollowButton
-                keyboardId={data.keyset.id}
+                id={data.keyset.id}
                 follows={authUser ? authUser.follows : []}
               />
             </div>
