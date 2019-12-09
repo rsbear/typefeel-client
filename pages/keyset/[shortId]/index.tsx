@@ -33,7 +33,11 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
             <div>
               {data.keyset.market && <MarketKeyset kits={data.keyset.kits} />}
               {data.keyset.interestCheck && (
-                <InterestCheckKeyset kits={data.keyset.kits} />
+                <InterestCheckKeyset
+                  kits={data.keyset.kits}
+                  id={data.keyset.id}
+                  joins={authUser ? authUser.keysetjoins : []}
+                />
               )}
               <FollowButton
                 keyboardId={data.keyset.id}

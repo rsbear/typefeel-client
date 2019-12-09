@@ -89,6 +89,20 @@ export type JoinKeyboardInput = {
   layoutChoice: Scalars['String'],
 };
 
+export type JoinKeyset = {
+   __typename?: 'JoinKeyset',
+  id: Scalars['String'],
+  keysetId: Scalars['String'],
+  kits?: Maybe<Array<Scalars['String']>>,
+  created: Scalars['DateTime'],
+  keyset?: Maybe<Keyset>,
+  user?: Maybe<User>,
+};
+
+export type JoinKeysetInput = {
+  kits?: Maybe<Array<Scalars['String']>>,
+};
+
 export type Keyboard = {
    __typename?: 'Keyboard',
   angle?: Maybe<Scalars['String']>,
@@ -159,6 +173,7 @@ export type Keyset = {
   created: Scalars['DateTime'],
   updated: Scalars['DateTime'],
   maker?: Maybe<User>,
+  joins?: Maybe<Array<JoinKeyset>>,
   interestCheck?: Maybe<Scalars['Boolean']>,
   market?: Maybe<Scalars['Boolean']>,
   groupBuy?: Maybe<Scalars['Boolean']>,
@@ -193,8 +208,8 @@ export type Kit = {
 export type KitInput = {
   kit?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
-  price: Scalars['Int'],
-  suggestedPrice: Scalars['Int'],
+  price?: Maybe<Scalars['Int']>,
+  suggestedPrice?: Maybe<Scalars['Int']>,
 };
 
 export type LoginResponse = {
@@ -225,6 +240,8 @@ export type Mutation = {
   deleteVote: Scalars['Boolean'],
   joinKeyboard: Scalars['Boolean'],
   deleteJoin: Scalars['Boolean'],
+  joinKeyset: Scalars['Boolean'],
+  deleteJoinKeyset: Scalars['Boolean'],
   createPost: Scalars['Boolean'],
   deletePost: Scalars['Boolean'],
   createFollow: Scalars['Boolean'],
@@ -339,6 +356,17 @@ export type MutationDeleteJoinArgs = {
 };
 
 
+export type MutationJoinKeysetArgs = {
+  data: JoinKeysetInput,
+  id: Scalars['String']
+};
+
+
+export type MutationDeleteJoinKeysetArgs = {
+  id: Scalars['String']
+};
+
+
 export type MutationCreatePostArgs = {
   body: Scalars['String'],
   id: Scalars['String']
@@ -402,6 +430,7 @@ export type Query = {
   editions: Array<Edition>,
   votes: Array<Vote>,
   joinss: Array<JoinKeyboard>,
+  keysetJoins: Array<JoinKeyset>,
   postss: Array<Post>,
   follows: Array<Follow>,
 };
@@ -442,6 +471,7 @@ export type User = {
   votes: Array<Vote>,
   follows: Array<Follow>,
   keyboardjoins: Array<JoinKeyboard>,
+  keysetjoins: Array<JoinKeyset>,
 };
 
 export type Vote = {
@@ -534,6 +564,17 @@ export type JoinKeyboardMutation = (
   & Pick<Mutation, 'joinKeyboard'>
 );
 
+export type JoinKeysetMutationVariables = {
+  id: Scalars['String'],
+  data: JoinKeysetInput
+};
+
+
+export type JoinKeysetMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'joinKeyset'>
+);
+
 export type KeyboardQueryVariables = {
   shortId: Scalars['String']
 };
@@ -613,6 +654,9 @@ export type KeysetQuery = (
     )>>, kits: Maybe<Array<(
       { __typename?: 'Kit' }
       & Pick<Kit, 'id' | 'kit' | 'name' | 'price'>
+    )>>, joins: Maybe<Array<(
+      { __typename?: 'JoinKeyset' }
+      & Pick<JoinKeyset, 'id' | 'kits'>
     )>>, maker: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'username'>
@@ -1045,6 +1089,37 @@ export function useJoinKeyboardMutation(baseOptions?: ApolloReactHooks.MutationH
 export type JoinKeyboardMutationHookResult = ReturnType<typeof useJoinKeyboardMutation>;
 export type JoinKeyboardMutationResult = ApolloReactCommon.MutationResult<JoinKeyboardMutation>;
 export type JoinKeyboardMutationOptions = ApolloReactCommon.BaseMutationOptions<JoinKeyboardMutation, JoinKeyboardMutationVariables>;
+export const JoinKeysetDocument = gql`
+    mutation joinKeyset($id: String!, $data: JoinKeysetInput!) {
+  joinKeyset(id: $id, data: $data)
+}
+    `;
+export type JoinKeysetMutationFn = ApolloReactCommon.MutationFunction<JoinKeysetMutation, JoinKeysetMutationVariables>;
+
+/**
+ * __useJoinKeysetMutation__
+ *
+ * To run a mutation, you first call `useJoinKeysetMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useJoinKeysetMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [joinKeysetMutation, { data, loading, error }] = useJoinKeysetMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useJoinKeysetMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<JoinKeysetMutation, JoinKeysetMutationVariables>) {
+        return ApolloReactHooks.useMutation<JoinKeysetMutation, JoinKeysetMutationVariables>(JoinKeysetDocument, baseOptions);
+      }
+export type JoinKeysetMutationHookResult = ReturnType<typeof useJoinKeysetMutation>;
+export type JoinKeysetMutationResult = ApolloReactCommon.MutationResult<JoinKeysetMutation>;
+export type JoinKeysetMutationOptions = ApolloReactCommon.BaseMutationOptions<JoinKeysetMutation, JoinKeysetMutationVariables>;
 export const KeyboardDocument = gql`
     query Keyboard($shortId: String!) {
   keyboard(shortId: $shortId) {
@@ -1238,6 +1313,10 @@ export const KeysetDocument = gql`
       kit
       name
       price
+    }
+    joins {
+      id
+      kits
     }
     maker {
       username

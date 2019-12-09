@@ -20,6 +20,9 @@ const AUTH = gql`
         id
         keyboardId
       }
+      keysetjoins {
+        keysetId
+      }
       follows {
         id
         productId
