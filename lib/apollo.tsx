@@ -164,16 +164,16 @@ function initApolloClient(initState: any, serverAccessToken?: string) {
  * @param  {Object} config
  */
 function createApolloClient(initialState = {}, serverAccessToken?: string) {
-  const httpLink = new HttpLink({
+  // const httpLink = new HttpLink({
+  //   uri: "http://localhost:4000/graphql",
+  //   credentials: "include",
+  //   fetch
+  // });
+
+  const uploadLink = createUploadLink({
     uri: "http://localhost:4000/graphql",
     credentials: "include",
     fetch
-  });
-
-  const uploadLink = createUploadLink({
-    uri: "http://localhost:4000/graphql"
-    // credentials: "include",
-    // fetch
     // fetchOptions
   });
 
@@ -229,13 +229,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
 
   return new ApolloClient({
     ssrMode: typeof window === "undefined", // Disables forceFetch on the server (so queries are only run once)
-    link: ApolloLink.from([
-      refreshLink,
-      authLink,
-      errorLink,
-      uploadLink,
-      httpLink
-    ]),
+    link: ApolloLink.from([refreshLink, authLink, errorLink, uploadLink]),
     cache: new InMemoryCache().restore(initialState)
   });
 }
