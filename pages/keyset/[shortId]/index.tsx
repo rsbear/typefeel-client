@@ -19,7 +19,9 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
     discussionHref: "/keyset/[shortId]/discussion",
     discussionAs: `/keyset/${shortId}/discussion`,
     dataHref: "/keyset/[shortId]/data",
-    dataAs: `/keyset/${shortId}/data`
+    dataAs: `/keyset/${shortId}/data`,
+    shortId: shortId,
+    productType: "keyset"
   };
 
   return (

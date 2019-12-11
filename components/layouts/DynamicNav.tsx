@@ -7,10 +7,8 @@ import Link from "next/link";
 interface Props {
   dynamicNav?: {
     name?: string;
-    discussionHref?: string;
-    discussionAs?: string;
-    dataHref?: string;
-    dataAs?: string;
+    shortId?: string;
+    productType?: string;
   };
 }
 
@@ -19,16 +17,31 @@ const DynamicNav: FC<Props> = ({ dynamicNav }) => {
     return null;
   }
 
+  const { name, productType, shortId } = dynamicNav;
+
   return (
     <div css={[flex.column, wrap]}>
-      <h4>{dynamicNav.name}</h4>
+      <Link
+        href={`/${productType}/[shortId]`}
+        as={`/${productType}/${shortId}`}
+      >
+        <a>
+          <h4>{name}</h4>
+        </a>
+      </Link>
       <p css={ppp}>
-        <Link href={dynamicNav.discussionHref} as={dynamicNav.discussionAs}>
+        <Link
+          href={`/${productType}/[shortId]/discussion`}
+          as={`/${productType}/${shortId}/discussion`}
+        >
           <a>Discussion</a>
         </Link>
       </p>
       <p css={ppp}>
-        <Link href={dynamicNav.dataHref} as={dynamicNav.dataAs}>
+        <Link
+          href={`/${productType}/[shortId]/data`}
+          as={`/${productType}/${shortId}/data`}
+        >
           <a>Data</a>
         </Link>
       </p>

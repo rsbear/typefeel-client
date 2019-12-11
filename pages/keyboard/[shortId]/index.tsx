@@ -16,10 +16,8 @@ const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
 
   const dynamicNav = {
     name: !loading ? data.keyboard.name : "",
-    discussionHref: "/keyboard/[shortId]/discussion",
-    discussionAs: `/keyboard/${shortId}/discussion`,
-    dataHref: "/keyboard/[shortId]/data",
-    dataAs: `/keyboard/${shortId}/data`
+    productType: "keyboard",
+    shortId: shortId
   };
 
   const title = !loading && data && data.keyboard ? data.keyboard.name : "...";

@@ -18,8 +18,6 @@ const KeyboardDiscussion: GetProps<any> = ({ shortId, authUser }) => {
     variables: { shortId }
   });
 
-  console.log(data);
-
   const [createPost] = useCreatePostMutation();
 
   const handleCreatePost = async (e: any) => {
@@ -37,11 +35,10 @@ const KeyboardDiscussion: GetProps<any> = ({ shortId, authUser }) => {
 
   const dynamicNav = {
     name: !loading ? data.keyboard.name : "",
-    discussionHref: "/keyboard/[shortId]/discussion",
-    discussionAs: `/keyboard/${shortId}/discussion`,
-    dataHref: "/keyboard/[shortId]/data",
-    dataAs: `/keyboard/${shortId}/data`
+    productType: "keyboard",
+    shortId: shortId
   };
+
   return (
     <Layout title="Discussion" authUser={authUser} dynamicNav={dynamicNav}>
       {loading && <h2>Loading...</h2>}
