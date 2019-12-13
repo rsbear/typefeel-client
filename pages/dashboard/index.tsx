@@ -22,7 +22,8 @@ const Dashboard: FC<any> = ({ authUser }) => {
             <h2>Follows</h2>
             {data.me.follows.map((f: any) => (
               <div key={f.id}>
-                <h5>{f.keyboard.name}</h5>
+                {f.keyboard && <h5>{f.keyboard.name}</h5>}
+                {f.keyset && <h5>{f.keyset.name}</h5>}
               </div>
             ))}
           </div>

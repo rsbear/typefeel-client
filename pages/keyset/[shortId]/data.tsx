@@ -1,4 +1,4 @@
-import React, { FC, useState, SetStateAction } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "components/layouts/Layout";
 import { GetProps } from "interfaces/GetProps";
 import { useKeysetQuery } from "generated/graphql";
@@ -6,13 +6,18 @@ import { object } from "prop-types";
 import { text, fontSize } from "styles/text";
 import css from "@emotion/css";
 import { colors } from "styles/main";
-
-// for creating the data
-// loop through the kits on the keyset object
-// loop through the joins then the kits on the keyset object
+import PieChart from "components/shared/PieChart";
+import * as d3 from "d3";
 
 const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
-  const [state, setState]: SetStateAction<any> = useState({});
+  const generateData = (value, length = 5) =>
+    d3.range(length).map((item, index) => ({
+      date: index,
+      value: value === null || value === undefined ? Math.random() * 100 : value
+    }));
+
+  const [state, setState] = useState({});
+  const [pie, setPie] = useState(generateData(5, 5));
   const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
 
   const dynamicNav = {
@@ -21,7 +26,7 @@ const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
     productType: "keyset"
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!loading && data && data.keyset) {
       const { keyset } = data;
       const arr = [];
@@ -37,11 +42,17 @@ const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
         totals[i] = (totals[i] || 0) + 1;
       });
 
+      // setPie(generateData())
+
       setState((prevState: any) => {
         return { ...prevState, ...totals };
       });
     }
   }, [loading]);
+
+  // const changeData = () => {
+  //   setPie(generateData(5, 5));
+  // };
 
   return (
     <Layout title="Keyset data" authUser={authUser} dynamicNav={dynamicNav}>
@@ -54,12 +65,19 @@ const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
           </h1>
           <h2>TOTALS</h2>
           <ul css={totalsList}>
-            {Object.entries(state).map(([kit, total]: any, kidx: number) => (
-              <li key={kidx}>
+            {Object.entries(state).map(([kit, total]: any, idx: number) => (
+              <li key={idx}>
                 {kit} kits {total},&nbsp;
               </li>
             ))}
           </ul>
+          <PieChart
+            data={pie}
+            width={200}
+            height={200}
+            innerRadius={60}
+            outerRadius={100}
+          />
         </div>
       )}
     </Layout>

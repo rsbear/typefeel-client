@@ -4,6 +4,8 @@ import Link from "next/link";
 import css from "@emotion/css";
 import { text } from "styles/text";
 import { colors } from "styles/main";
+import { setAccessToken } from "lib/accessToken";
+import { useLogoutMutation } from "generated/graphql";
 
 interface Props {
   username: string;
@@ -12,6 +14,15 @@ interface Props {
 
 const AccountPageNavigation: FC<Props> = ({ username, router }) => {
   const { pathname } = router;
+  const [logout, { client }] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    event.preventDefault();
+    await logout();
+    setAccessToken("");
+    await client!.resetStore();
+  };
+
   return (
     <div>
       <h1 css={text.heading}>{username}</h1>
@@ -45,6 +56,7 @@ const AccountPageNavigation: FC<Props> = ({ username, router }) => {
             </li>
           </a>
         </Link>
+        <li onClick={handleLogout}>Log out</li>
         {/* <li>Billing</li> */}
       </ul>
     </div>
