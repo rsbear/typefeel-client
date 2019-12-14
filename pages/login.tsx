@@ -12,7 +12,6 @@ import { Formik } from "formik";
 
 const Login: FC<any> = () => {
   const [stateEmail, setEmail] = useState("");
-  const [secret, setSecret] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
