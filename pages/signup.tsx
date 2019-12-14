@@ -23,7 +23,8 @@ const Signup: FC<any> = () => {
   async function handleGenerateAuth(e: any) {
     e.preventDefault();
     try {
-      await generateAuth({ variables: { email } });
+      let res = await generateAuth({ variables: { email } });
+      console.log(res);
       setConfirm(true);
     } catch (err) {
       console.log(err);
