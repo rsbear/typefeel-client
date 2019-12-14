@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Layout from "components/layouts/Layout";
 import { useUserDashboardQuery } from "generated/graphql";
 
@@ -10,6 +10,12 @@ import { useRouter } from "next/router";
 const Dashboard: FC<any> = ({ authUser }) => {
   const router = useRouter();
   const { loading, error, data } = useUserDashboardQuery();
+
+  useEffect(() => {
+    if (!authUser) {
+      router.push("/login");
+    }
+  }, []);
 
   return (
     <Layout title="Dashboard" authUser={authUser}>
