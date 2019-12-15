@@ -469,6 +469,7 @@ export type User = {
   email: Scalars['String'],
   username: Scalars['String'],
   keyboards: Array<Keyboard>,
+  keysets: Array<Keyset>,
   votes: Array<Vote>,
   follows: Array<Follow>,
   keyboardjoins: Array<JoinKeyboard>,
@@ -841,6 +842,13 @@ export type UserDashboardQuery = (
         { __typename?: 'Keyboard' }
         & Pick<Keyboard, 'shortId' | 'id' | 'name'>
       )> }
+    )>, keysets: Array<(
+      { __typename?: 'Keyset' }
+      & Pick<Keyset, 'id' | 'name' | 'profile' | 'interestCheck' | 'groupBuy' | 'groupBuySoon' | 'closed'>
+      & { joins: Maybe<Array<(
+        { __typename?: 'JoinKeyset' }
+        & Pick<JoinKeyset, 'id'>
+      )>> }
     )>, follows: Array<(
       { __typename?: 'Follow' }
       & Pick<Follow, 'id'>
@@ -1807,6 +1815,18 @@ export const UserDashboardDocument = gql`
         id
         name
       }
+    }
+    keysets {
+      id
+      name
+      profile
+      joins {
+        id
+      }
+      interestCheck
+      groupBuy
+      groupBuySoon
+      closed
     }
     follows {
       id
