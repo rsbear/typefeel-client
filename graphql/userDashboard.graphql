@@ -23,6 +23,18 @@ query userDashboard {
         name
       }
     }
+    keysets {
+      id
+      name
+      profile
+      joins {
+        id
+      }
+      interestCheck
+      groupBuy
+      groupBuySoon
+      closed
+    }
     follows {
       id
       keyboard {
