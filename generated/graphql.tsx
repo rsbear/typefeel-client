@@ -174,6 +174,7 @@ export type Keyset = {
   updated: Scalars['DateTime'],
   maker?: Maybe<User>,
   joins?: Maybe<Array<JoinKeyset>>,
+  posts?: Maybe<Array<Post>>,
   interestCheck?: Maybe<Scalars['Boolean']>,
   market?: Maybe<Scalars['Boolean']>,
   groupBuy?: Maybe<Scalars['Boolean']>,
@@ -661,6 +662,27 @@ export type KeysetQuery = (
       { __typename?: 'User' }
       & Pick<User, 'username'>
     )> }
+  ) }
+);
+
+export type KeysetPostsQueryVariables = {
+  shortId: Scalars['String']
+};
+
+
+export type KeysetPostsQuery = (
+  { __typename?: 'Query' }
+  & { keyset: (
+    { __typename?: 'Keyset' }
+    & Pick<Keyset, 'id' | 'shortId' | 'images600' | 'name' | 'profile'>
+    & { posts: Maybe<Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'id' | 'body' | 'created'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'username'>
+      ) }
+    )>> }
   ) }
 );
 
@@ -1367,6 +1389,51 @@ export function useKeysetLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookO
 export type KeysetQueryHookResult = ReturnType<typeof useKeysetQuery>;
 export type KeysetLazyQueryHookResult = ReturnType<typeof useKeysetLazyQuery>;
 export type KeysetQueryResult = ApolloReactCommon.QueryResult<KeysetQuery, KeysetQueryVariables>;
+export const KeysetPostsDocument = gql`
+    query keysetPosts($shortId: String!) {
+  keyset(shortId: $shortId) {
+    id
+    shortId
+    images600
+    name
+    profile
+    posts {
+      id
+      body
+      created
+      user {
+        username
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useKeysetPostsQuery__
+ *
+ * To run a query within a React component, call `useKeysetPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeysetPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeysetPostsQuery({
+ *   variables: {
+ *      shortId: // value for 'shortId'
+ *   },
+ * });
+ */
+export function useKeysetPostsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<KeysetPostsQuery, KeysetPostsQueryVariables>) {
+        return ApolloReactHooks.useQuery<KeysetPostsQuery, KeysetPostsQueryVariables>(KeysetPostsDocument, baseOptions);
+      }
+export function useKeysetPostsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<KeysetPostsQuery, KeysetPostsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<KeysetPostsQuery, KeysetPostsQueryVariables>(KeysetPostsDocument, baseOptions);
+        }
+export type KeysetPostsQueryHookResult = ReturnType<typeof useKeysetPostsQuery>;
+export type KeysetPostsLazyQueryHookResult = ReturnType<typeof useKeysetPostsLazyQuery>;
+export type KeysetPostsQueryResult = ApolloReactCommon.QueryResult<KeysetPostsQuery, KeysetPostsQueryVariables>;
 export const KeysetsDocument = gql`
     query keysets {
   keysets {

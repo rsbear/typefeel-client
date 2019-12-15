@@ -92,7 +92,8 @@ export default Navigation;
 
 const navStyle = css`
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   width: 140px;
   margin-right: 40px;
   display: flex;
