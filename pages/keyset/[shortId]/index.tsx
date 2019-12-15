@@ -5,7 +5,7 @@ import { useKeysetQuery } from "generated/graphql";
 
 import css from "@emotion/css";
 import { text } from "styles/text";
-import { grid50, margins, colors } from "styles/main";
+import { grid50, margins, colors, flex } from "styles/main";
 import { Button } from "styles/buttons";
 import MarketKeyset from "components/MarketKeyset";
 import InterestCheckKeyset from "components/InterestCheckKeyset";
@@ -55,8 +55,22 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
               />
             </div>
           </div>
+          <div>
+            {data.keyset.colors.length <= 0 ? null : (
+              <div css={[flex.row, margins("40px 0")]}>
+                {data.keyset.colors.map(({ id, hex, ral }) => (
+                  <div key={id} css={() => colorTile(hex)}>
+                    <span>{ral}</span>
+                    <div className="hex"></div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           {data.keyset.details.map((d: string, i: number) => (
-            <p key={i}>{d}</p>
+            <p key={i} css={margins("10px 0")}>
+              {d}
+            </p>
           ))}
           <div css={imagesWrapper}>
             {data.keyset.images1500.map((img: string, i: number) => (
@@ -96,5 +110,35 @@ const imagesWrapper = css`
     width: 100%;
     height: 600px;
     margin: 20px 0;
+  }
+`;
+
+const detailParagraph = css`
+  margin: 10px 0;
+`;
+
+const colorTile = (c: string) => css`
+  position: relative;
+  height: 200px;
+  width: 160px;
+  padding: 10px;
+  margin-right: 15px;
+  border: solid 1px ${colors.black05};
+  border-radius: 4px;
+
+  span {
+    font-weight: 500;
+  }
+
+  div.hex {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background-color: #${c};
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 `;
