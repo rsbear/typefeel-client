@@ -234,6 +234,7 @@ export type Mutation = {
   keyboardAnnouncement: Scalars['Boolean'],
   deleteKeyboard: Scalars['Boolean'],
   makeKeyset: Scalars['Boolean'],
+  updateKeyset: Scalars['Boolean'],
   deleteKeyset: Scalars['Boolean'],
   deleteEdition: Scalars['Boolean'],
   voteKeyboardUp: Scalars['Boolean'],
@@ -318,6 +319,12 @@ export type MutationDeleteKeyboardArgs = {
 export type MutationMakeKeysetArgs = {
   images: Array<Scalars['Upload']>,
   data: KeysetInput
+};
+
+
+export type MutationUpdateKeysetArgs = {
+  data: KeysetInput,
+  id: Scalars['String']
 };
 
 
@@ -820,6 +827,17 @@ export type UpdateKeyboardMutation = (
   & Pick<Mutation, 'updateKeyboard'>
 );
 
+export type UpdateKeysetMutationVariables = {
+  id: Scalars['String'],
+  data: KeysetInput
+};
+
+
+export type UpdateKeysetMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateKeyset'>
+);
+
 export type UserDashboardQueryVariables = {};
 
 
@@ -844,7 +862,7 @@ export type UserDashboardQuery = (
       )> }
     )>, keysets: Array<(
       { __typename?: 'Keyset' }
-      & Pick<Keyset, 'id' | 'name' | 'profile' | 'interestCheck' | 'groupBuy' | 'groupBuySoon' | 'closed'>
+      & Pick<Keyset, 'id' | 'shortId' | 'name' | 'profile' | 'interestCheck' | 'groupBuy' | 'groupBuySoon' | 'closed'>
       & { joins: Maybe<Array<(
         { __typename?: 'JoinKeyset' }
         & Pick<JoinKeyset, 'id'>
@@ -1790,6 +1808,37 @@ export function useUpdateKeyboardMutation(baseOptions?: ApolloReactHooks.Mutatio
 export type UpdateKeyboardMutationHookResult = ReturnType<typeof useUpdateKeyboardMutation>;
 export type UpdateKeyboardMutationResult = ApolloReactCommon.MutationResult<UpdateKeyboardMutation>;
 export type UpdateKeyboardMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateKeyboardMutation, UpdateKeyboardMutationVariables>;
+export const UpdateKeysetDocument = gql`
+    mutation updateKeyset($id: String!, $data: KeysetInput!) {
+  updateKeyset(id: $id, data: $data)
+}
+    `;
+export type UpdateKeysetMutationFn = ApolloReactCommon.MutationFunction<UpdateKeysetMutation, UpdateKeysetMutationVariables>;
+
+/**
+ * __useUpdateKeysetMutation__
+ *
+ * To run a mutation, you first call `useUpdateKeysetMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateKeysetMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateKeysetMutation, { data, loading, error }] = useUpdateKeysetMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateKeysetMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateKeysetMutation, UpdateKeysetMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateKeysetMutation, UpdateKeysetMutationVariables>(UpdateKeysetDocument, baseOptions);
+      }
+export type UpdateKeysetMutationHookResult = ReturnType<typeof useUpdateKeysetMutation>;
+export type UpdateKeysetMutationResult = ApolloReactCommon.MutationResult<UpdateKeysetMutation>;
+export type UpdateKeysetMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateKeysetMutation, UpdateKeysetMutationVariables>;
 export const UserDashboardDocument = gql`
     query userDashboard {
   me {
@@ -1818,6 +1867,7 @@ export const UserDashboardDocument = gql`
     }
     keysets {
       id
+      shortId
       name
       profile
       joins {

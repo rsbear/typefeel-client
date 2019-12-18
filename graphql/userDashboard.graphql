@@ -25,6 +25,7 @@ query userDashboard {
     }
     keysets {
       id
+      shortId
       name
       profile
       joins {
