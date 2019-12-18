@@ -3,7 +3,7 @@ import Layout from "components/layouts/Layout";
 import { GetProps } from "interfaces/GetProps";
 import Link from "next/link";
 import { text } from "styles/text";
-import { flex, grid50, colors } from "styles/main";
+import { flex, grid50, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
 import { useSortKeyboardsQuery, useSortKeysetsQuery } from "generated/graphql";
 import Tile from "components/Tile";
@@ -38,7 +38,7 @@ const Landing: GetProps<any> = ({ authUser }) => {
         </div>
       )}
       {keyboards.loading || (keysets.loading && <h2>Loading</h2>)}
-      <h1>Keyboards in interest check</h1>
+      <h2 css={margins("0 0 10px 0")}>Keyboards in interest check</h2>
       {!keyboards.loading &&
         !keyboards.error &&
         keyboards.data &&
@@ -64,7 +64,7 @@ const Landing: GetProps<any> = ({ authUser }) => {
           </div>
         )}
       {keysets.loading && <h2>Loading</h2>}
-      <h1>Keysets in interest check</h1>
+      <h2 css={margins("40px 0 15px 0")}>Keysets in interest check</h2>
       {!keysets.loading &&
         !keysets.error &&
         keysets.data &&
