@@ -5,7 +5,10 @@ import { margins } from "styles/main";
 import { Button } from "styles/buttons";
 import gql from "graphql-tag";
 import Link from "next/link";
-import { useGenerateAuthMutation, useSignupMutation } from "generated/graphql";
+import {
+  useSignupMutation,
+  useGenerateSignupAuthMutation
+} from "generated/graphql";
 
 const Signup: FC<any> = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +17,7 @@ const Signup: FC<any> = () => {
   const [error, setError] = useState("");
   const [confirm, setConfirm] = useState(false);
 
-  const [generateAuth] = useGenerateAuthMutation();
+  const [generateSignupAuth] = useGenerateSignupAuthMutation();
   const [signup] = useSignupMutation();
 
   // const [generateAuth, auth] = useMutation(GENERATE_AUTH);
@@ -23,9 +26,14 @@ const Signup: FC<any> = () => {
   async function handleGenerateAuth(e: any) {
     e.preventDefault();
     try {
-      let res = await generateAuth({ variables: { email } });
+      let res = await generateSignupAuth({ variables: { email, username } });
       console.log(res);
-      setConfirm(true);
+      if (res.data && !res.data.generateSignupAuth.success) {
+        setError(res.data.generateSignupAuth.message);
+        setConfirm(false);
+      } else {
+        setConfirm(true);
+      }
     } catch (err) {
       console.log(err);
       setError("Something went wrong");

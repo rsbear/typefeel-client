@@ -226,6 +226,7 @@ export type Mutation = {
   login: LoginResponse,
   signup: Scalars['Boolean'],
   banUser: Scalars['Boolean'],
+  generateSignupAuth: SuccessResponse,
   generateAuth: Scalars['Boolean'],
   deleteAuth: Scalars['Boolean'],
   makeKeyboard: Scalars['Boolean'],
@@ -275,6 +276,12 @@ export type MutationSignupArgs = {
 
 export type MutationBanUserArgs = {
   id: Scalars['String']
+};
+
+
+export type MutationGenerateSignupAuthArgs = {
+  username: Scalars['String'],
+  email: Scalars['String']
 };
 
 
@@ -469,6 +476,12 @@ export type SearchInput = {
   groupBuy?: Maybe<Scalars['Boolean']>,
 };
 
+export type SuccessResponse = {
+   __typename?: 'SuccessResponse',
+  success: Scalars['Boolean'],
+  message?: Maybe<Scalars['String']>,
+};
+
 
 export type User = {
    __typename?: 'User',
@@ -560,6 +573,20 @@ export type GenerateAuthMutationVariables = {
 export type GenerateAuthMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'generateAuth'>
+);
+
+export type GenerateSignupAuthMutationVariables = {
+  email: Scalars['String'],
+  username: Scalars['String']
+};
+
+
+export type GenerateSignupAuthMutation = (
+  { __typename?: 'Mutation' }
+  & { generateSignupAuth: (
+    { __typename?: 'SuccessResponse' }
+    & Pick<SuccessResponse, 'success' | 'message'>
+  ) }
 );
 
 export type JoinKeyboardMutationVariables = {
@@ -1114,6 +1141,40 @@ export function useGenerateAuthMutation(baseOptions?: ApolloReactHooks.MutationH
 export type GenerateAuthMutationHookResult = ReturnType<typeof useGenerateAuthMutation>;
 export type GenerateAuthMutationResult = ApolloReactCommon.MutationResult<GenerateAuthMutation>;
 export type GenerateAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<GenerateAuthMutation, GenerateAuthMutationVariables>;
+export const GenerateSignupAuthDocument = gql`
+    mutation generateSignupAuth($email: String!, $username: String!) {
+  generateSignupAuth(email: $email, username: $username) {
+    success
+    message
+  }
+}
+    `;
+export type GenerateSignupAuthMutationFn = ApolloReactCommon.MutationFunction<GenerateSignupAuthMutation, GenerateSignupAuthMutationVariables>;
+
+/**
+ * __useGenerateSignupAuthMutation__
+ *
+ * To run a mutation, you first call `useGenerateSignupAuthMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGenerateSignupAuthMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [generateSignupAuthMutation, { data, loading, error }] = useGenerateSignupAuthMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useGenerateSignupAuthMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<GenerateSignupAuthMutation, GenerateSignupAuthMutationVariables>) {
+        return ApolloReactHooks.useMutation<GenerateSignupAuthMutation, GenerateSignupAuthMutationVariables>(GenerateSignupAuthDocument, baseOptions);
+      }
+export type GenerateSignupAuthMutationHookResult = ReturnType<typeof useGenerateSignupAuthMutation>;
+export type GenerateSignupAuthMutationResult = ApolloReactCommon.MutationResult<GenerateSignupAuthMutation>;
+export type GenerateSignupAuthMutationOptions = ApolloReactCommon.BaseMutationOptions<GenerateSignupAuthMutation, GenerateSignupAuthMutationVariables>;
 export const JoinKeyboardDocument = gql`
     mutation joinKeyboard($id: String!, $data: JoinKeyboardInput!) {
   joinKeyboard(id: $id, data: $data)
