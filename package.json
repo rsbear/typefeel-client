@@ -65,7 +65,6 @@
     "react-ssr-prepass": "^1.0.7",
     "reflect-metadata": "^0.1.13",
     "styled-components": "^4.4.0",
-    "urql": "^1.6.1",
     "wonka": "^3.2.1"
   }
 }
