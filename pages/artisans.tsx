@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import Layout from "components/layouts/Layout";
-import withUrqlClient from "lib/withUrqlClient";
 
 const Artisans: FC<any> = () => (
   <Layout>
@@ -8,4 +7,4 @@ const Artisans: FC<any> = () => (
   </Layout>
 );
 
-export default withUrqlClient(Artisans);
+export default Artisans;
