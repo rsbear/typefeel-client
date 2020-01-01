@@ -12,10 +12,10 @@ const getColor = props => {
   if (props.isDragAccept) {
     return "#00e676";
   }
-  if (props.isDragReject) {
+  if (props.isdragreject) {
     return "#ff1744";
   }
-  if (props.isDragActive) {
+  if (props.isdragactive) {
     return "#2196f3";
   }
   // return defs.colors.grayalmostsuperlight;
