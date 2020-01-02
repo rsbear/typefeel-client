@@ -13,7 +13,7 @@ import { useMakeKeyboardMutation, KeyboardInput } from "generated/graphql";
 import { GetProps } from "interfaces/GetProps";
 import { AuthUser } from "interfaces/AuthUser";
 
-import { Formik } from "formik";
+import { Formik, FieldArray } from "formik";
 
 interface Props {
   authUser: AuthUser;
@@ -21,6 +21,9 @@ interface Props {
 
 const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
   const [images, setImages] = React.useState([]);
+  //switcher state is used when creating a new input field with an 'add button'
+  //this is super suboptimal but we'll leave it temporarily
+  const [switcher, setSwitcher] = useState(false);
   const [multiEditions, setMultiEditions]: SetStateAction<any> = useState(null);
   const initValues = {
     angle: "",
@@ -46,7 +49,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
     price: 0,
     name: "",
     cases: [""],
-    colors: [""],
+    colors: [],
     plates: [""]
   };
 
@@ -57,14 +60,20 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
     values.editions.push(editionObj);
   };
 
+  const handlePushString = (value: any) => {
+    value.push("");
+    setSwitcher(!switcher);
+  };
+
   const handleMakeKeyboard = async (data: KeyboardInput) => {
     event.preventDefault();
-    try {
-      const response = await makeKeyboard({ variables: { data, images } });
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(data);
+    // try {
+    //   const response = await makeKeyboard({ variables: { data, images } });
+    //   console.log(response);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return (
@@ -205,217 +214,274 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
               )}
             </div>
 
-            {(values.editions.length !== 0 || multiEditions === false) && (
-              <>
-                <h2 css={margins("10px 0")}>Price, materials, and colors</h2>
-                {values.editions.map((edition: any, eIdx: number) => (
-                  <div key={eIdx}>
-                    {values.editions[eIdx].name !== undefined && (
-                      <div css={[borderBox, margins("0 0 20px 0")]}>
-                        <h5>Edition name</h5>
-                        <FormikInput
-                          type="text"
-                          icon="icon ion-ios-at"
-                          placeholder="Name of this edition"
-                          name="name"
-                          onChange={(e: any) => {}}
-                        />
-                      </div>
-                    )}
-                    <div css={[borderBox, margins("0 0 20px 0")]}>
-                      <h5>Price</h5>
-                      <FormikInput
-                        type="text"
-                        icon="icon ion-logo-usd"
-                        placeholder="Price"
-                        name="price"
-                        onChange={(e: any) => {}}
-                      />
-                    </div>
-                    <div css={[borderBox, margins("0 0 20px 0")]}>
-                      <h5>Case materials</h5>
-                      {edition.cases.map((c: any, cIndex: number) => (
-                        <div
-                          css={[
-                            flex.row,
-                            flex.itemscenter,
-                            multiFormikInputMargin
-                          ]}
-                        >
-                          <FormikInput
-                            type="text"
-                            icon="icon ion-ios-construct"
-                            placeholder="e.g. Aluminum"
-                            name="material"
-                            onChange={() => {}}
-                          />
-                          <DeleteButton
-                            icon="icon ion-ios-trash"
-                            onClick={() => edition.cases.push("")}
-                          />
-                        </div>
-                      ))}
-                      <Button
-                        small="true"
-                        type="button"
-                        onClick={e => edition.cases.push("")}
-                      >
-                        Add another
-                      </Button>
-                    </div>
-                    <div css={[borderBox, margins("0 0 20px 0")]}>
-                      <h5>Plate materials</h5>
-                      {values.editions[eIdx].plates.map(
-                        (p: any, pIndex: number) => (
-                          <div
-                            key={pIndex}
-                            css={[
-                              flex.row,
-                              flex.itemscenter,
-                              multiFormikInputMargin
-                            ]}
-                          >
+            <FieldArray
+              name="editions"
+              render={helpers => (
+                <>
+                  {(values.editions.length !== 0 ||
+                    multiEditions === false) && (
+                    <>
+                      <h2 css={margins("10px 0")}>
+                        Price, materials, and colors
+                      </h2>
+                      {values.editions.map((edition: any, eIdx: number) => (
+                        <div key={eIdx}>
+                          {multiEditions === true && (
+                            <div css={[borderBox, margins("0 0 20px 0")]}>
+                              <h5>Edition name</h5>
+                              <FormikInput
+                                type="text"
+                                icon="icon ion-ios-at"
+                                placeholder="Name of this edition"
+                                id={`editions[${eIdx}].name`}
+                                name={`editions[${eIdx}].name`}
+                              />
+                            </div>
+                          )}
+                          <div css={[borderBox, margins("0 0 20px 0")]}>
+                            <h5>Price</h5>
                             <FormikInput
                               type="text"
-                              icon="icon ion-ios-hammer"
-                              placeholder="e.g. Aluminum"
-                              name="material"
-                              onChange={() => {}}
-                            />
-                            <DeleteButton
-                              icon="icon ion-ios-trash"
-                              onClick={() => {}}
+                              icon="icon ion-logo-usd"
+                              placeholder="Price"
+                              id={`editions[${eIdx}].price`}
+                              name={`editions[${eIdx}].price`}
                             />
                           </div>
-                        )
-                      )}
-                      <Button small="true" onClick={e => {}}>
-                        Add another plate
-                      </Button>
-                    </div>
-                    <div css={[borderBox, margins("0 0 20px 0")]}>
-                      <h5>
-                        {edition.colors.length === 0
-                          ? "Do you want to provide colors?"
-                          : "Colors"}
-                      </h5>
-                      {edition.colors.map((p: any, colorIndex: number) => (
-                        <div
-                          key={colorIndex}
-                          css={[
-                            flex.row,
-                            flex.itemscenter,
-                            multiFormikInputMargin
-                          ]}
-                        >
-                          <FormikInput
-                            type="text"
-                            icon="icon ion-ios-color-fill"
-                            placeholder="colors"
-                            name="material"
-                            onChange={(e: any) => {}}
+                          <FieldArray
+                            name={`editions[${eIdx}].cases`}
+                            render={helpers2 => (
+                              <>
+                                <div css={[borderBox, margins("0 0 20px 0")]}>
+                                  <h5>Case materials</h5>
+                                  {edition.cases.map(
+                                    (c: any, cIndex: number) => (
+                                      <div
+                                        key={cIndex}
+                                        css={[
+                                          flex.row,
+                                          flex.itemscenter,
+                                          multiInputMargin
+                                        ]}
+                                      >
+                                        <FormikInput
+                                          type="text"
+                                          icon="icon ion-ios-construct"
+                                          placeholder="e.g. Aluminum"
+                                          id={`editions[${eIdx}].cases.${cIndex}`}
+                                          name={`editions[${eIdx}].cases.${cIndex}`}
+                                        />
+                                        <DeleteButton
+                                          icon="icon ion-ios-trash"
+                                          onClick={() => {}}
+                                        />
+                                      </div>
+                                    )
+                                  )}
+                                  <Button
+                                    small="true"
+                                    type="button"
+                                    onClick={() => helpers2.push("")}
+                                  >
+                                    Add another case
+                                  </Button>
+                                </div>
+                              </>
+                            )}
                           />
-                          <DeleteButton
-                            icon="icon ion-ios-trash"
-                            onClick={(e: any) => {}}
+                          <FieldArray
+                            name={`editions[${eIdx}].plates`}
+                            render={helpers2 => (
+                              <>
+                                <div css={[borderBox, margins("0 0 20px 0")]}>
+                                  <h5>Plate materials</h5>
+                                  {edition.plates.map(
+                                    (p: any, pIndex: number) => (
+                                      <div
+                                        key={pIndex}
+                                        css={[
+                                          flex.row,
+                                          flex.itemscenter,
+                                          multiInputMargin
+                                        ]}
+                                      >
+                                        <FormikInput
+                                          type="text"
+                                          icon="icon ion-ios-hammer"
+                                          placeholder="e.g. Aluminum"
+                                          id={`editions[${eIdx}].plates.${pIndex}`}
+                                          name={`editions[${eIdx}].plates.${pIndex}`}
+                                        />
+                                        <DeleteButton
+                                          icon="icon ion-ios-trash"
+                                          onClick={() => {}}
+                                        />
+                                      </div>
+                                    )
+                                  )}
+                                  <Button
+                                    small="true"
+                                    type="button"
+                                    onClick={() => helpers2.push("")}
+                                  >
+                                    Add another plate
+                                  </Button>
+                                </div>
+                              </>
+                            )}
+                          />
+                          <FieldArray
+                            name={`editions[${eIdx}].colors`}
+                            render={helpers2 => (
+                              <>
+                                <div css={[borderBox, margins("0 0 20px 0")]}>
+                                  <h5>
+                                    {edition.colors.length === 0
+                                      ? "Do you want to provide colors?"
+                                      : "Colors"}
+                                  </h5>
+                                  {edition.colors.map(
+                                    (c: any, cIndex: number) => (
+                                      <div
+                                        key={cIndex}
+                                        css={[
+                                          flex.row,
+                                          flex.itemscenter,
+                                          multiInputMargin
+                                        ]}
+                                      >
+                                        <FormikInput
+                                          type="text"
+                                          icon="icon ion-ios-color-fill"
+                                          placeholder="colors"
+                                          id={`editions[${eIdx}].colors.${cIndex}`}
+                                          name={`editions[${eIdx}].colors.${cIndex}`}
+                                        />
+                                        <DeleteButton
+                                          icon="icon ion-ios-trash"
+                                          onClick={() => {}}
+                                        />
+                                      </div>
+                                    )
+                                  )}
+                                  <Button
+                                    small="true"
+                                    type="button"
+                                    onClick={() => helpers2.push("")}
+                                  >
+                                    Add a color
+                                  </Button>
+                                </div>
+                              </>
+                            )}
                           />
                         </div>
                       ))}
-                      <Button small="true" onClick={() => {}}>
-                        Add another color
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-                {multiEditions && (
-                  <Button primary="true" onClick={() => {}}>
-                    Add another edition
-                  </Button>
-                )}
-                <>
-                  <h2 css={margins("60px 0 10px 0")}>
-                    Layouts, and information
-                  </h2>
-                  <div css={[borderBox, margins("0 0 20px 0")]}>
-                    <h5>Layouts</h5>
-                    {values.layouts.map(
-                      (layout: string, layoutIndex: number) => (
-                        <div
-                          key={layoutIndex}
-                          css={[
-                            flex.row,
-                            flex.itemscenter,
-                            multiFormikInputMargin
-                          ]}
+                      {multiEditions && (
+                        <Button
+                          primary="true"
+                          type="button"
+                          onClick={() => helpers.push(editionObj)}
                         >
-                          <FormikInput
-                            type="text"
-                            icon="icon ion-ios-return-left"
-                            placeholder="e.g. WK (without blockers)"
-                            name="layout"
-                            onChange={(e: any) => {}}
-                          />
-                          <DeleteButton icon="icon ion-ios-trash" />
+                          Add another edition
+                        </Button>
+                      )}
+                      <>
+                        <h2 css={margins("60px 0 10px 0")}>
+                          Layouts, and information
+                        </h2>
+                        <div css={[borderBox, margins("0 0 20px 0")]}>
+                          <h5>Layouts</h5>
+                          {values.layouts.map(
+                            (layout: string, layoutIndex: number) => (
+                              <div
+                                key={layoutIndex}
+                                css={[
+                                  flex.row,
+                                  flex.itemscenter,
+                                  multiInputMargin
+                                ]}
+                              >
+                                <FormikInput
+                                  type="text"
+                                  icon="icon ion-ios-return-left"
+                                  placeholder="e.g. WK (without blockers)"
+                                  name="layout"
+                                />
+                                <DeleteButton icon="icon ion-ios-trash" />
+                              </div>
+                            )
+                          )}
+
+                          <Button
+                            small="true"
+                            onClick={() => handlePushString(values.layouts)}
+                          >
+                            Add another
+                          </Button>
                         </div>
-                      )
-                    )}
-
-                    <Button small="true" onClick={() => {}}>
-                      Add another
-                    </Button>
-                  </div>
-                  <div css={[borderBox, margins("0 0 20px 0")]}>
-                    <h5>Layout support</h5>
-                    {values.support.map(
-                      (support: string, supportIndex: number) => (
-                        <div
-                          key={supportIndex}
-                          css={[
-                            flex.row,
-                            flex.itemscenter,
-                            multiFormikInputMargin
-                          ]}
-                        >
-                          <FormikInput
-                            type="text"
-                            icon="icon ion-ios-globe"
-                            placeholder="e.g. ISO"
-                            name="support"
-                            onChange={() => {}}
-                          />
-                          <DeleteButton icon="icon ion-ios-trash" />
+                        <div css={[borderBox, margins("0 0 20px 0")]}>
+                          <h5>Layout support</h5>
+                          {values.support.map(
+                            (support: string, supportIndex: number) => (
+                              <div
+                                key={supportIndex}
+                                css={[
+                                  flex.row,
+                                  flex.itemscenter,
+                                  multiInputMargin
+                                ]}
+                              >
+                                <FormikInput
+                                  type="text"
+                                  icon="icon ion-ios-globe"
+                                  placeholder="e.g. ISO"
+                                  name="support"
+                                />
+                                <DeleteButton icon="icon ion-ios-trash" />
+                              </div>
+                            )
+                          )}
+                          <Button
+                            small="true"
+                            onClick={() => handlePushString(values.support)}
+                          >
+                            Add another
+                          </Button>
                         </div>
-                      )
-                    )}
-                    <Button small="true" onClick={() => {}}>
-                      Add another
-                    </Button>
-                  </div>
-                  <div css={[borderBox, margins("0 0 20px 0")]}>
-                    <h5>Details</h5>
-                    {values.details.map((d: string, detailIndex: number) => (
-                      <TextArea
-                        margins="0 0 10px 0"
-                        name="details"
-                        onChange={() => {}}
-                      ></TextArea>
-                    ))}
-                    <Button small="true" onClick={() => {}}>
-                      Add another
-                    </Button>
-                  </div>
+                        <div css={[borderBox, margins("0 0 20px 0")]}>
+                          <h5>Details</h5>
+                          {values.details.map(
+                            (d: string, detailIndex: number) => (
+                              <TextArea
+                                margins="0 0 10px 0"
+                                name="details"
+                                onChange={() => {}}
+                              ></TextArea>
+                            )
+                          )}
+                          <Button
+                            small="true"
+                            onClick={() => values.details.push("")}
+                          >
+                            Add another
+                          </Button>
+                        </div>
 
-                  {/* image management */}
-                  <h2 css={margins("60px 0 10px 0")}>Image gallery</h2>
-                  <Upload images={images} setImages={setImages} />
-                  <UploadPreview images={images} setImages={setImages} />
+                        {/* image management */}
+                        <h2 css={margins("60px 0 10px 0")}>Image gallery</h2>
+                        <Upload images={images} setImages={setImages} />
+                        <UploadPreview images={images} setImages={setImages} />
 
-                  <Button primary="true" type="submit">
-                    Submit keyboard post
-                  </Button>
+                        <Button primary="true" type="submit">
+                          Submit keyboard post
+                        </Button>
+                      </>
+                    </>
+                  )}
                 </>
-              </>
-            )}
+              )}
+            />
           </form>
         )}
       </Formik>
@@ -438,6 +504,6 @@ const wide = css`
   width: 20%;
   margin-left: 15px;
 `;
-const multiFormikInputMargin = css`
+const multiInputMargin = css`
   margin-bottom: 10px;
 `;
