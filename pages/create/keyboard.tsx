@@ -67,13 +67,12 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
 
   const handleMakeKeyboard = async (data: KeyboardInput) => {
     event.preventDefault();
-    console.log(data);
-    // try {
-    //   const response = await makeKeyboard({ variables: { data, images } });
-    //   console.log(response);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      const response = await makeKeyboard({ variables: { data, images } });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -204,7 +203,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                           <div css={[borderBox, margins("0 0 20px 0")]}>
                             <h5>Price</h5>
                             <FormikInput
-                              type="text"
+                              type="number"
                               icon="icon ion-logo-usd"
                               placeholder="Price"
                               id={`editions[${eIdx}].price`}
