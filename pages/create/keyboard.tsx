@@ -152,65 +152,28 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
             <div
               css={[flex.column, flex.itemscenter, editionQuestionContainer]}
             >
-              <h3>Multiple editions?</h3>
-              {/* <div css={[flex.row, hundo, flex.justifycenter]}>
-                {multiEditions === null || multiEditions === true ? (
-                  <Button
-                    css={wide}
-                    secondary="true"
-                    type="button"
-                    onClick={() => setMultiEditions(true)}
-                  >
-                    No
-                  </Button>
-                ) : (
-                  <Button
-                    css={wide}
-                    primary="true"
-                    onClick={() => setMultiEditions(false)}
-                  >
-                    No
-                  </Button>
-                )}
-                {!multiEditions ? (
-                  <Button
-                    css={wide}
-                    secondary="true"
-                    type="button"
-                    onClick={e => setMultiEditions(true)}
-                  >
-                    Yes
-                  </Button>
-                ) : (
-                  <Button
-                    css={wide}
-                    primary="true"
-                    type="button"
-                    onClick={e => setMultiEditions(true)}
-                  >
-                    Yes
-                  </Button>
-                )}
-              </div> */}
               {multiEditions === null && (
-                <div css={[flex.row, hundo, flex.justifycenter]}>
-                  <Button
-                    css={wide}
-                    secondary="true"
-                    type="button"
-                    onClick={() => handlePushEdition(values, false)}
-                  >
-                    No
-                  </Button>
-                  <Button
-                    css={wide}
-                    secondary="true"
-                    type="button"
-                    onClick={() => handlePushEdition(values, true)}
-                  >
-                    Yes
-                  </Button>
-                </div>
+                <>
+                  <h3>Multiple editions?</h3>
+                  <div css={[flex.row, hundo, flex.justifycenter]}>
+                    <Button
+                      css={wide}
+                      secondary="true"
+                      type="button"
+                      onClick={() => handlePushEdition(values, false)}
+                    >
+                      No
+                    </Button>
+                    <Button
+                      css={wide}
+                      secondary="true"
+                      type="button"
+                      onClick={() => handlePushEdition(values, true)}
+                    >
+                      Yes
+                    </Button>
+                  </div>
+                </>
               )}
             </div>
 
@@ -273,7 +236,9 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                                         />
                                         <DeleteButton
                                           icon="icon ion-ios-trash"
-                                          onClick={() => {}}
+                                          onClick={() =>
+                                            helpers2.remove(cIndex)
+                                          }
                                         />
                                       </div>
                                     )
@@ -314,7 +279,9 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                                         />
                                         <DeleteButton
                                           icon="icon ion-ios-trash"
-                                          onClick={() => {}}
+                                          onClick={() =>
+                                            helpers2.remove(pIndex)
+                                          }
                                         />
                                       </div>
                                     )
@@ -359,7 +326,9 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                                         />
                                         <DeleteButton
                                           icon="icon ion-ios-trash"
-                                          onClick={() => {}}
+                                          onClick={() =>
+                                            helpers2.remove(cIndex)
+                                          }
                                         />
                                       </div>
                                     )
@@ -412,7 +381,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                                       />
                                       <DeleteButton
                                         icon="icon ion-ios-trash"
-                                        onClick={() => {}}
+                                        onClick={() => helpers2.remove(lIndex)}
                                       />
                                     </div>
                                   )
@@ -453,7 +422,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                                       />
                                       <DeleteButton
                                         icon="icon ion-ios-trash"
-                                        onClick={() => {}}
+                                        onClick={() => helpers2.remove(sIndex)}
                                       />
                                     </div>
                                   )
@@ -492,7 +461,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                                       ></FormikArea>
                                       <DeleteButton
                                         icon="icon ion-ios-trash"
-                                        onClick={() => {}}
+                                        onClick={() => helpers2.remove(dIndex)}
                                       />
                                     </div>
                                   )
