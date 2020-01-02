@@ -2,7 +2,7 @@ import React, { FC, useState, SetStateAction } from "react";
 import Layout from "components/layouts/Layout";
 
 import css from "@emotion/css";
-import { TextArea, FormikInput } from "styles/inputs";
+import { TextArea, FormikInput, FormikArea } from "styles/inputs";
 import { flex, borderBox, grid50, grid33, margins } from "styles/main";
 import { Button, DeleteButton } from "styles/buttons";
 import { text } from "styles/text";
@@ -387,87 +387,127 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                         </Button>
                       )}
                       <>
-                        <h2 css={margins("60px 0 10px 0")}>
-                          Layouts, and information
-                        </h2>
-                        <div css={[borderBox, margins("0 0 20px 0")]}>
-                          <h5>Layouts</h5>
-                          {values.layouts.map(
-                            (layout: string, layoutIndex: number) => (
-                              <div
-                                key={layoutIndex}
-                                css={[
-                                  flex.row,
-                                  flex.itemscenter,
-                                  multiInputMargin
-                                ]}
-                              >
-                                <FormikInput
-                                  type="text"
-                                  icon="icon ion-ios-return-left"
-                                  placeholder="e.g. WK (without blockers)"
-                                  name="layout"
-                                />
-                                <DeleteButton icon="icon ion-ios-trash" />
+                        <FieldArray
+                          name="layouts"
+                          render={helpers2 => (
+                            <>
+                              <div css={[borderBox, margins("0 0 20px 0")]}>
+                                <h5>Layouts</h5>
+                                {values.layouts.map(
+                                  (l: any, lIndex: number) => (
+                                    <div
+                                      key={lIndex}
+                                      css={[
+                                        flex.row,
+                                        flex.itemscenter,
+                                        multiInputMargin
+                                      ]}
+                                    >
+                                      <FormikInput
+                                        type="text"
+                                        icon="icon ion-ios-return-left"
+                                        placeholder="e.g. WK (without blockers)"
+                                        id={`layouts.${lIndex}`}
+                                        name={`layouts.${lIndex}`}
+                                      />
+                                      <DeleteButton
+                                        icon="icon ion-ios-trash"
+                                        onClick={() => {}}
+                                      />
+                                    </div>
+                                  )
+                                )}
+                                <Button
+                                  small="true"
+                                  type="button"
+                                  onClick={() => helpers2.push("")}
+                                >
+                                  Add another layout
+                                </Button>
                               </div>
-                            )
+                            </>
                           )}
-
-                          <Button
-                            small="true"
-                            onClick={() => handlePushString(values.layouts)}
-                          >
-                            Add another
-                          </Button>
-                        </div>
-                        <div css={[borderBox, margins("0 0 20px 0")]}>
-                          <h5>Layout support</h5>
-                          {values.support.map(
-                            (support: string, supportIndex: number) => (
-                              <div
-                                key={supportIndex}
-                                css={[
-                                  flex.row,
-                                  flex.itemscenter,
-                                  multiInputMargin
-                                ]}
-                              >
-                                <FormikInput
-                                  type="text"
-                                  icon="icon ion-ios-globe"
-                                  placeholder="e.g. ISO"
-                                  name="support"
-                                />
-                                <DeleteButton icon="icon ion-ios-trash" />
+                        />
+                        <FieldArray
+                          name="support"
+                          render={helpers2 => (
+                            <>
+                              <div css={[borderBox, margins("0 0 20px 0")]}>
+                                <h5>Layout support</h5>
+                                {values.support.map(
+                                  (s: any, sIndex: number) => (
+                                    <div
+                                      key={sIndex}
+                                      css={[
+                                        flex.row,
+                                        flex.itemscenter,
+                                        multiInputMargin
+                                      ]}
+                                    >
+                                      <FormikInput
+                                        type="text"
+                                        icon="icon ion-ios-globe"
+                                        placeholder="e.g. ISO"
+                                        id={`support.${sIndex}`}
+                                        name={`support.${sIndex}`}
+                                      />
+                                      <DeleteButton
+                                        icon="icon ion-ios-trash"
+                                        onClick={() => {}}
+                                      />
+                                    </div>
+                                  )
+                                )}
+                                <Button
+                                  small="true"
+                                  type="button"
+                                  onClick={() => helpers2.push("")}
+                                >
+                                  Add another layout support
+                                </Button>
                               </div>
-                            )
+                            </>
                           )}
-                          <Button
-                            small="true"
-                            onClick={() => handlePushString(values.support)}
-                          >
-                            Add another
-                          </Button>
-                        </div>
-                        <div css={[borderBox, margins("0 0 20px 0")]}>
-                          <h5>Details</h5>
-                          {values.details.map(
-                            (d: string, detailIndex: number) => (
-                              <TextArea
-                                margins="0 0 10px 0"
-                                name="details"
-                                onChange={() => {}}
-                              ></TextArea>
-                            )
+                        />
+                        <FieldArray
+                          name="details"
+                          render={helpers2 => (
+                            <>
+                              <div css={[borderBox, margins("0 0 20px 0")]}>
+                                <h5>Details</h5>
+                                {values.details.map(
+                                  (d: any, dIndex: number) => (
+                                    <div
+                                      key={dIndex}
+                                      css={[
+                                        flex.row,
+                                        flex.itemscenter,
+                                        multiInputMargin
+                                      ]}
+                                    >
+                                      <FormikArea
+                                        margins="0 0 10px 0"
+                                        name={`details.${dIndex}`}
+                                        id={`details.${dIndex}`}
+                                      ></FormikArea>
+                                      <DeleteButton
+                                        icon="icon ion-ios-trash"
+                                        onClick={() => {}}
+                                      />
+                                    </div>
+                                  )
+                                )}
+                                <Button
+                                  small="true"
+                                  type="button"
+                                  onClick={() => helpers2.push("")}
+                                >
+                                  Add another
+                                </Button>
+                              </div>
+                            </>
                           )}
-                          <Button
-                            small="true"
-                            onClick={() => values.details.push("")}
-                          >
-                            Add another
-                          </Button>
-                        </div>
-
+                        />
                         {/* image management */}
                         <h2 css={margins("60px 0 10px 0")}>Image gallery</h2>
                         <Upload images={images} setImages={setImages} />
