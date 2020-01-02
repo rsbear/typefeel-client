@@ -21,9 +21,6 @@ interface Props {
 
 const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
   const [images, setImages] = React.useState([]);
-  //switcher state is used when creating a new input field with an 'add button'
-  //this is super suboptimal but we'll leave it temporarily
-  const [switcher, setSwitcher] = useState(false);
   const [multiEditions, setMultiEditions]: SetStateAction<any> = useState(null);
   const initValues = {
     angle: "",
@@ -58,11 +55,6 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
   const handlePushEdition = (values: any, multi: boolean) => {
     setMultiEditions(multi);
     values.editions.push(editionObj);
-  };
-
-  const handlePushString = (value: any) => {
-    value.push("");
-    setSwitcher(!switcher);
   };
 
   const handleMakeKeyboard = async (data: KeyboardInput) => {
