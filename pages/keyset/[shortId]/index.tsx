@@ -15,13 +15,9 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
   const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
 
   const dynamicNav = {
-    name: !loading ? data.keyset.profile + " " + data.keyset.name : "",
-    discussionHref: "/keyset/[shortId]/discussion",
-    discussionAs: `/keyset/${shortId}/discussion`,
-    dataHref: "/keyset/[shortId]/data",
-    dataAs: `/keyset/${shortId}/data`,
-    shortId: shortId,
-    productType: "keyset"
+    name: !loading ? data.keyset.name : "",
+    productType: "keyset",
+    shortId: shortId
   };
 
   return (
@@ -32,7 +28,8 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
             {data.keyset.profile} {data.keyset.name}
           </h1>
           <h2 css={specs}>
-            {JSON.stringify(data.keyset.kits.length)} kits available
+            {JSON.stringify(data.keyset.kits.length)} kits available,{" "}
+            {data.keyset.stem}
           </h2>
           <div css={[contentBox, grid50]}>
             <img
@@ -47,12 +44,9 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
                   kits={data.keyset.kits}
                   id={data.keyset.id}
                   joins={authUser ? authUser.keysetjoins : []}
+                  follows={authUser ? authUser.follows : []}
                 />
               )}
-              <FollowButton
-                id={data.keyset.id}
-                follows={authUser ? authUser.follows : []}
-              />
             </div>
           </div>
           <div>

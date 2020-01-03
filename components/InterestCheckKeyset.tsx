@@ -1,12 +1,16 @@
 import React, { FC, useState } from "react";
-import { Button } from "styles/buttons";
-import { grid50, margins } from "styles/main";
 import { useJoinKeysetMutation } from "generated/graphql";
+
+import { Button } from "styles/buttons";
+import { grid50, margins, flex } from "styles/main";
+import { css } from "@emotion/core";
+import FollowButton from "./shared/FollowButton";
 
 interface Props {
   kits?: any;
   id: string;
   joins?: any;
+  follows?: any;
 }
 
 interface Kit {
@@ -14,7 +18,8 @@ interface Kit {
   kit: string;
   name: string;
 }
-const InterestCheckKeyset: FC<Props> = ({ id, kits, joins }) => {
+
+const InterestCheckKeyset: FC<Props> = ({ id, kits, joins, follows }) => {
   const [alreadyJoined, setAlreadyJoined] = useState(false);
   const [selectedKits, setSelectedKits] = useState([]);
   const [joinMutation] = useJoinKeysetMutation();
@@ -55,25 +60,43 @@ const InterestCheckKeyset: FC<Props> = ({ id, kits, joins }) => {
 
   return (
     <>
-      <h4 css={margins("0 0 10px 0")}>Select your kits</h4>
-      <div css={grid50}>
-        {kits.map(({ id, kit }: Kit) => (
+      <div css={[flex.column, heightHundo]}>
+        <h4 css={margins("0 0 10px 0")}>Select your kits</h4>
+        <div css={grid50}>
+          {kits.map(({ id, kit, name }: Kit) => (
+            <Button
+              secondary="true"
+              margin="0 0 15px 0"
+              className={selectedKits.includes(kit) ? "active" : undefined}
+              onClick={() => handleKit(kit)}
+              key={id}
+            >
+              {name}
+            </Button>
+          ))}
+        </div>
+        <div css={[flex.column, btnContainer]}>
           <Button
-            secondary="true"
-            margin="0 0 15px 0"
-            className={selectedKits.includes(kit) ? "active" : undefined}
-            onClick={() => handleKit(kit)}
-            key={id}
+            primary="true"
+            margin="auto 0 15px 0"
+            onClick={handleMutation}
           >
-            {kit}
+            {!alreadyJoined ? `Join keyset` : "Already joined"}
           </Button>
-        ))}
+          <FollowButton id={id} follows={follows} />
+        </div>
       </div>
-      <Button primary="true" margin="auto 0 15px 0" onClick={handleMutation}>
-        {!alreadyJoined ? `Join keyset` : "Already joined"}
-      </Button>
     </>
   );
 };
 
 export default InterestCheckKeyset;
+
+const heightHundo = css`
+  height: 100%;
+`;
+const btnContainer = css`
+  margin-top: auto;
+  display: flex;
+  justify-self: flex-end;
+`;
