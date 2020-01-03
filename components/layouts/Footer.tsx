@@ -8,9 +8,9 @@ const Footer: FC<any> = () => {
     <footer css={foot}>
       <ul>
         <li>FAQ</li>
-        <li>privacy</li>
-        <li>terms & agreement</li>
-        <li>idk what im doing</li>
+        <li>Privacy</li>
+        <li>Terms & Agreement</li>
+        <li>Contribute</li>
       </ul>
     </footer>
   );
