@@ -642,6 +642,26 @@ export type KeyboardAnnouncementMutation = (
   & Pick<Mutation, 'keyboardAnnouncement'>
 );
 
+export type KeyboardDataQueryVariables = {
+  shortId: Scalars['String']
+};
+
+
+export type KeyboardDataQuery = (
+  { __typename?: 'Query' }
+  & { keyboard: (
+    { __typename?: 'Keyboard' }
+    & Pick<Keyboard, 'closed' | 'connector' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'name' | 'shortId' | 'size'>
+    & { editions: Maybe<Array<(
+      { __typename?: 'Edition' }
+      & Pick<Edition, 'id' | 'name' | 'price' | 'suggestedPrice' | 'cases' | 'plates'>
+    )>>, joins: Maybe<Array<(
+      { __typename?: 'JoinKeyboard' }
+      & Pick<JoinKeyboard, 'id' | 'caseChoice' | 'layoutChoice' | 'plateChoice'>
+    )>> }
+  ) }
+);
+
 export type KeyboardPostsQueryVariables = {
   shortId: Scalars['String']
 };
@@ -1332,6 +1352,62 @@ export function useKeyboardAnnouncementMutation(baseOptions?: ApolloReactHooks.M
 export type KeyboardAnnouncementMutationHookResult = ReturnType<typeof useKeyboardAnnouncementMutation>;
 export type KeyboardAnnouncementMutationResult = ApolloReactCommon.MutationResult<KeyboardAnnouncementMutation>;
 export type KeyboardAnnouncementMutationOptions = ApolloReactCommon.BaseMutationOptions<KeyboardAnnouncementMutation, KeyboardAnnouncementMutationVariables>;
+export const KeyboardDataDocument = gql`
+    query KeyboardData($shortId: String!) {
+  keyboard(shortId: $shortId) {
+    closed
+    connector
+    editions {
+      id
+      name
+      price
+      suggestedPrice
+      cases
+      plates
+    }
+    groupBuy
+    groupBuySoon
+    id
+    images1500
+    interestCheck
+    joins {
+      id
+      caseChoice
+      layoutChoice
+      plateChoice
+    }
+    name
+    shortId
+    size
+  }
+}
+    `;
+
+/**
+ * __useKeyboardDataQuery__
+ *
+ * To run a query within a React component, call `useKeyboardDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeyboardDataQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeyboardDataQuery({
+ *   variables: {
+ *      shortId: // value for 'shortId'
+ *   },
+ * });
+ */
+export function useKeyboardDataQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<KeyboardDataQuery, KeyboardDataQueryVariables>) {
+        return ApolloReactHooks.useQuery<KeyboardDataQuery, KeyboardDataQueryVariables>(KeyboardDataDocument, baseOptions);
+      }
+export function useKeyboardDataLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<KeyboardDataQuery, KeyboardDataQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<KeyboardDataQuery, KeyboardDataQueryVariables>(KeyboardDataDocument, baseOptions);
+        }
+export type KeyboardDataQueryHookResult = ReturnType<typeof useKeyboardDataQuery>;
+export type KeyboardDataLazyQueryHookResult = ReturnType<typeof useKeyboardDataLazyQuery>;
+export type KeyboardDataQueryResult = ApolloReactCommon.QueryResult<KeyboardDataQuery, KeyboardDataQueryVariables>;
 export const KeyboardPostsDocument = gql`
     query keyboardPosts($shortId: String!) {
   keyboard(shortId: $shortId) {
