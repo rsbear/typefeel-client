@@ -65,13 +65,16 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
           req.headers.cookie ? req.headers.cookie : ""
         );
         if (cookies.rfs) {
-          const response = await fetch("http://localhost:4000/refresh_token", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              cookie: "rfs=" + cookies.rfs
+          const response = await fetch(
+            "https://type-api.rsbear.now.sh/refresh_token",
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                cookie: "rfs=" + cookies.rfs
+              }
             }
-          });
+          );
           const data = await response.json();
           serverAccessToken = data.accessToken;
         }
@@ -171,7 +174,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
   // });
 
   const uploadLink = createUploadLink({
-    uri: "http://localhost:4000/graphql",
+    uri: "https://type-api.rsbear.now.sh/graphql",
     credentials: "include",
     fetch
     // fetchOptions
