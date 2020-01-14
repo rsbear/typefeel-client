@@ -13,8 +13,12 @@ const Navigation: FC<any> = ({ authUser, dynamicNav }) => {
   const router = useRouter();
 
   const handleScroll = () => {
-    const scroller = ref.current.getBoundingClientRect().top < -240;
-    setSticky(scroller);
+    if (!ref.current) {
+      setSticky(false);
+    } else {
+      const scroller = ref.current.getBoundingClientRect().top < -240;
+      setSticky(scroller);
+    }
   };
 
   useEffect(() => {
