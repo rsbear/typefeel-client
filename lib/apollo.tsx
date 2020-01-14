@@ -2,7 +2,6 @@ import React from "react";
 import Head from "next/head";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import fetch from "isomorphic-unfetch";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
@@ -66,7 +65,9 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
         );
         if (cookies.rfs) {
           const response = await fetch(
-            "https://type-api.rsbear.now.sh/refresh_token",
+            process.env.NODE_ENV !== "production"
+              ? "http://localhost:4000/refresh_token"
+              : "https://type-api.rsbear.now.sh/refresh_token",
             {
               method: "POST",
               credentials: "include",
@@ -167,14 +168,11 @@ function initApolloClient(initState: any, serverAccessToken?: string) {
  * @param  {Object} config
  */
 function createApolloClient(initialState = {}, serverAccessToken?: string) {
-  // const httpLink = new HttpLink({
-  //   uri: "http://localhost:4000/graphql",
-  //   credentials: "include",
-  //   fetch
-  // });
-
   const uploadLink = createUploadLink({
-    uri: "https://type-api.rsbear.now.sh/graphql",
+    uri:
+      process.env.NODE_ENV !== "production"
+        ? "http://localhost:4000/graphql"
+        : "https://type-api.rsbear.now.sh/graphql",
     credentials: "include",
     fetch
     // fetchOptions

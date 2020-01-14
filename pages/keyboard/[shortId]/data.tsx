@@ -53,7 +53,7 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
 
   return (
     <Layout title="Data" authUser={authUser} dynamicNav={dynamicNav}>
-      {loading && <h2>Loading...</h2>}
+      {loading && <h2 />}
       {!loading && !error && data && data.keyboard && (
         <div>
           <h1 css={text.heading}>{data.keyboard.name}</h1>

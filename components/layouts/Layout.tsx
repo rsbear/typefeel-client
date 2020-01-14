@@ -18,9 +18,8 @@ const Layout: FC<any> = ({ title, children, authUser, dynamicNav }) => (
 
 export default Layout;
 
-const wrapper = css``;
-
 const mainContent = css`
+  position: relative;
   padding-top: 50px;
   width: 900px;
 `;

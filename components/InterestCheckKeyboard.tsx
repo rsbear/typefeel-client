@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 
 import css from "@emotion/css";
-import { flex, grid50, margins } from "styles/main";
+import { flex, grid50, margins, colors } from "styles/main";
 import { Button } from "styles/buttons";
 import { useJoinKeyboardMutation } from "generated/graphql";
 import FollowButton from "./shared/FollowButton";
@@ -59,6 +59,19 @@ const InterestCheckKeyboard: FC<Props> = ({
 
   return (
     <div css={[flex.column]}>
+      <div css={[flex.row, flex.space]}>
+        {editions.length > 1 &&
+          editions.map(({ name }: any, i: number) => (
+            <h4
+              css={editionTitle}
+              className={index !== i ? undefined : "active"}
+              onClick={() => setIndex(i)}
+              key={i}
+            >
+              {name}
+            </h4>
+          ))}
+      </div>
       <h4 css={margins("0 0 10px 0")}>Select a case material</h4>
       <div css={grid50}>
         {editions[index].cases.map((c: string, i: number) => (
@@ -115,6 +128,20 @@ const joinFollowContainer = css`
   justify-self: flex-end;
 `;
 
-const heartIcon = css`
-  margin-left: 5px;
+const editionTitle = css`
+  opacity: 0.5;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+
+  &.active {
+    opacity: 1;
+    color: ${colors.black70};
+    border-bottom: solid 1px dodgerblue;
+  }
+
+  &:hover {
+    color: ${colors.black60};
+  }
 `;

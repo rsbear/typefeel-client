@@ -44,7 +44,7 @@ const Landing: GetProps<any> = ({ authUser }) => {
         keyboards.data &&
         keyboards.data.sortKeyboards && (
           <div css={grid50}>
-            {keyboards.data.sortKeyboards.map((k: any) => (
+            {keyboards.data.sortKeyboards.slice(0, 2).map((k: any) => (
               <Link
                 href="/keyboard/[shortId]"
                 as={`/keyboard/${k.shortId}`}
@@ -70,7 +70,7 @@ const Landing: GetProps<any> = ({ authUser }) => {
         keysets.data &&
         keysets.data.sortKeysets && (
           <div css={grid50}>
-            {keysets.data.sortKeysets.map((k: any) => (
+            {keysets.data.sortKeysets.slice(0, 2).map((k: any) => (
               <Link
                 href="/keyset/[shortId]"
                 as={`/keyset/${k.shortId}`}
