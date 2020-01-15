@@ -7,8 +7,9 @@ import BarChart from "components/BarChart";
 
 const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
   const [totalJoins, setTotalJoins] = useState("");
-  const [graphCases, setGraphCases] = useState([]);
-  const [graphData, setGraphData] = useState([]);
+  const [caseData, setCaseData] = useState([]);
+  const [editionsData, setEditionsData] = useState([]);
+
   const { loading, error, data } = useKeyboardDataQuery({
     variables: { shortId }
   });
@@ -18,25 +19,39 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
       let total = JSON.stringify(data.keyboard.joins.length);
       setTotalJoins(total);
 
-      const { cases } = data.keyboard.editions[0];
-      const casesAvailable = cases.map((c: string) => c);
-      setGraphCases(casesAvailable);
+      const editionsArr = [];
+      const test = data.keyboard.editions.map(e => {
+        editionsArr.push(e.name);
+      });
 
+      // collect all case joins and put into arr
+      // ["Alu", "PC", "Alu", "Brass", "Brass"]
       const arr = [];
       const { joins } = data.keyboard;
-      for (let c of casesAvailable) {
-        for (let j of joins) {
-          if (j.caseChoice === c) {
-            arr.push(j.caseChoice);
-          }
-        }
+      for (let j of joins) {
+        arr.push(j.caseChoice);
       }
 
-      const map = arr.reduce(
-        (acc, e) => acc.set(e, (acc.get(e) || 0) + 1),
-        new Map()
-      );
-      setGraphData([...map.values()]);
+      const res = {};
+      const objArr = [];
+      arr.forEach(v => {
+        res[v] = (res[v] || 0) + 1;
+      });
+
+      Object.entries(res).forEach(k => {
+        objArr.push({ caseType: k[0], count: k[1] });
+      });
+
+      setCaseData(objArr);
+
+      //DEPRECATED
+      //totals arr looks like [ 2, 5 ]
+      // const map = arr.reduce(
+      //   (acc, e) => acc.set(e, (acc.get(e) || 0) + 1),
+      //   new Map()
+      // );
+
+      // setGraphData([...map.values()]);
     }
   }, [loading]);
 
@@ -62,7 +77,11 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
               ? `${totalJoins} supporters`
               : "Be the first to show your support"}
           </h2>
-          <BarChart id="barchart" data={graphData} graphCases={graphCases} />
+          <BarChart
+            id="barchart"
+            caseData={caseData}
+            editionsData={editionsData}
+          />
         </div>
       )}
     </Layout>
