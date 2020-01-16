@@ -8,16 +8,10 @@ import css from "@emotion/css";
 import { colors } from "styles/main";
 import PieChart from "components/shared/PieChart";
 import * as d3 from "d3";
+import KeysetChart from "components/KeysetChart";
 
 const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
-  const generateData = (value, length = 5) =>
-    d3.range(length).map((item, index) => ({
-      date: index,
-      value: value === null || value === undefined ? Math.random() * 100 : value
-    }));
-
-  const [state, setState] = useState({});
-  const [pie, setPie] = useState(generateData(5, 5));
+  const [keysetData, setKeysetData] = useState([]);
   const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
 
   const dynamicNav = {
@@ -42,11 +36,18 @@ const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
         totals[i] = (totals[i] || 0) + 1;
       });
 
+      const res = {};
+      const objArr = [];
+      arr.forEach(v => {
+        res[v] = (res[v] || 0) + 1;
+      });
+
+      Object.entries(res).forEach(k => {
+        objArr.push({ kitType: k[0], count: k[1] });
+      });
       // setPie(generateData())
 
-      setState((prevState: any) => {
-        return { ...prevState, ...totals };
-      });
+      setKeysetData(objArr);
     }
   }, [loading]);
 
@@ -65,19 +66,13 @@ const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
           </h1>
           <h2>TOTALS</h2>
           <ul css={totalsList}>
-            {Object.entries(state).map(([kit, total]: any, idx: number) => (
+            {/* {Object.entries(state).map(([kit, total]: any, idx: number) => (
               <li key={idx}>
                 {kit} kits {total},&nbsp;
               </li>
-            ))}
+            ))} */}
           </ul>
-          <PieChart
-            data={pie}
-            width={200}
-            height={200}
-            innerRadius={60}
-            outerRadius={100}
-          />
+          <KeysetChart id="keysetchart" kitsData={keysetData} />
         </div>
       )}
     </Layout>

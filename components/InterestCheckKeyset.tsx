@@ -67,8 +67,8 @@ const InterestCheckKeyset: FC<Props> = ({ id, kits, joins, follows }) => {
             <Button
               secondary="true"
               margin="0 0 15px 0"
-              className={selectedKits.includes(kit) ? "active" : undefined}
-              onClick={() => handleKit(kit)}
+              className={selectedKits.includes(name) ? "active" : undefined}
+              onClick={() => handleKit(name)}
               key={id}
             >
               {name}

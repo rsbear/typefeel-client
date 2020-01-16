@@ -32,10 +32,10 @@ const InterestCheckKeyboard: FC<Props> = ({
 
   React.useEffect(() => {
     for (let j of authUserJoins) {
-      if (j.keyboardId === id) {
-        setAlreadyJoined(true);
-      } else {
+      if (j.keyboardId !== id) {
         setAlreadyJoined(false);
+      } else {
+        setAlreadyJoined(true);
       }
     }
   }, []);
