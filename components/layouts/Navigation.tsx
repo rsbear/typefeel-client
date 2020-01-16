@@ -79,7 +79,7 @@ const Navigation: FC<any> = ({ authUser, dynamicNav }) => {
               </li>
             </>
           )}
-          <li>Artisans</li>
+          {/* <li>Artisans</li> */}
           <li>
             <Link href="/create">
               <a>Create</a>
