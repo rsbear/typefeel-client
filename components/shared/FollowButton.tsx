@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Button } from "styles/buttons";
+import { Button, RoundButton } from "styles/buttons";
 import {
   useFollowKeyboardMutation,
   useFollowKeyboardDeleteMutation,
@@ -31,20 +31,20 @@ const FollowButton: FC<Props> = ({ id, follows }) => {
   const handleFollow = async () => {
     event.preventDefault();
     if (!following) {
+      setFollowing(true);
       try {
         await followMut({
           variables: { id }
         });
-        setFollowing(true);
       } catch (err) {
         console.log(err);
       }
     } else {
+      setFollowing(false);
       try {
         await unfollowMut({
           variables: { id: followId }
         });
-        setFollowing(false);
         setFollowId("");
       } catch (err) {
         console.log(err);
@@ -53,13 +53,14 @@ const FollowButton: FC<Props> = ({ id, follows }) => {
   };
 
   return !following ? (
-    <Button secondary="true" onClick={handleFollow}>
+    <RoundButton secondary="true" onClick={handleFollow}>
       Follow <i className="icon ion-ios-heart-empty" css={heartIcon} />
-    </Button>
+    </RoundButton>
   ) : (
-    <Button secondary="true" onClick={handleFollow}>
-      Following <i className="icon ion-ios-heart" css={heartIcon} />
-    </Button>
+    <RoundButton secondary="true" onClick={handleFollow}>
+      Following{" "}
+      <i className="icon ion-ios-heart" css={[heartIcon, heartIconFull]} />
+    </RoundButton>
   );
 };
 
@@ -67,4 +68,8 @@ export default FollowButton;
 
 const heartIcon = css`
   margin-left: 5px;
+`;
+
+const heartIconFull = css`
+  color: pink;
 `;

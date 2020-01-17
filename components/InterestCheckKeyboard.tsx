@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 
 import css from "@emotion/css";
 import { flex, grid50, margins, colors } from "styles/main";
-import { Button } from "styles/buttons";
+import { Button, RoundButton } from "styles/buttons";
 import { useJoinKeyboardMutation } from "generated/graphql";
 import FollowButton from "./shared/FollowButton";
 
@@ -59,19 +59,23 @@ const InterestCheckKeyboard: FC<Props> = ({
 
   return (
     <div css={[flex.column]}>
-      <div css={[flex.row, flex.space]}>
-        {editions.length > 1 &&
-          editions.map(({ name }: any, i: number) => (
-            <h4
-              css={editionTitle}
-              className={index !== i ? undefined : "active"}
-              onClick={() => setIndex(i)}
-              key={i}
-            >
-              {name}
-            </h4>
-          ))}
+      {/* switch edition view */}
+      <div css={flex.itemscenter}>
+        <div css={[flex.row, flex.space]}>
+          {editions.length > 1 &&
+            editions.map(({ name }: any, i: number) => (
+              <h4
+                css={editionTitle}
+                className={index !== i ? undefined : "active"}
+                onClick={() => setIndex(i)}
+                key={i}
+              >
+                {name}
+              </h4>
+            ))}
+        </div>
       </div>
+
       <h4 css={margins("0 0 10px 0")}>Select a case material</h4>
       <div css={grid50}>
         {editions[index].cases.map((c: string, i: number) => (
@@ -112,9 +116,14 @@ const InterestCheckKeyboard: FC<Props> = ({
         ))}
       </div>
       <div css={joinFollowContainer}>
-        <Button primary="true" margin="0 0 15px 0" onClick={e => handleJoin(e)}>
+        <RoundButton
+          large="true"
+          primary="true"
+          margins="0 0 15px 0"
+          onClick={e => handleJoin(e)}
+        >
           {!alreadyJoined ? "Join the interest check" : "You're in"}
-        </Button>
+        </RoundButton>
         <FollowButton id={id} follows={follows} />
       </div>
     </div>

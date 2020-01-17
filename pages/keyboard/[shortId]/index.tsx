@@ -54,6 +54,7 @@ const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
                 editions={data.keyboard.editions}
                 id={data.keyboard.id}
                 refresh={refetch}
+                follows={authUser ? authUser.follows : []}
               />
             )}
             {data.keyboard.interestCheck && (

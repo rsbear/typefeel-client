@@ -16,7 +16,8 @@ const Navigation: FC<any> = ({ authUser, dynamicNav }) => {
     if (!ref.current) {
       setSticky(false);
     } else {
-      const scroller = ref.current.getBoundingClientRect().top < -240;
+      // const scroller = ref.current.getBoundingClientRect().top < -240;
+      const scroller = ref.current.getBoundingClientRect().top < -400;
       setSticky(scroller);
     }
   };
@@ -122,8 +123,8 @@ const navStyle = css`
   }
   nav {
     position: relative;
-    width: 140px;
-    margin-right: 40px;
+    width: 160px;
+    margin-right: 100px;
     display: flex;
     flex-flow: column;
 

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { jsx, css } from "@emotion/core";
-import { colors } from "./main";
+import { colors, margins } from "./main";
 import { fontSize } from "./text";
 
 export const btn = css`
@@ -11,6 +11,18 @@ export const btn = css`
   border-radius: 4px;
   background-color: ${colors.black70};
   font-size: ${fontSize.small};
+  color: ${colors.white};
+  transition: all 200ms ease;
+`;
+export const roundLarge = css`
+  width: 100%;
+  height: 50px;
+  outline: none;
+  border: solid 0px ${colors.black90};
+  border-radius: 25px;
+  background-color: ${colors.black90};
+  font-weight: 300;
+  font-size: ${fontSize.medium};
   color: ${colors.white};
   transition: all 200ms ease;
 `;
@@ -55,26 +67,34 @@ const trashButton = css`
   color: white;
 `;
 
-export const DeleteButton = props => (
-  <button css={trashButton} {...props}>
-    <i className={props.icon} css={deleteIcon} />
-  </button>
-);
+export const DeleteButton = props => {
+  return (
+    <button css={trashButton} {...props}>
+      <i className={props.icon} css={deleteIcon} />
+    </button>
+  );
+};
+
+export const RoundButton: FC<any> = (props: any) => {
+  if (props.secondary) {
+    return (
+      <button {...props} css={[roundLarge, secondary, margins(props.margins)]}>
+        {props.children}
+      </button>
+    );
+  }
+  return (
+    <button {...props} css={[btn, roundLarge, margins(props.margins)]}>
+      {props.children}
+    </button>
+  );
+};
 
 export const Button: FC<any> = (props: any) => {
-  /* console.log(props); */
   if (props.primary) {
     return (
       <>
-        <button
-          {...props}
-          css={[
-            btn,
-            css`
-              margin: ${props.margin};
-            `
-          ]}
-        >
+        <button {...props} css={[btn, margins(props.margin)]}>
           {props.children}
         </button>
       </>
@@ -83,16 +103,7 @@ export const Button: FC<any> = (props: any) => {
   if (props.secondary) {
     return (
       <>
-        <button
-          {...props}
-          css={[
-            btn,
-            secondary,
-            css`
-              margin: ${props.margin};
-            `
-          ]}
-        >
+        <button {...props} css={[btn, secondary, margins(props.margin)]}>
           {props.children}
         </button>
       </>
@@ -101,15 +112,16 @@ export const Button: FC<any> = (props: any) => {
   if (props.small) {
     return (
       <>
-        <button
-          {...props}
-          css={[
-            btnSmall,
-            css`
-              margin: ${props.margin};
-            `
-          ]}
-        >
+        <button {...props} css={[btnSmall, margins(props.margin)]}>
+          {props.children}
+        </button>
+      </>
+    );
+  }
+  if (props.large && props.primary) {
+    return (
+      <>
+        <button {...props} css={[btn, roundLarge, margins(props.margin)]}>
           {props.children}
         </button>
       </>

@@ -4,6 +4,7 @@ import { colors } from './main'
 export const fontSize = {
   huge: '6rem',
   big: '3rem',
+  medium: "1rem",
   small: '.875rem',
   tiny: '.75rem'
 }

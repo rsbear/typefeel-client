@@ -1,6 +1,8 @@
 import { jsx, css } from '@emotion/core'
 
 export const colors = {
+  black90: 'rgba(0,0,0,.9)',
+  black80: 'rgba(0,0,0,.8)',
   black70: 'rgba(0,0,0,.7)',
   black60: 'rgba(0,0,0,.6)',
   black50: 'rgba(0,0,0,.5)',
@@ -44,6 +46,7 @@ export const grid50 = css`
   display: grid;
   grid-template-columns: calc(50% - 5px) calc(50% - 5px);
   grid-column-gap: 10px;
+  grid-row-gap: 8px;
 `
 export const grid33 = css`
   display: grid;

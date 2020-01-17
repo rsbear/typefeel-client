@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { useJoinKeysetMutation } from "generated/graphql";
 
-import { Button } from "styles/buttons";
+import { Button, RoundButton } from "styles/buttons";
 import { grid50, margins, flex } from "styles/main";
 import { css } from "@emotion/core";
 import FollowButton from "./shared/FollowButton";
@@ -76,13 +76,13 @@ const InterestCheckKeyset: FC<Props> = ({ id, kits, joins, follows }) => {
           ))}
         </div>
         <div css={[flex.column, btnContainer]}>
-          <Button
+          <RoundButton
             primary="true"
-            margin="auto 0 15px 0"
+            margins="auto 0 15px 0"
             onClick={handleMutation}
           >
             {!alreadyJoined ? `Join keyset` : "Already joined"}
-          </Button>
+          </RoundButton>
           <FollowButton id={id} follows={follows} />
         </div>
       </div>

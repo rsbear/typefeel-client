@@ -8,14 +8,16 @@ import {
 } from "generated/graphql";
 import { Button } from "styles/buttons";
 import Link from "next/link";
+import FollowButton from "./shared/FollowButton";
 
 interface Props {
   editions: any;
   id: string;
   refresh?: any;
+  follows?: any;
 }
 
-const MarketKeyboard: FC<Props> = ({ editions, id, refresh }) => {
+const MarketKeyboard: FC<Props> = ({ editions, id, refresh, follows }) => {
   const [index, setIndex] = useState(0);
   const [message, setMessage] = useState("");
   const [voteUp] = useVoteKeyboardUpMutation({
@@ -84,11 +86,7 @@ const MarketKeyboard: FC<Props> = ({ editions, id, refresh }) => {
       <h4 css={priceTitle}>Suggested price</h4>
       <h1 css={text.heading}>${editions[index].suggestedPrice}</h1>
 
-      {message ? (
-        <span css={voteSpan}>{message}</span>
-      ) : (
-        <span css={voteSpan}></span>
-      )}
+      {message && <span css={voteSpan}>{message}</span>}
       <div css={[flex.row, voteContainer]}>
         <button className="up" onClick={e => handleUp(e)}>
           <i className="icon ion-ios-arrow-up" />
@@ -101,8 +99,9 @@ const MarketKeyboard: FC<Props> = ({ editions, id, refresh }) => {
         <span>{a > b ? "Down" : "Up"}</span> {calculator}% from preorder
       </p>
       <div css={buttonContainer}>
-        <Button primary="true">Buy now</Button>
-        <Button primary="true">Sell now</Button>
+        {/* <Button primary="true">Buy now</Button>
+        <Button primary="true">Sell now</Button> */}
+        <FollowButton id={id} follows={follows} />
         <Link href="/faq">
           <a>FAQ</a>
         </Link>
