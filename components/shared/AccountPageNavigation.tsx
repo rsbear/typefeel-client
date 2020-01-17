@@ -20,7 +20,9 @@ const AccountPageNavigation: FC<Props> = ({ username, router }) => {
     event.preventDefault();
     await logout();
     setAccessToken("");
-    await client!.resetStore();
+    await client!.resetStore().then(() => {
+      router.push("/");
+    });
   };
 
   return (

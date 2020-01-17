@@ -1,3 +1,8 @@
 mutation signup($username: String!, $email: String!, $secret: String!) {
-  signup(username: $username, email: $email, secret: $secret)
+  signup(username: $username, email: $email, secret: $secret) {
+    accessToken
+    user {
+      id
+    }
+  }
 }

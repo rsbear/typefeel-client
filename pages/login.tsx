@@ -17,7 +17,7 @@ const Login: FC<any> = () => {
   const router = useRouter();
 
   const [generateAuth] = useGenerateAuthMutation();
-  const [login] = useLoginMutation();
+  const [login, { client }] = useLoginMutation();
 
   async function handleGenerateAuth(e: any, { email }) {
     e.preventDefault();
@@ -47,11 +47,11 @@ const Login: FC<any> = () => {
         }
       });
 
-      console.log(response);
-
       if (response && response.data) {
         setAccessToken(response.data.login.accessToken);
-        router.push("/");
+        await client!.resetStore().then(() => {
+          router.push("/");
+        });
       }
     } catch (err) {
       console.log(err);
@@ -73,6 +73,7 @@ const Login: FC<any> = () => {
                 margins="30px 0"
                 icon="icon ion-ios-mail"
                 placeholder="email@email.com"
+                value={values.email || ""}
                 name="email"
               />
               <Button primary="true" type="submit" margin="0 0 60px 0">
@@ -102,6 +103,7 @@ const Login: FC<any> = () => {
               margins="30px 0"
               icon="icon ion-ios-lock"
               placeholder="What's the magic word?"
+              value={values.secret || ""}
               name="secret"
             />
             <Button type="submit" primary="true">

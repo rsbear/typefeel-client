@@ -67,10 +67,6 @@ export type Follow = {
   keyset?: Maybe<Keyset>,
 };
 
-export type FollowInput = {
-  productId?: Maybe<Scalars['String']>,
-};
-
 export type JoinKeyboard = {
    __typename?: 'JoinKeyboard',
   id: Scalars['String'],
@@ -216,7 +212,7 @@ export type KitInput = {
 export type LoginResponse = {
    __typename?: 'LoginResponse',
   accessToken: Scalars['String'],
-  user: User,
+  user?: Maybe<User>,
 };
 
 export type Mutation = {
@@ -224,7 +220,7 @@ export type Mutation = {
   logout: Scalars['Boolean'],
   revokeRefreshTokensForUser: Scalars['Boolean'],
   login: LoginResponse,
-  signup: Scalars['Boolean'],
+  signup: LoginResponse,
   banUser: Scalars['Boolean'],
   generateSignupAuth: SuccessResponse,
   generateAuth: Scalars['Boolean'],
@@ -763,10 +759,10 @@ export type LoginMutation = (
   & { login: (
     { __typename?: 'LoginResponse' }
     & Pick<LoginResponse, 'accessToken'>
-    & { user: (
+    & { user: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id'>
-    ) }
+    )> }
   ) }
 );
 
@@ -834,7 +830,14 @@ export type SignupMutationVariables = {
 
 export type SignupMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'signup'>
+  & { signup: (
+    { __typename?: 'LoginResponse' }
+    & Pick<LoginResponse, 'accessToken'>
+    & { user: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )> }
+  ) }
 );
 
 export type SortKeyboardsQueryVariables = {
@@ -1809,7 +1812,12 @@ export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = ApolloReactCommon.QueryResult<MeQuery, MeQueryVariables>;
 export const SignupDocument = gql`
     mutation signup($username: String!, $email: String!, $secret: String!) {
-  signup(username: $username, email: $email, secret: $secret)
+  signup(username: $username, email: $email, secret: $secret) {
+    accessToken
+    user {
+      id
+    }
+  }
 }
     `;
 export type SignupMutationFn = ApolloReactCommon.MutationFunction<SignupMutation, SignupMutationVariables>;

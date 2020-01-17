@@ -59,6 +59,7 @@ const MarketKeyboard: FC<Props> = ({ editions, id, refresh }) => {
     }
   };
 
+  // percentage difference calculator
   const a = editions[index].price;
   const b = editions[index].suggestedPrice;
   const calculator = (((b - a) / a) * 100).toFixed();

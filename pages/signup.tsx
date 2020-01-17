@@ -1,32 +1,45 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { jsx, css } from "@emotion/core";
 import { inputBox } from "styles/inputs";
 import { margins } from "styles/main";
 import { Button } from "styles/buttons";
-import gql from "graphql-tag";
 import Link from "next/link";
 import {
   useSignupMutation,
   useGenerateSignupAuthMutation
 } from "generated/graphql";
+import { setAccessToken } from "lib/accessToken";
+import { useRouter } from "next/router";
 
 const Signup: FC<any> = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [secret, setSecret] = useState("");
+  const [state, setState] = useState({
+    email: "",
+    username: "",
+    secret: ""
+  });
   const [error, setError] = useState("");
   const [confirm, setConfirm] = useState(false);
+  const router = useRouter();
 
   const [generateSignupAuth] = useGenerateSignupAuthMutation();
-  const [signup] = useSignupMutation();
+  const [signup, { client }] = useSignupMutation();
 
   // const [generateAuth, auth] = useMutation(GENERATE_AUTH);
   // const [signup, user] = useMutation(SIGNUP);
 
+  const handleChange = event => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    });
+  };
+
   async function handleGenerateAuth(e: any) {
     e.preventDefault();
     try {
-      let res = await generateSignupAuth({ variables: { email, username } });
+      let res = await generateSignupAuth({
+        variables: { email: state.email, username: state.username }
+      });
       console.log(res);
       if (res.data && !res.data.generateSignupAuth.success) {
         setError(res.data.generateSignupAuth.message);
@@ -43,12 +56,26 @@ const Signup: FC<any> = () => {
   async function handleSignup(e: any) {
     e.preventDefault();
     try {
-      await signup({ variables: { secret, email, username } });
-      // console.log(user);
+      const res = await signup({
+        variables: {
+          secret: state.secret,
+          email: state.email,
+          username: state.username
+        }
+      });
+      console.log(res);
+      if (res && res.data) {
+        setAccessToken(res.data.signup.accessToken);
+        await client!.resetStore().then(() => {
+          router.push("/");
+        });
+      }
     } catch (err) {
       console.log(err);
     }
   }
+
+  useEffect(() => {}, [confirm]);
 
   if (confirm) {
     return (
@@ -61,7 +88,9 @@ const Signup: FC<any> = () => {
             <input
               type="text"
               placeholder="What's the magic word"
-              onChange={e => setSecret(e.currentTarget.value)}
+              value={state.secret || ""}
+              name="secret"
+              onChange={handleChange}
               autoFocus
             />
           </div>
@@ -83,7 +112,9 @@ const Signup: FC<any> = () => {
           <input
             type="text"
             placeholder="email@email.com"
-            onChange={e => setEmail(e.currentTarget.value)}
+            value={state.email || ""}
+            name="email"
+            onChange={handleChange}
             autoFocus
           />
         </div>
@@ -91,7 +122,9 @@ const Signup: FC<any> = () => {
           <input
             type="text"
             placeholder="Username"
-            onChange={e => setUsername(e.currentTarget.value)}
+            value={state.username || ""}
+            name="username"
+            onChange={handleChange}
           />
         </div>
         <Button
