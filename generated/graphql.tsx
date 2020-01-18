@@ -67,6 +67,12 @@ export type Follow = {
   keyset?: Maybe<Keyset>,
 };
 
+export type FollowResponse = {
+   __typename?: 'FollowResponse',
+  success: Scalars['Boolean'],
+  id: Scalars['String'],
+};
+
 export type JoinKeyboard = {
    __typename?: 'JoinKeyboard',
   id: Scalars['String'],
@@ -243,11 +249,8 @@ export type Mutation = {
   deleteJoinKeyset: Scalars['Boolean'],
   createPost: Scalars['Boolean'],
   deletePost: Scalars['Boolean'],
-  createFollow: Scalars['Boolean'],
-  followKeyboard: Scalars['Boolean'],
-  followKeyboardDelete: Scalars['Boolean'],
-  followKeyset: Scalars['Boolean'],
-  followKeysetDelete: Scalars['Boolean'],
+  createFollow: FollowResponse,
+  unfollow: Scalars['Boolean'],
   deleteFollow: Scalars['Boolean'],
 };
 
@@ -394,22 +397,7 @@ export type MutationCreateFollowArgs = {
 };
 
 
-export type MutationFollowKeyboardArgs = {
-  id: Scalars['String']
-};
-
-
-export type MutationFollowKeyboardDeleteArgs = {
-  id: Scalars['String']
-};
-
-
-export type MutationFollowKeysetArgs = {
-  id: Scalars['String']
-};
-
-
-export type MutationFollowKeysetDeleteArgs = {
+export type MutationUnfollowArgs = {
   id: Scalars['String']
 };
 
@@ -527,7 +515,10 @@ export type CreateFollowMutationVariables = {
 
 export type CreateFollowMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'createFollow'>
+  & { createFollow: (
+    { __typename?: 'FollowResponse' }
+    & Pick<FollowResponse, 'success' | 'id'>
+  ) }
 );
 
 export type CreatePostMutationVariables = {
@@ -539,26 +530,6 @@ export type CreatePostMutationVariables = {
 export type CreatePostMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'createPost'>
-);
-
-export type FollowKeyboardMutationVariables = {
-  id: Scalars['String']
-};
-
-
-export type FollowKeyboardMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'followKeyboard'>
-);
-
-export type FollowKeyboardDeleteMutationVariables = {
-  id: Scalars['String']
-};
-
-
-export type FollowKeyboardDeleteMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'followKeyboardDelete'>
 );
 
 export type GenerateAuthMutationVariables = {
@@ -866,6 +837,16 @@ export type SortKeysetsQuery = (
   )> }
 );
 
+export type UnfollowMutationVariables = {
+  id: Scalars['String']
+};
+
+
+export type UnfollowMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'unfollow'>
+);
+
 export type UpdateKeyboardMutationVariables = {
   id: Scalars['String'],
   data: KeyboardInput
@@ -1015,7 +996,10 @@ export type ByeLazyQueryHookResult = ReturnType<typeof useByeLazyQuery>;
 export type ByeQueryResult = ApolloReactCommon.QueryResult<ByeQuery, ByeQueryVariables>;
 export const CreateFollowDocument = gql`
     mutation createFollow($id: String!) {
-  createFollow(id: $id)
+  createFollow(id: $id) {
+    success
+    id
+  }
 }
     `;
 export type CreateFollowMutationFn = ApolloReactCommon.MutationFunction<CreateFollowMutation, CreateFollowMutationVariables>;
@@ -1074,66 +1058,6 @@ export function useCreatePostMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = ApolloReactCommon.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
-export const FollowKeyboardDocument = gql`
-    mutation followKeyboard($id: String!) {
-  followKeyboard(id: $id)
-}
-    `;
-export type FollowKeyboardMutationFn = ApolloReactCommon.MutationFunction<FollowKeyboardMutation, FollowKeyboardMutationVariables>;
-
-/**
- * __useFollowKeyboardMutation__
- *
- * To run a mutation, you first call `useFollowKeyboardMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useFollowKeyboardMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [followKeyboardMutation, { data, loading, error }] = useFollowKeyboardMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useFollowKeyboardMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<FollowKeyboardMutation, FollowKeyboardMutationVariables>) {
-        return ApolloReactHooks.useMutation<FollowKeyboardMutation, FollowKeyboardMutationVariables>(FollowKeyboardDocument, baseOptions);
-      }
-export type FollowKeyboardMutationHookResult = ReturnType<typeof useFollowKeyboardMutation>;
-export type FollowKeyboardMutationResult = ApolloReactCommon.MutationResult<FollowKeyboardMutation>;
-export type FollowKeyboardMutationOptions = ApolloReactCommon.BaseMutationOptions<FollowKeyboardMutation, FollowKeyboardMutationVariables>;
-export const FollowKeyboardDeleteDocument = gql`
-    mutation followKeyboardDelete($id: String!) {
-  followKeyboardDelete(id: $id)
-}
-    `;
-export type FollowKeyboardDeleteMutationFn = ApolloReactCommon.MutationFunction<FollowKeyboardDeleteMutation, FollowKeyboardDeleteMutationVariables>;
-
-/**
- * __useFollowKeyboardDeleteMutation__
- *
- * To run a mutation, you first call `useFollowKeyboardDeleteMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useFollowKeyboardDeleteMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [followKeyboardDeleteMutation, { data, loading, error }] = useFollowKeyboardDeleteMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useFollowKeyboardDeleteMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<FollowKeyboardDeleteMutation, FollowKeyboardDeleteMutationVariables>) {
-        return ApolloReactHooks.useMutation<FollowKeyboardDeleteMutation, FollowKeyboardDeleteMutationVariables>(FollowKeyboardDeleteDocument, baseOptions);
-      }
-export type FollowKeyboardDeleteMutationHookResult = ReturnType<typeof useFollowKeyboardDeleteMutation>;
-export type FollowKeyboardDeleteMutationResult = ApolloReactCommon.MutationResult<FollowKeyboardDeleteMutation>;
-export type FollowKeyboardDeleteMutationOptions = ApolloReactCommon.BaseMutationOptions<FollowKeyboardDeleteMutation, FollowKeyboardDeleteMutationVariables>;
 export const GenerateAuthDocument = gql`
     mutation generateAuth($email: String!) {
   generateAuth(email: $email)
@@ -1922,6 +1846,36 @@ export function useSortKeysetsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type SortKeysetsQueryHookResult = ReturnType<typeof useSortKeysetsQuery>;
 export type SortKeysetsLazyQueryHookResult = ReturnType<typeof useSortKeysetsLazyQuery>;
 export type SortKeysetsQueryResult = ApolloReactCommon.QueryResult<SortKeysetsQuery, SortKeysetsQueryVariables>;
+export const UnfollowDocument = gql`
+    mutation Unfollow($id: String!) {
+  unfollow(id: $id)
+}
+    `;
+export type UnfollowMutationFn = ApolloReactCommon.MutationFunction<UnfollowMutation, UnfollowMutationVariables>;
+
+/**
+ * __useUnfollowMutation__
+ *
+ * To run a mutation, you first call `useUnfollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnfollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unfollowMutation, { data, loading, error }] = useUnfollowMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useUnfollowMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UnfollowMutation, UnfollowMutationVariables>) {
+        return ApolloReactHooks.useMutation<UnfollowMutation, UnfollowMutationVariables>(UnfollowDocument, baseOptions);
+      }
+export type UnfollowMutationHookResult = ReturnType<typeof useUnfollowMutation>;
+export type UnfollowMutationResult = ApolloReactCommon.MutationResult<UnfollowMutation>;
+export type UnfollowMutationOptions = ApolloReactCommon.BaseMutationOptions<UnfollowMutation, UnfollowMutationVariables>;
 export const UpdateKeyboardDocument = gql`
     mutation updateKeyboard($id: String!, $data: KeyboardInput!) {
   updateKeyboard(id: $id, data: $data)

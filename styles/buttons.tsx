@@ -53,6 +53,13 @@ const secondary = css`
   }
 `;
 
+const disable = css`
+  border: solid 0px ${colors.black50};
+  background-color: ${colors.black50};
+  color: ${colors.white};
+  cursor: default;
+`;
+
 const deleteIcon = css`
   font-size: 18px;
 `;
@@ -79,6 +86,13 @@ export const RoundButton: FC<any> = (props: any) => {
   if (props.secondary) {
     return (
       <button {...props} css={[roundLarge, secondary, margins(props.margins)]}>
+        {props.children}
+      </button>
+    );
+  }
+  if (props.disabled) {
+    return (
+      <button {...props} css={[roundLarge, disable, margins(props.margins)]}>
         {props.children}
       </button>
     );

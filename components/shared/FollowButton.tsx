@@ -1,9 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Button, RoundButton } from "styles/buttons";
 import {
-  useFollowKeyboardMutation,
-  useFollowKeyboardDeleteMutation,
-  useCreateFollowMutation
+  useCreateFollowMutation,
+  useUnfollowMutation
 } from "generated/graphql";
 import css from "@emotion/css";
 
@@ -17,9 +16,9 @@ const FollowButton: FC<Props> = ({ id, follows }) => {
   const [followId, setFollowId] = useState("");
 
   const [followMut] = useCreateFollowMutation();
-  const [unfollowMut] = useFollowKeyboardDeleteMutation();
+  const [unfollowMut] = useUnfollowMutation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     for (let f of follows) {
       if (f.productId === id) {
         setFollowing(true);
@@ -33,9 +32,12 @@ const FollowButton: FC<Props> = ({ id, follows }) => {
     if (!following) {
       setFollowing(true);
       try {
-        await followMut({
+        const res = await followMut({
           variables: { id }
         });
+        if (res.data && res.data.createFollow.success) {
+          setFollowId(res.data.createFollow.id);
+        }
       } catch (err) {
         console.log(err);
       }

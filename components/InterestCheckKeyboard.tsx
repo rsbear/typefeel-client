@@ -60,7 +60,7 @@ const InterestCheckKeyboard: FC<Props> = ({
   return (
     <div css={[flex.column]}>
       {/* switch edition view */}
-      <div css={flex.itemscenter}>
+      <div css={[flex.itemscenter, edContainer]}>
         <div css={[flex.row, flex.space]}>
           {editions.length > 1 &&
             editions.map(({ name }: any, i: number) => (
@@ -116,14 +116,20 @@ const InterestCheckKeyboard: FC<Props> = ({
         ))}
       </div>
       <div css={joinFollowContainer}>
-        <RoundButton
-          large="true"
-          primary="true"
-          margins="0 0 15px 0"
-          onClick={e => handleJoin(e)}
-        >
-          {!alreadyJoined ? "Join the interest check" : "You're in"}
-        </RoundButton>
+        {!alreadyJoined ? (
+          <RoundButton
+            large="true"
+            primary="true"
+            margins="0 0 15px 0"
+            onClick={e => handleJoin(e)}
+          >
+            Join it
+          </RoundButton>
+        ) : (
+          <RoundButton large="true" disabled="true" margins="0 0 15px 0">
+            You're in
+          </RoundButton>
+        )}
         <FollowButton id={id} follows={follows} />
       </div>
     </div>
@@ -131,6 +137,10 @@ const InterestCheckKeyboard: FC<Props> = ({
 };
 
 export default InterestCheckKeyboard;
+
+const edContainer = css`
+  margin: 0 auto;
+`;
 
 const joinFollowContainer = css`
   margin-top: auto;

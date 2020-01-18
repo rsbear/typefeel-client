@@ -1,3 +1,0 @@
-mutation followKeyboardDelete($id: String!) {
-  followKeyboardDelete(id: $id)
-}
