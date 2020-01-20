@@ -44,7 +44,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
 
   const editionObj = {
     price: 0,
-    suggestedPrice: 0,
+    suggestedPrice: null,
     name: "",
     cases: [""],
     colors: [],
