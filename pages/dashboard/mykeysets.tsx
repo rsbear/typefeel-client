@@ -8,6 +8,7 @@ import { text } from "styles/text";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useCheckAuth from "hooks/useCheckAuth";
+import KeysetProjectTile from "components/dashboard/KeysetProjectTile";
 
 const Dashboard: FC<any> = ({ authUser }) => {
   useCheckAuth(authUser);
@@ -24,18 +25,7 @@ const Dashboard: FC<any> = ({ authUser }) => {
           <h3>My keysets in interest check</h3>
           {data.me.keysets.map(
             (k: any) =>
-              k.interestCheck && (
-                <div key={k.id}>
-                  <h3>{k.name}</h3>
-                  <p>Join count: {JSON.stringify(k.joins.length)}</p>
-                  <Link
-                    href="/dashboard/update/keyset/[shortId]"
-                    as={`/dashboard/update/keyset/${k.shortId}`}
-                  >
-                    <a>Update</a>
-                  </Link>
-                </div>
-              )
+              k.interestCheck && <KeysetProjectTile key={k.id} keyset={k} />
           )}
         </div>
       )}

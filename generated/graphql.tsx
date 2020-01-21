@@ -879,7 +879,7 @@ export type UserDashboardQuery = (
     & Pick<User, 'id' | 'username' | 'email'>
     & { keyboards: Array<(
       { __typename?: 'Keyboard' }
-      & Pick<Keyboard, 'id' | 'shortId' | 'name' | 'interestCheck' | 'groupBuy' | 'groupBuySoon' | 'closed'>
+      & Pick<Keyboard, 'id' | 'shortId' | 'name' | 'size' | 'interestCheck' | 'groupBuy' | 'groupBuySoon' | 'closed'>
       & { joins: Maybe<Array<(
         { __typename?: 'JoinKeyboard' }
         & Pick<JoinKeyboard, 'id'>
@@ -1958,6 +1958,7 @@ export const UserDashboardDocument = gql`
       id
       shortId
       name
+      size
       joins {
         id
       }

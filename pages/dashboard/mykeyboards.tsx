@@ -8,7 +8,8 @@ import { text } from "styles/text";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useCheckAuth from "hooks/useCheckAuth";
-import KeyboardProjectTile from "components/KeyboardProjectTile";
+import KeyboardProjectTile from "components/dashboard/KeyboardProjectTile";
+import { flex } from "styles/main";
 
 const Dashboard: FC<any> = ({ authUser }) => {
   useCheckAuth(authUser);
@@ -22,11 +23,21 @@ const Dashboard: FC<any> = ({ authUser }) => {
       {!loading && data && data.me && (
         <div>
           <AccountPageNavigation username={data.me.username} router={router} />
-          <h3>My keyboards in interest check</h3>
-          {data.me.keyboards.map(
-            (k: any) =>
-              k.interestCheck && <KeyboardProjectTile key={k.id} keyboard={k} />
-          )}
+          <div css={[flex.row]}>
+            <div css={interestCheckWrapper}>
+              <h2>In interest check</h2>
+              {data.me.keyboards.map(
+                (k: any) =>
+                  k.interestCheck && (
+                    <KeyboardProjectTile key={k.id} keyboard={k} />
+                  )
+              )}
+            </div>
+            <div css={groupBuyWrapper}>
+              <h2>In group buy</h2>
+              <h3>Coming soon</h3>
+            </div>
+          </div>
         </div>
       )}
     </Layout>
@@ -34,3 +45,13 @@ const Dashboard: FC<any> = ({ authUser }) => {
 };
 
 export default Dashboard;
+
+const interestCheckWrapper = css`
+  width: 50%;
+  padding-right: 20px;
+`;
+
+const groupBuyWrapper = css`
+  width: 50%;
+  padding-left: 20px;
+`;

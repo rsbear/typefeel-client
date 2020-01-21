@@ -26,7 +26,7 @@ const AccountPageNavigation: FC<Props> = ({ username, router }) => {
   };
 
   return (
-    <div>
+    <div css={wrapper}>
       <h1 css={text.heading}>{username}</h1>
       <ul css={accountNav}>
         <Link href="/dashboard">
@@ -66,6 +66,10 @@ const AccountPageNavigation: FC<Props> = ({ username, router }) => {
 };
 
 export default AccountPageNavigation;
+
+const wrapper = css`
+  margin-bottom: 50px;
+`;
 
 const accountNav = css`
   margin-top: 20px;

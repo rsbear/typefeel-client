@@ -7,9 +7,9 @@ import { useUserDashboardQuery } from "generated/graphql";
 import css from "@emotion/css";
 import { text } from "styles/text";
 import AccountPageNavigation from "components/shared/AccountPageNavigation";
-import FollowTile from "components/FollowTile";
+import FollowTile from "components/dashboard/FollowTile";
 import { flex } from "styles/main";
-import JoinTile from "components/JoinTile";
+import JoinTile from "components/dashboard/JoinTile";
 
 const Dashboard: FC<any> = ({ authUser }) => {
   useCheckAuth(authUser);
