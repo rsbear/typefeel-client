@@ -16,7 +16,6 @@ const Navigation: FC<any> = ({ authUser, dynamicNav }) => {
     if (!ref.current) {
       setSticky(false);
     } else {
-      // const scroller = ref.current.getBoundingClientRect().top < -240;
       const scroller = ref.current.getBoundingClientRect().top < -400;
       setSticky(scroller);
     }

@@ -1,21 +1,20 @@
 import React, { FC, useEffect } from "react";
 import Layout from "components/layouts/Layout";
+import useCheckAuth from "hooks/useCheckAuth";
+import { useRouter } from "next/router";
 import { useUserDashboardQuery } from "generated/graphql";
 
 import css from "@emotion/css";
 import { text } from "styles/text";
 import AccountPageNavigation from "components/shared/AccountPageNavigation";
-import { useRouter } from "next/router";
+import FollowTile from "components/FollowTile";
+import { flex } from "styles/main";
+import JoinTile from "components/JoinTile";
 
 const Dashboard: FC<any> = ({ authUser }) => {
+  useCheckAuth(authUser);
   const router = useRouter();
   const { loading, error, data } = useUserDashboardQuery();
-
-  useEffect(() => {
-    if (!authUser) {
-      router.push("/login");
-    }
-  }, []);
 
   return (
     <Layout title="Dashboard" authUser={authUser}>
@@ -24,14 +23,23 @@ const Dashboard: FC<any> = ({ authUser }) => {
       {!loading && data && data.me && (
         <div>
           <AccountPageNavigation username={authUser.username} router={router} />
-          <div>
-            <h2>Follows</h2>
-            {data.me.follows.map((f: any) => (
-              <div key={f.id}>
-                {f.keyboard && <h5>{f.keyboard.name}</h5>}
-                {f.keyset && <h5>{f.keyset.name}</h5>}
-              </div>
-            ))}
+          <div css={[flex.row]}>
+            <div css={joinsWrapper}>
+              <h2>Joins</h2>
+              {data.me.keyboardjoins.map(({ keyboard }: any, i: number) => (
+                <JoinTile key={i} keyboard={keyboard} />
+              ))}
+            </div>
+            <div css={followsWrapper}>
+              <h2>Follows</h2>
+              {data.me.follows.map((f: any) => (
+                <FollowTile
+                  keyboard={f.keyboard}
+                  keyset={f.keyset}
+                  key={f.id}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -41,13 +49,11 @@ const Dashboard: FC<any> = ({ authUser }) => {
 
 export default Dashboard;
 
-const accountNav = css`
-  margin-top: 20px;
-  display: flex;
+const joinsWrapper = css`
+  padding-right: 40px;
+  width: 60%;
+`;
 
-  li {
-    margin-right: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-  }
+const followsWrapper = css`
+  width: 40%;
 `;

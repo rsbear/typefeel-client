@@ -21,6 +21,16 @@ query userDashboard {
         shortId
         id
         name
+        size
+      }
+    }
+    keysetjoins {
+      id
+      keyset {
+        id
+        shortId
+        name
+        profile
       }
     }
     keysets {
@@ -44,6 +54,12 @@ query userDashboard {
         size
         mount
         shortId
+      }
+      keyset {
+        id
+        shortId
+        name
+        profile
       }
     }
   }

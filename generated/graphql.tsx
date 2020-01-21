@@ -889,7 +889,14 @@ export type UserDashboardQuery = (
       & Pick<JoinKeyboard, 'id'>
       & { keyboard: Maybe<(
         { __typename?: 'Keyboard' }
-        & Pick<Keyboard, 'shortId' | 'id' | 'name'>
+        & Pick<Keyboard, 'shortId' | 'id' | 'name' | 'size'>
+      )> }
+    )>, keysetjoins: Array<(
+      { __typename?: 'JoinKeyset' }
+      & Pick<JoinKeyset, 'id'>
+      & { keyset: Maybe<(
+        { __typename?: 'Keyset' }
+        & Pick<Keyset, 'id' | 'shortId' | 'name' | 'profile'>
       )> }
     )>, keysets: Array<(
       { __typename?: 'Keyset' }
@@ -904,6 +911,9 @@ export type UserDashboardQuery = (
       & { keyboard: Maybe<(
         { __typename?: 'Keyboard' }
         & Pick<Keyboard, 'id' | 'name' | 'size' | 'mount' | 'shortId'>
+      )>, keyset: Maybe<(
+        { __typename?: 'Keyset' }
+        & Pick<Keyset, 'id' | 'shortId' | 'name' | 'profile'>
       )> }
     )> }
   )> }
@@ -1962,6 +1972,16 @@ export const UserDashboardDocument = gql`
         shortId
         id
         name
+        size
+      }
+    }
+    keysetjoins {
+      id
+      keyset {
+        id
+        shortId
+        name
+        profile
       }
     }
     keysets {
@@ -1985,6 +2005,12 @@ export const UserDashboardDocument = gql`
         size
         mount
         shortId
+      }
+      keyset {
+        id
+        shortId
+        name
+        profile
       }
     }
   }

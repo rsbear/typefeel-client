@@ -115,7 +115,7 @@ const contentBox = css`
 
 const mainImg = css`
   height: 500px;
-  width: 100%;
+  width: 90%;
   object-fit: cover;
   object-position: center;
 `;

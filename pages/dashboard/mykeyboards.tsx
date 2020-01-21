@@ -7,8 +7,11 @@ import css from "@emotion/css";
 import { text } from "styles/text";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import useCheckAuth from "hooks/useCheckAuth";
+import KeyboardProjectTile from "components/KeyboardProjectTile";
 
 const Dashboard: FC<any> = ({ authUser }) => {
+  useCheckAuth(authUser);
   const router = useRouter();
   const { loading, error, data } = useUserDashboardQuery();
 
@@ -22,18 +25,7 @@ const Dashboard: FC<any> = ({ authUser }) => {
           <h3>My keyboards in interest check</h3>
           {data.me.keyboards.map(
             (k: any) =>
-              k.interestCheck && (
-                <div key={k.id}>
-                  <h3>{k.name}</h3>
-                  <p>Join count: {JSON.stringify(k.joins.length)}</p>
-                  <Link
-                    href="/dashboard/update/keyboard/[shortId]"
-                    as={`/dashboard/update/keyboard/${k.shortId}`}
-                  >
-                    <a>Update</a>
-                  </Link>
-                </div>
-              )
+              k.interestCheck && <KeyboardProjectTile key={k.id} keyboard={k} />
           )}
         </div>
       )}

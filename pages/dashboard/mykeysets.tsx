@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Layout from "components/layouts/Layout";
 import AccountPageNavigation from "components/shared/AccountPageNavigation";
 import { useUserDashboardQuery, Keyboard } from "generated/graphql";
@@ -7,16 +7,12 @@ import css from "@emotion/css";
 import { text } from "styles/text";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import useCheckAuth from "hooks/useCheckAuth";
 
 const Dashboard: FC<any> = ({ authUser }) => {
+  useCheckAuth(authUser);
   const router = useRouter();
   const { loading, error, data } = useUserDashboardQuery();
-
-  React.useEffect(() => {
-    if (!loading) {
-      console.log(data);
-    }
-  }, [loading]);
 
   return (
     <Layout title="Dashboard - My Keysets" authUser={authUser}>
