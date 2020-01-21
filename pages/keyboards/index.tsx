@@ -10,18 +10,14 @@ import Tile from "components/Tile";
 import { useKeyboardsQuery } from "generated/graphql";
 
 const Keyboards: GetProps<any> = ({ authUser }) => {
-  const {
-    loading,
-    error,
-    data: { keyboards }
-  } = useKeyboardsQuery();
+  const { loading, error, data } = useKeyboardsQuery();
 
   return (
     <Layout title="Keyboards" authUser={authUser}>
       <h1 css={text.heading}>Keyboards</h1>
-      {!loading && keyboards && (
+      {!loading && data && data.keyboards && (
         <div css={grid50}>
-          {keyboards.map((k: any) => (
+          {data.keyboards.map((k: any) => (
             <Link
               href="/keyboard/[shortId]"
               as={`/keyboard/${k.shortId}`}
