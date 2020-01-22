@@ -60,10 +60,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-dropzone": "^10.1.10",
-    "react-is": "^16.11.0",
-    "react-ssr-prepass": "^1.0.7",
     "reflect-metadata": "^0.1.13",
-    "styled-components": "^4.4.0",
-    "wonka": "^3.2.1"
+    "styled-components": "^4.4.0"
   }
 }
