@@ -5,12 +5,14 @@ import { Button, RoundButton } from "styles/buttons";
 import { grid50, margins, flex } from "styles/main";
 import { css } from "@emotion/core";
 import FollowButton from "./shared/FollowButton";
+import Link from "next/link";
 
 interface Props {
   kits?: any;
   id: string;
   joins?: any;
   follows?: any;
+  authUser?: any;
 }
 
 interface Kit {
@@ -19,7 +21,13 @@ interface Kit {
   name: string;
 }
 
-const InterestCheckKeyset: FC<Props> = ({ id, kits, joins, follows }) => {
+const InterestCheckKeyset: FC<Props> = ({
+  id,
+  kits,
+  joins,
+  follows,
+  authUser
+}) => {
   const [alreadyJoined, setAlreadyJoined] = useState(false);
   const [selectedKits, setSelectedKits] = useState([]);
   const [joinMutation] = useJoinKeysetMutation();
@@ -76,14 +84,26 @@ const InterestCheckKeyset: FC<Props> = ({ id, kits, joins, follows }) => {
           ))}
         </div>
         <div css={[flex.column, btnContainer]}>
-          <RoundButton
-            primary="true"
-            margins="auto 0 15px 0"
-            onClick={handleMutation}
-          >
-            {!alreadyJoined ? `Join keyset` : "Already joined"}
-          </RoundButton>
-          <FollowButton id={id} follows={follows} />
+          {!authUser ? (
+            <Link href="/login">
+              <a>
+                <RoundButton large="true" primary="true" margins="0 0 15px 0">
+                  Log in to join or follow
+                </RoundButton>
+              </a>
+            </Link>
+          ) : (
+            <>
+              <RoundButton
+                primary="true"
+                margins="auto 0 15px 0"
+                onClick={handleMutation}
+              >
+                {!alreadyJoined ? `Join keyset` : "Already joined"}
+              </RoundButton>
+              <FollowButton id={id} follows={follows} />
+            </>
+          )}
         </div>
       </div>
     </>

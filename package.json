@@ -41,6 +41,7 @@
     "apollo-link": "^1.2.13",
     "apollo-link-context": "^1.0.19",
     "apollo-link-error": "^1.1.12",
+    "apollo-link-http": "^1.5.16",
     "apollo-link-token-refresh": "^0.2.7",
     "apollo-upload-client": "^11.0.0",
     "cookie": "^0.4.0",

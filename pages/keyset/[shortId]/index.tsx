@@ -45,6 +45,7 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
                   id={data.keyset.id}
                   joins={authUser ? authUser.keysetjoins : []}
                   follows={authUser ? authUser.follows : []}
+                  authUser={authUser}
                 />
               )}
             </div>

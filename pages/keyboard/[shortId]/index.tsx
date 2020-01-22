@@ -24,7 +24,7 @@ const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
 
   return (
     <Layout title={title} authUser={authUser} dynamicNav={dynamicNav}>
-      {loading && <h2>loading bitch</h2>}
+      {loading && <h2></h2>}
       {!loading && data && (
         <>
           {!data.keyboard.announcement ? null : (
