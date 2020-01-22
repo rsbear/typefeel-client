@@ -55,6 +55,7 @@ const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
                 id={data.keyboard.id}
                 refresh={refetch}
                 follows={authUser ? authUser.follows : []}
+                // authUser={authUser}
               />
             )}
             {data.keyboard.interestCheck && (
@@ -65,6 +66,7 @@ const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
                 refresh={refetch}
                 authUserJoins={authUser ? authUser.keyboardjoins : []}
                 follows={authUser ? authUser.follows : []}
+                authUser={authUser}
               />
             )}
           </div>

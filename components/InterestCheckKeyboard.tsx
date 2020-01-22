@@ -5,6 +5,8 @@ import { flex, grid50, margins, colors } from "styles/main";
 import { Button, RoundButton } from "styles/buttons";
 import { useJoinKeyboardMutation } from "generated/graphql";
 import FollowButton from "./shared/FollowButton";
+import { AuthUser } from "interfaces/AuthUser";
+import Link from "next/link";
 
 interface Props {
   id?: string;
@@ -13,6 +15,7 @@ interface Props {
   layouts?: string[];
   authUserJoins?: any;
   follows?: any;
+  authUser: AuthUser;
 }
 
 const InterestCheckKeyboard: FC<Props> = ({
@@ -20,7 +23,8 @@ const InterestCheckKeyboard: FC<Props> = ({
   layouts,
   id,
   authUserJoins,
-  follows
+  follows,
+  authUser
 }) => {
   const [index, setIndex] = useState(0);
   const [caseSelect, setCaseSelect] = useState("");
@@ -115,23 +119,35 @@ const InterestCheckKeyboard: FC<Props> = ({
           </Button>
         ))}
       </div>
-      <div css={joinFollowContainer}>
-        {!alreadyJoined ? (
-          <RoundButton
-            large="true"
-            primary="true"
-            margins="0 0 15px 0"
-            onClick={e => handleJoin(e)}
-          >
-            Join it
-          </RoundButton>
-        ) : (
-          <RoundButton large="true" disabled="true" margins="0 0 15px 0">
-            You're in
-          </RoundButton>
-        )}
-        <FollowButton id={id} follows={follows} />
-      </div>
+      {!authUser ? (
+        <div css={joinFollowContainer}>
+          <Link href="/login">
+            <a>
+              <RoundButton large="true" primary="true" margins="0 0 15px 0">
+                Log in to join or follow
+              </RoundButton>
+            </a>
+          </Link>
+        </div>
+      ) : (
+        <div css={joinFollowContainer}>
+          {!alreadyJoined ? (
+            <RoundButton
+              large="true"
+              primary="true"
+              margins="0 0 15px 0"
+              onClick={e => handleJoin(e)}
+            >
+              Join it
+            </RoundButton>
+          ) : (
+            <RoundButton large="true" disabled="true" margins="0 0 15px 0">
+              You're in
+            </RoundButton>
+          )}
+          <FollowButton id={id} follows={follows} />
+        </div>
+      )}
     </div>
   );
 };
