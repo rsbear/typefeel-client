@@ -238,6 +238,7 @@ export type Mutation = {
   deleteKeyboard: Scalars['Boolean'],
   makeKeyset: Scalars['Boolean'],
   updateKeyset: Scalars['Boolean'],
+  updateKeysetStage: Scalars['Boolean'],
   deleteKeyset: Scalars['Boolean'],
   deleteEdition: Scalars['Boolean'],
   voteKeyboardUp: Scalars['Boolean'],
@@ -330,6 +331,11 @@ export type MutationMakeKeysetArgs = {
 
 export type MutationUpdateKeysetArgs = {
   data: KeysetInput,
+  id: Scalars['String']
+};
+
+
+export type MutationUpdateKeysetStageArgs = {
   id: Scalars['String']
 };
 
@@ -676,7 +682,7 @@ export type KeysetQuery = (
       & Pick<Color, 'id' | 'hex' | 'ral'>
     )>>, kits: Maybe<Array<(
       { __typename?: 'Kit' }
-      & Pick<Kit, 'id' | 'kit' | 'name' | 'price'>
+      & Pick<Kit, 'id' | 'kit' | 'name' | 'price' | 'suggestedPrice'>
     )>>, joins: Maybe<Array<(
       { __typename?: 'JoinKeyset' }
       & Pick<JoinKeyset, 'id' | 'kits'>
@@ -1443,6 +1449,7 @@ export const KeysetDocument = gql`
       kit
       name
       price
+      suggestedPrice
     }
     joins {
       id

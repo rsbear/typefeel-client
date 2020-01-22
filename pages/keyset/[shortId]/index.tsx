@@ -38,7 +38,14 @@ const Keyset: GetProps<any> = ({ authUser, shortId }) => {
               alt={data.keyset.name}
             />
             <div>
-              {data.keyset.market && <MarketKeyset kits={data.keyset.kits} />}
+              {data.keyset.market && (
+                <MarketKeyset
+                  kits={data.keyset.kits}
+                  authUser={authUser}
+                  id={data.keyset.id}
+                  follows={authUser ? authUser.follows : []}
+                />
+              )}
               {data.keyset.interestCheck && (
                 <InterestCheckKeyset
                   kits={data.keyset.kits}

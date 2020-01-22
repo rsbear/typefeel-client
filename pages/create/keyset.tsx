@@ -15,7 +15,7 @@ const CreateKeyset: FC<any> = ({ authUser }) => {
     name: "",
     profile: "",
     stem: "",
-    kits: [{ kit: "", name: "", price: 0, suggestedPrice: 0 }],
+    kits: [{ kit: "", name: "", price: 0, suggestedPrice: null }],
     colors: [],
     details: [""],
     interestCheck: true,
