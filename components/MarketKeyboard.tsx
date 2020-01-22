@@ -6,18 +6,26 @@ import {
   useVoteKeyboardUpMutation,
   useVoteKeyboardDownMutation
 } from "generated/graphql";
-import { Button } from "styles/buttons";
+import { Button, RoundButton } from "styles/buttons";
 import Link from "next/link";
 import FollowButton from "./shared/FollowButton";
+import { AuthUser } from "interfaces/AuthUser";
 
 interface Props {
   editions: any;
   id: string;
   refresh?: any;
   follows?: any;
+  authUser: AuthUser;
 }
 
-const MarketKeyboard: FC<Props> = ({ editions, id, refresh, follows }) => {
+const MarketKeyboard: FC<Props> = ({
+  editions,
+  id,
+  refresh,
+  follows,
+  authUser
+}) => {
   const [index, setIndex] = useState(0);
   const [message, setMessage] = useState("");
   const [voteUp] = useVoteKeyboardUpMutation({
@@ -31,6 +39,9 @@ const MarketKeyboard: FC<Props> = ({ editions, id, refresh, follows }) => {
 
   const handleUp = async (e: any) => {
     e.preventDefault;
+    if (!authUser) {
+      setMessage("You must log in to vote");
+    }
     try {
       const response = await voteUp();
       console.log(response);
@@ -47,6 +58,9 @@ const MarketKeyboard: FC<Props> = ({ editions, id, refresh, follows }) => {
 
   const handleDown = async (e: any) => {
     e.preventDefault;
+    if (!authUser) {
+      setMessage("You must log in to vote");
+    }
     try {
       const response = await voteDown();
       console.log(response);
@@ -98,10 +112,20 @@ const MarketKeyboard: FC<Props> = ({ editions, id, refresh, follows }) => {
       <p css={valuePercentage}>
         <span>{a > b ? "Down" : "Up"}</span> {calculator}% from preorder
       </p>
-      <div css={buttonContainer}>
+      <div css={[flex.column, buttonContainer]}>
         {/* <Button primary="true">Buy now</Button>
         <Button primary="true">Sell now</Button> */}
-        <FollowButton id={id} follows={follows} />
+        {!authUser ? (
+          <Link href="/login">
+            <a>
+              <RoundButton large="true" primary="true" margins="0 0 15px 0">
+                Log in to join or follow
+              </RoundButton>
+            </a>
+          </Link>
+        ) : (
+          <FollowButton id={id} follows={follows} />
+        )}
         <Link href="/faq">
           <a>FAQ</a>
         </Link>
@@ -165,11 +189,9 @@ const buttonContainer = css`
   justify-self: flex-end;
   width: 80%;
 
-  button {
-    margin: 10px 0;
-  }
-
   a {
+    width: 100%;
+    text-align: center;
   }
 `;
 
