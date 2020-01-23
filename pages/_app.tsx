@@ -1,5 +1,5 @@
 import App from "next/app";
-import React from "react";
+import React, { FC } from "react";
 import NextNprogress from "nextjs-progressbar";
 
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -9,6 +9,7 @@ import gql from "graphql-tag";
 
 import { Global } from "@emotion/core";
 import { globalStyle } from "styles/main";
+import { useMeQuery } from "generated/graphql";
 
 const AUTH = gql`
   query Me {
@@ -39,6 +40,20 @@ const AUTH = gql`
   }
 `;
 
+const AppFunction = ({ Component, pageProps }) => {
+  const { loading, error, data } = useMeQuery({
+    fetchPolicy: "cache-first"
+  });
+  return (
+    <>
+      <Component
+        authUser={!loading && !error && data ? data.me : null}
+        {...pageProps}
+      />
+    </>
+  );
+};
+
 class MyApp extends App<any> {
   render() {
     const { Component, pageProps, apolloClient } = this.props;
@@ -46,7 +61,7 @@ class MyApp extends App<any> {
       <ApolloProvider client={apolloClient}>
         <Global styles={globalStyle} />
         <NextNprogress color="rgba(0,0,0,.8)" height="3" />
-        <Query query={AUTH}>
+        {/* <Query query={AUTH}>
           {({ loading, error, data }: any) => {
             return (
               <Component
@@ -55,8 +70,8 @@ class MyApp extends App<any> {
               />
             );
           }}
-        </Query>
-        {/* <Component {...pageProps} /> */}
+        </Query> */}
+        <AppFunction Component={Component} pageProps={pageProps} />
       </ApolloProvider>
     );
   }

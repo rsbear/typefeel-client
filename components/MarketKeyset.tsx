@@ -6,6 +6,10 @@ import { AuthUser } from "interfaces/AuthUser";
 import Link from "next/link";
 import { RoundButton } from "styles/buttons";
 import FollowButton from "./shared/FollowButton";
+import {
+  useVoteKitUpMutation,
+  useVoteKitDownMutation
+} from "generated/graphql";
 
 interface Kit {
   id: string;
@@ -26,19 +30,26 @@ const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
   const [index, setIndex] = useState(0);
   const [message, setMessage] = useState("");
 
+  const [voteKitUp] = useVoteKitUpMutation({
+    variables: { id: kits[index].id }
+  });
+  const [voteKitDown] = useVoteKitDownMutation({
+    variables: { id: kits[index].id }
+  });
+
   const handleUp = async (e: any) => {
     e.preventDefault;
     if (!authUser) {
       setMessage("You must log in to vote");
     }
     try {
-      // const response = await voteUp();
-      // console.log(response);
-      // if (response.data.voteKeyboardUp) {
-      //   setMessage("Up up and away");
-      // } else {
-      //   setMessage("You already voted");
-      // }
+      const response = await voteKitUp();
+      console.log(response);
+      if (response.data.voteKitUp) {
+        setMessage("Up up and away");
+      } else {
+        setMessage("You already voted");
+      }
       // refresh();
     } catch (err) {
       console.log(err);
@@ -51,13 +62,13 @@ const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
       setMessage("You must log in to vote");
     }
     try {
-      // const response = await voteDown();
-      // console.log(response);
-      // if (response.data.voteKeyboardDown) {
-      //   setMessage("Down");
-      // } else {
-      //   setMessage("You already voted");
-      // }
+      const response = await voteKitDown();
+      console.log(response);
+      if (response.data.voteKitDown) {
+        setMessage("Down");
+      } else {
+        setMessage("You already voted");
+      }
       // refresh();
     } catch (err) {
       console.log(err);

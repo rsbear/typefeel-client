@@ -243,6 +243,8 @@ export type Mutation = {
   deleteEdition: Scalars['Boolean'],
   voteKeyboardUp: Scalars['Boolean'],
   voteKeyboardDown: Scalars['Boolean'],
+  voteKitUp: Scalars['Boolean'],
+  voteKitDown: Scalars['Boolean'],
   deleteVote: Scalars['Boolean'],
   joinKeyboard: Scalars['Boolean'],
   deleteJoin: Scalars['Boolean'],
@@ -356,6 +358,16 @@ export type MutationVoteKeyboardUpArgs = {
 
 
 export type MutationVoteKeyboardDownArgs = {
+  id: Scalars['String']
+};
+
+
+export type MutationVoteKitUpArgs = {
+  id: Scalars['String']
+};
+
+
+export type MutationVoteKitDownArgs = {
   id: Scalars['String']
 };
 
@@ -489,7 +501,8 @@ export type User = {
 export type Vote = {
    __typename?: 'Vote',
   id: Scalars['String'],
-  editionId: Scalars['String'],
+  editionId?: Maybe<Scalars['String']>,
+  kitId?: Maybe<Scalars['String']>,
   created: Scalars['DateTime'],
   expiration?: Maybe<Scalars['String']>,
   user?: Maybe<User>,
@@ -780,19 +793,22 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me: Maybe<(
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'email' | 'username'>
+    & Pick<User, 'id' | 'username' | 'email'>
     & { keyboardjoins: Array<(
       { __typename?: 'JoinKeyboard' }
-      & Pick<JoinKeyboard, 'id'>
+      & Pick<JoinKeyboard, 'id' | 'keyboardId'>
+    )>, keysetjoins: Array<(
+      { __typename?: 'JoinKeyset' }
+      & Pick<JoinKeyset, 'keysetId'>
     )>, follows: Array<(
       { __typename?: 'Follow' }
       & Pick<Follow, 'id' | 'productId'>
       & { keyboard: Maybe<(
         { __typename?: 'Keyboard' }
-        & Pick<Keyboard, 'id'>
+        & Pick<Keyboard, 'id' | 'shortId'>
       )>, keyset: Maybe<(
         { __typename?: 'Keyset' }
-        & Pick<Keyset, 'id'>
+        & Pick<Keyset, 'id' | 'shortId'>
       )> }
     )> }
   )> }
@@ -943,6 +959,26 @@ export type VoteKeyboardUpMutationVariables = {
 export type VoteKeyboardUpMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'voteKeyboardUp'>
+);
+
+export type VoteKitDownMutationVariables = {
+  id: Scalars['String']
+};
+
+
+export type VoteKitDownMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'voteKitDown'>
+);
+
+export type VoteKitUpMutationVariables = {
+  id: Scalars['String']
+};
+
+
+export type VoteKitUpMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'voteKitUp'>
 );
 
 
@@ -1708,19 +1744,25 @@ export const MeDocument = gql`
     query Me {
   me {
     id
-    email
     username
+    email
     keyboardjoins {
       id
+      keyboardId
+    }
+    keysetjoins {
+      keysetId
     }
     follows {
       id
       productId
       keyboard {
         id
+        shortId
       }
       keyset {
         id
+        shortId
       }
     }
   }
@@ -2109,3 +2151,63 @@ export function useVoteKeyboardUpMutation(baseOptions?: ApolloReactHooks.Mutatio
 export type VoteKeyboardUpMutationHookResult = ReturnType<typeof useVoteKeyboardUpMutation>;
 export type VoteKeyboardUpMutationResult = ApolloReactCommon.MutationResult<VoteKeyboardUpMutation>;
 export type VoteKeyboardUpMutationOptions = ApolloReactCommon.BaseMutationOptions<VoteKeyboardUpMutation, VoteKeyboardUpMutationVariables>;
+export const VoteKitDownDocument = gql`
+    mutation VoteKitDown($id: String!) {
+  voteKitDown(id: $id)
+}
+    `;
+export type VoteKitDownMutationFn = ApolloReactCommon.MutationFunction<VoteKitDownMutation, VoteKitDownMutationVariables>;
+
+/**
+ * __useVoteKitDownMutation__
+ *
+ * To run a mutation, you first call `useVoteKitDownMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVoteKitDownMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [voteKitDownMutation, { data, loading, error }] = useVoteKitDownMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useVoteKitDownMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<VoteKitDownMutation, VoteKitDownMutationVariables>) {
+        return ApolloReactHooks.useMutation<VoteKitDownMutation, VoteKitDownMutationVariables>(VoteKitDownDocument, baseOptions);
+      }
+export type VoteKitDownMutationHookResult = ReturnType<typeof useVoteKitDownMutation>;
+export type VoteKitDownMutationResult = ApolloReactCommon.MutationResult<VoteKitDownMutation>;
+export type VoteKitDownMutationOptions = ApolloReactCommon.BaseMutationOptions<VoteKitDownMutation, VoteKitDownMutationVariables>;
+export const VoteKitUpDocument = gql`
+    mutation VoteKitUp($id: String!) {
+  voteKitUp(id: $id)
+}
+    `;
+export type VoteKitUpMutationFn = ApolloReactCommon.MutationFunction<VoteKitUpMutation, VoteKitUpMutationVariables>;
+
+/**
+ * __useVoteKitUpMutation__
+ *
+ * To run a mutation, you first call `useVoteKitUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVoteKitUpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [voteKitUpMutation, { data, loading, error }] = useVoteKitUpMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useVoteKitUpMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<VoteKitUpMutation, VoteKitUpMutationVariables>) {
+        return ApolloReactHooks.useMutation<VoteKitUpMutation, VoteKitUpMutationVariables>(VoteKitUpDocument, baseOptions);
+      }
+export type VoteKitUpMutationHookResult = ReturnType<typeof useVoteKitUpMutation>;
+export type VoteKitUpMutationResult = ApolloReactCommon.MutationResult<VoteKitUpMutation>;
+export type VoteKitUpMutationOptions = ApolloReactCommon.BaseMutationOptions<VoteKitUpMutation, VoteKitUpMutationVariables>;
