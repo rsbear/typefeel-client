@@ -46,7 +46,7 @@ const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
       const response = await voteKitUp();
       console.log(response);
       if (response.data.voteKitUp) {
-        setMessage("Up up and away");
+        setMessage("Voted up");
       } else {
         setMessage("You already voted");
       }
@@ -65,7 +65,7 @@ const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
       const response = await voteKitDown();
       console.log(response);
       if (response.data.voteKitDown) {
-        setMessage("Down");
+        setMessage("Voted down");
       } else {
         setMessage("You already voted");
       }
@@ -94,13 +94,13 @@ const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
         <h4 css={priceTitle}>Suggested price</h4>
         <h1 css={text.heading}>
           $
-          {kits[index].suggestedPrice !== 0 || null
+          {kits[index].suggestedPrice !== null
             ? kits[index].suggestedPrice
             : kits[index].price}
         </h1>
       </div>
 
-      {message && <span css={voteSpan}>{message}</span>}
+      {message && <p css={voteSpan}>{message}</p>}
       <div css={[flex.row, flex.justifycenter, voteContainer]}>
         <button className="up" onClick={e => handleUp(e)}>
           <i className="icon ion-ios-arrow-up" />
@@ -126,7 +126,7 @@ const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
           <FollowButton id={id} follows={follows} />
         )}
         <Link href="/faq">
-          <a>FAQ</a>
+          <a className="faq">FAQ</a>
         </Link>
       </div>
     </>
@@ -159,12 +159,17 @@ const priceTitle = css`
 `;
 
 const voteSpan = css`
-  margin-top: 20px;
+  min-width: 100%;
+  margin: 20px auto;
+  font-weight: 500;
+  font-style: italic;
+  text-align: center;
   height: 22px;
 `;
 
 const voteContainer = css`
   margin: 20px auto;
+  margin-bottom: 40px;
 
   button {
     height: 36px;
@@ -209,5 +214,9 @@ const buttonContainer = css`
   a {
     width: 100%;
     text-align: center;
+  }
+
+  a.faq {
+    margin-top: 10px;
   }
 `;
