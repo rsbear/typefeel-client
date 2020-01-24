@@ -19,80 +19,48 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
   });
 
   useEffect(() => {
-    if (!loading && !error) {
-      let total = JSON.stringify(data.keyboard.joins.length);
-      setTotalJoins(total);
+    if (!loading && !error && data) {
+      const casesArr = [];
+      const platesArr = [];
+      const layoutsArr = [];
 
-      // collect all case joins and put into arr
-      // ["Alu", "PC", "Alu", "Brass", "Brass"]
-      const arr = [];
-      const { joins } = data.keyboard;
-      for (let j of joins) {
-        arr.push(j.caseChoice);
+      for (let j of data.keyboard.joins) {
+        casesArr.push(j.caseChoice);
+        platesArr.push(j.plateChoice);
+        layoutsArr.push(j.layoutChoice);
       }
 
-      const res = {};
-      const objArr = [];
-      arr.forEach(v => {
-        res[v] = (res[v] || 0) + 1;
+      const casesRes = {};
+      const platesRes = {};
+      const layoutsRes = {};
+
+      casesArr.forEach(x => {
+        casesRes[x] = (casesRes[x] || 0) + 1;
+      });
+      platesArr.forEach(x => {
+        platesRes[x] = (platesRes[x] || 0) + 1;
+      });
+      layoutsArr.forEach(x => {
+        layoutsRes[x] = (layoutsRes[x] || 0) + 1;
       });
 
-      Object.entries(res).forEach(k => {
-        objArr.push({ name: k[0], count: k[1] });
+      const countedCasesArr = [];
+      const countedPlatesArr = [];
+      const countedLayoutsArr = [];
+
+      Object.entries(casesRes).forEach(k => {
+        countedCasesArr.push({ name: k[0], count: k[1] });
+      });
+      Object.entries(platesRes).forEach(k => {
+        countedPlatesArr.push({ name: k[0], count: k[1] });
+      });
+      Object.entries(layoutsRes).forEach(k => {
+        countedLayoutsArr.push({ name: k[0], count: k[1] });
       });
 
-      setCaseData(objArr);
-    }
-  }, [loading]);
-
-  useEffect(() => {
-    if (!loading && !error) {
-      // collect all case joins and put into arr
-      // ["Alu", "PC", "Alu", "Brass", "Brass"]
-      const arr = [];
-      const { joins } = data.keyboard;
-      for (let j of joins) {
-        arr.push(j.plateChoice);
-      }
-
-      const res = {};
-      const objArr = [];
-      arr.forEach(v => {
-        res[v] = (res[v] || 0) + 1;
-      });
-
-      Object.entries(res).forEach(k => {
-        objArr.push({ name: k[0], count: k[1] });
-      });
-
-      setPlatesData(objArr);
-    }
-  }, [loading]);
-
-  useEffect(() => {
-    if (!loading && !error) {
-      let total = JSON.stringify(data.keyboard.joins.length);
-      setTotalJoins(total);
-
-      // collect all case joins and put into arr
-      // ["Alu", "PC", "Alu", "Brass", "Brass"]
-      const arr = [];
-      const { joins } = data.keyboard;
-      for (let j of joins) {
-        arr.push(j.layoutChoice);
-      }
-
-      const res = {};
-      const objArr = [];
-      arr.forEach(v => {
-        res[v] = (res[v] || 0) + 1;
-      });
-
-      Object.entries(res).forEach(k => {
-        objArr.push({ name: k[0], count: k[1] });
-      });
-
-      setLayoutsData(objArr);
+      setCaseData(countedCasesArr);
+      setPlatesData(countedPlatesArr);
+      setLayoutsData(countedLayoutsArr);
     }
   }, [loading]);
 
