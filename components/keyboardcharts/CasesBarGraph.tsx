@@ -18,6 +18,18 @@ const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
     width = 860 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
+  const colors = [
+    "#FFAACD",
+    "#9CF1FC",
+    "#FFE28E",
+    "#9CFCDA",
+    "#E1C9FC",
+    "#073B4C",
+    "#118AB2",
+    "#EF476F"
+  ];
+  const color = () => colors[Math.floor(Math.random() * colors.length)];
+
   useEffect(() => {
     const x = d3
       .scaleBand()
@@ -47,7 +59,8 @@ const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
       .attr("width", x.bandwidth())
       .attr("y", d => y(d.count))
       .attr("height", d => height - y(d.count))
-      .attr("fill", "pink");
+      .attr("fill", () => color())
+      .style("border-top-left-radius", "4px");
 
     // add the x Axis
     svg

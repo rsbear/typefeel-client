@@ -25,6 +25,17 @@ const LayoutsBarGraph: FC<Props> = ({ id, layoutsData }) => {
       .padding(0.1);
 
     const y = d3.scaleLinear().range([height, 0]);
+    const colors = [
+      "#FFAACD",
+      "#9CF1FC",
+      "#FFE28E",
+      "#9CFCDA",
+      "#E1C9FC",
+      "#073B4C",
+      "#118AB2",
+      "#EF476F"
+    ];
+    const color = () => colors[Math.floor(Math.random() * colors.length)];
 
     const svg = d3
       .select("#" + id)
@@ -47,7 +58,7 @@ const LayoutsBarGraph: FC<Props> = ({ id, layoutsData }) => {
       .attr("width", x.bandwidth())
       .attr("y", d => y(d.count))
       .attr("height", d => height - y(d.count))
-      .attr("fill", "pink");
+      .attr("fill", () => color());
 
     // add the x Axis
     svg
