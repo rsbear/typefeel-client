@@ -2,6 +2,7 @@ import React, { FC, useEffect, useMemo } from "react";
 import * as d3 from "d3";
 import { flex, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
+import useBarGraph from "hooks/useBarGraph";
 
 interface PlateData {
   plateType: string;
@@ -14,72 +15,73 @@ interface Props {
 }
 
 const PlatesBarGraph: FC<Props> = ({ id, platesData }) => {
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 860 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-  const colors = [
-    "#FFAACD",
-    "#9CF1FC",
-    "#FFE28E",
-    "#9CFCDA",
-    "#E1C9FC",
-    "#073B4C",
-    "#118AB2",
-    "#EF476F"
-  ];
-  const color = () => colors[Math.floor(Math.random() * colors.length)];
+  useBarGraph(id, platesData);
+  // const margin = { top: 20, right: 20, bottom: 30, left: 40 },
+  //   width = 860 - margin.left - margin.right,
+  //   height = 500 - margin.top - margin.bottom;
+  // const colors = [
+  //   "#FFAACD",
+  //   "#9CF1FC",
+  //   "#FFE28E",
+  //   "#9CFCDA",
+  //   "#E1C9FC",
+  //   "#073B4C",
+  //   "#118AB2",
+  //   "#EF476F"
+  // ];
+  // const color = () => colors[Math.floor(Math.random() * colors.length)];
 
-  useEffect(() => {
-    const x = d3
-      .scaleBand()
-      .range([0, width])
-      .padding(0.1);
+  // useEffect(() => {
+  //   const x = d3
+  //     .scaleBand()
+  //     .range([0, width])
+  //     .padding(0.1);
 
-    const y = d3.scaleLinear().range([height, 0]);
+  //   const y = d3.scaleLinear().range([height, 0]);
 
-    const svg = d3
-      .select("#" + id)
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  //   const svg = d3
+  //     .select("#" + id)
+  //     .append("svg")
+  //     .attr("width", width + margin.left + margin.right)
+  //     .attr("height", height + margin.top + margin.bottom)
+  //     .append("g")
+  //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain(platesData.map(d => d.plateType));
-    y.domain([0, d3.max(platesData, d => d.count)]);
+  //   x.domain(platesData.map(d => d.plateType));
+  //   y.domain([0, d3.max(platesData, d => d.count)]);
 
-    svg
-      .selectAll("rect")
-      .data(platesData)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", d => x(d.plateType))
-      .attr("width", x.bandwidth())
-      .attr("y", d => y(d.count))
-      .attr("height", d => height - y(d.count))
-      .attr("fill", () => color());
+  //   svg
+  //     .selectAll("rect")
+  //     .data(platesData)
+  //     .enter()
+  //     .append("rect")
+  //     .attr("class", "bar")
+  //     .attr("x", d => x(d.plateType))
+  //     .attr("width", x.bandwidth())
+  //     .attr("y", d => y(d.count))
+  //     .attr("height", d => height - y(d.count))
+  //     .attr("fill", () => color());
 
-    // add the x Axis
-    svg
-      .append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
-      .style("font-weight", "bold")
-      .style("font-size", "14px");
+  //   // add the x Axis
+  //   svg
+  //     .append("g")
+  //     .attr("transform", "translate(0," + height + ")")
+  //     .call(d3.axisBottom(x))
+  //     .style("font-weight", "bold")
+  //     .style("font-size", "14px");
 
-    // add the y Axis
-    svg
-      .append("g")
-      .call(d3.axisLeft(y))
-      .style("font-weight", "bold")
-      .style("font-size", "14px");
+  //   // add the y Axis
+  //   svg
+  //     .append("g")
+  //     .call(d3.axisLeft(y))
+  //     .style("font-weight", "bold")
+  //     .style("font-size", "14px");
 
-    svg
-      .selectAll("line")
-      .attr("class", "axisRed")
-      .attr("stroke", "#fff");
-  }, [platesData]);
+  //   svg
+  //     .selectAll("line")
+  //     .attr("class", "axisRed")
+  //     .attr("stroke", "#fff");
+  // }, [platesData]);
 
   return (
     <div css={margins("40px 0 ")}>

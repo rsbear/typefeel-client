@@ -38,7 +38,7 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
       });
 
       Object.entries(res).forEach(k => {
-        objArr.push({ caseType: k[0], count: k[1] });
+        objArr.push({ name: k[0], count: k[1] });
       });
 
       setCaseData(objArr);
@@ -62,7 +62,7 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
       });
 
       Object.entries(res).forEach(k => {
-        objArr.push({ plateType: k[0], count: k[1] });
+        objArr.push({ name: k[0], count: k[1] });
       });
 
       setPlatesData(objArr);
@@ -89,7 +89,7 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
       });
 
       Object.entries(res).forEach(k => {
-        objArr.push({ layoutType: k[0], count: k[1] });
+        objArr.push({ name: k[0], count: k[1] });
       });
 
       setLayoutsData(objArr);
