@@ -3,17 +3,17 @@ import * as d3 from "d3";
 import { flex, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
 
-interface PlateData {
-  plateType: string;
+interface CaseData {
+  caseType: string;
   count: number;
 }
 
 interface Props {
   id: string;
-  platesData?: PlateData[];
+  caseData?: CaseData[];
 }
 
-const PlatesChart: FC<Props> = ({ id, platesData }) => {
+const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
   const margin = { top: 20, right: 20, bottom: 30, left: 40 },
     width = 860 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -34,16 +34,16 @@ const PlatesChart: FC<Props> = ({ id, platesData }) => {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain(platesData.map(d => d.plateType));
-    y.domain([0, d3.max(platesData, d => d.count)]);
+    x.domain(caseData.map(d => d.caseType));
+    y.domain([0, d3.max(caseData, d => d.count)]);
 
     svg
       .selectAll("rect")
-      .data(platesData)
+      .data(caseData)
       .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", d => x(d.plateType))
+      .attr("x", d => x(d.caseType))
       .attr("width", x.bandwidth())
       .attr("y", d => y(d.count))
       .attr("height", d => height - y(d.count))
@@ -68,19 +68,19 @@ const PlatesChart: FC<Props> = ({ id, platesData }) => {
       .selectAll("line")
       .attr("class", "axisRed")
       .attr("stroke", "#fff");
-  }, [platesData]);
+  }, [caseData]);
 
   return (
     <div css={margins("40px 0 ")}>
       <div css={[flex.row]}>
-        <h2 css={graphTitle}>Plates</h2>
+        <h2 css={graphTitle}>Cases</h2>
         <svg css={bg} id={id} viewBox="0 0 960 500" />
       </div>
     </div>
   );
 };
 
-export default PlatesChart;
+export default CasesBarGraph;
 
 const graphTitle = css`
   margin-right: 20px;

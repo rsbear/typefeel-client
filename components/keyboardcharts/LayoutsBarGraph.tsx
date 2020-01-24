@@ -3,17 +3,17 @@ import * as d3 from "d3";
 import { flex, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
 
-interface CaseData {
-  caseType: string;
+interface LayoutData {
+  layoutType: string;
   count: number;
 }
 
 interface Props {
   id: string;
-  caseData?: CaseData[];
+  layoutsData?: LayoutData[];
 }
 
-const CasesChart: FC<Props> = ({ id, caseData }) => {
+const LayoutsBarGraph: FC<Props> = ({ id, layoutsData }) => {
   const margin = { top: 20, right: 20, bottom: 30, left: 40 },
     width = 860 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -34,16 +34,16 @@ const CasesChart: FC<Props> = ({ id, caseData }) => {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain(caseData.map(d => d.caseType));
-    y.domain([0, d3.max(caseData, d => d.count)]);
+    x.domain(layoutsData.map(d => d.layoutType));
+    y.domain([0, d3.max(layoutsData, d => d.count)]);
 
     svg
       .selectAll("rect")
-      .data(caseData)
+      .data(layoutsData)
       .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", d => x(d.caseType))
+      .attr("x", d => x(d.layoutType))
       .attr("width", x.bandwidth())
       .attr("y", d => y(d.count))
       .attr("height", d => height - y(d.count))
@@ -64,23 +64,22 @@ const CasesChart: FC<Props> = ({ id, caseData }) => {
       .style("font-weight", "bold")
       .style("font-size", "14px");
 
-    svg
-      .selectAll("line")
-      .attr("class", "axisRed")
-      .attr("stroke", "#fff");
-  }, [caseData]);
+    // svg
+    //   .selectAll("line")
+    //   .attr("stroke", "#fff");
+  }, [layoutsData]);
 
   return (
     <div css={margins("40px 0 ")}>
       <div css={[flex.row]}>
-        <h2 css={graphTitle}>Cases</h2>
+        <h2 css={graphTitle}>Layouts</h2>
         <svg css={bg} id={id} viewBox="0 0 960 500" />
       </div>
     </div>
   );
 };
 
-export default CasesChart;
+export default LayoutsBarGraph;
 
 const graphTitle = css`
   margin-right: 20px;

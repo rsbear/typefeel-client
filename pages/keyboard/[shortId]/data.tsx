@@ -3,9 +3,9 @@ import { GetProps } from "interfaces/GetProps";
 import Layout from "components/layouts/Layout";
 import { useKeyboardDataQuery } from "generated/graphql";
 import { text } from "styles/text";
-import CasesChart from "components/CasesChart";
-import PlatesChart from "components/PlatesChart";
-import LayoutsChart from "components/LayoutsChart";
+import CasesBarGraph from "components/keyboardcharts/CasesBarGraph";
+import PlatesBarGraph from "components/keyboardcharts/PlatesBarGraph";
+import LayoutsBarGraph from "components/keyboardcharts/LayoutsBarGraph";
 
 const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
   const [totalJoins, setTotalJoins] = useState("");
@@ -113,9 +113,9 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
               ? `${totalJoins} supporters`
               : "Be the first to show your support"}
           </h2>
-          <CasesChart id="caseschart" caseData={caseData} />
-          <PlatesChart id="plateschart" platesData={platesData} />
-          <LayoutsChart id="layoutschart" layoutsData={layoutsData} />
+          <CasesBarGraph id="caseschart" caseData={caseData} />
+          <PlatesBarGraph id="plateschart" platesData={platesData} />
+          <LayoutsBarGraph id="layoutschart" layoutsData={layoutsData} />
         </div>
       )}
     </Layout>
