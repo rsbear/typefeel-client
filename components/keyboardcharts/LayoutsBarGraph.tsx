@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import { flex, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
 import useBarGraph from "hooks/useBarGraph";
+import useStackedBarChart from "hooks/useStackedBarChart";
 
 interface LayoutData {
   layoutType: string;
@@ -15,7 +16,8 @@ interface Props {
 }
 
 const LayoutsBarGraph: FC<Props> = ({ id, layoutsData }) => {
-  useBarGraph(id, layoutsData);
+  // useBarGraph(id, layoutsData);
+  useStackedBarChart(id, layoutsData);
   return (
     <div css={margins("40px 0 ")}>
       <div css={[flex.row]}>
@@ -34,6 +36,7 @@ const graphTitle = css`
 
 const bg = css`
   path {
-    stroke: ${colors.black10};
+    /* stroke: ${colors.black10}; */
+    stroke: transparent;
   }
 `;

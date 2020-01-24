@@ -2,12 +2,10 @@ import React, { useEffect } from 'react'
 import * as d3 from "d3";
 
 export default function useBarGraph(id, data) {
-  console.log(data)
   const margin = { top: 20, right: 20, bottom: 30, left: 40 },
     width = 860 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-  const y = d3.scaleLinear().range([height, 0]);
   const colors = [
     "#FFAACD",
     "#9CF1FC",
@@ -17,11 +15,14 @@ export default function useBarGraph(id, data) {
     "#073B4C",
     "#118AB2",
     "#EF476F"
-  ],
-    color = () => colors[Math.floor(Math.random() * colors.length)];
+  ];
+  const color = () => colors[Math.floor(Math.random() * colors.length)];
+
+
 
 
   useEffect(() => {
+    const y = d3.scaleLinear().range([height, 0]);
     const x = d3
       .scaleBand()
       .range([0, width])
@@ -37,8 +38,6 @@ export default function useBarGraph(id, data) {
 
     x.domain(data.map(d => d.name));
     y.domain([0, d3.max(data, d => d.count)]);
-
-
 
     svg
       .selectAll("rect")
