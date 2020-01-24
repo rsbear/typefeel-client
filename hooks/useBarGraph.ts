@@ -17,8 +17,8 @@ export default function useBarGraph(id, data) {
     "#073B4C",
     "#118AB2",
     "#EF476F"
-  ];
-  const color = () => colors[Math.floor(Math.random() * colors.length)];
+  ],
+    color = () => colors[Math.floor(Math.random() * colors.length)];
 
 
   useEffect(() => {
@@ -38,6 +38,8 @@ export default function useBarGraph(id, data) {
     x.domain(data.map(d => d.name));
     y.domain([0, d3.max(data, d => d.count)]);
 
+
+
     svg
       .selectAll("rect")
       .data(data)
@@ -48,20 +50,21 @@ export default function useBarGraph(id, data) {
       .attr("width", x.bandwidth())
       .attr("y", d => y(d.count))
       .attr("height", d => height - y(d.count))
-      .attr("fill", () => color());
+      .attr("fill", (d, i) => colors[i]);
 
     // add the x Axis
     svg
       .append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
+      .call(d3.axisBottom(x).tickSize(0))
       .style("font-weight", "bold")
-      .style("font-size", "14px");
+      .style("font-size", "16px")
 
     // add the y Axis
     svg
       .append("g")
-      .call(d3.axisLeft(y))
+      // .call(d3.axisLeft(y))
+      .call(d3.axisLeft(y).ticks(data.length).tickSize(0).tickFormat(d3.format("d")))
       .style("font-weight", "bold")
       .style("font-size", "14px");
 
