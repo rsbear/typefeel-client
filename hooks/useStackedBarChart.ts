@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import * as d3 from "d3";
 
 export default function useStackedBarChart(id, data) {
-  const margin = { top: 20, right: 20, bottom: 30, left: 200 },
-    width = 860 - margin.left - margin.right,
+  const margin = { top: 20, right: 20, bottom: 30, left: 160 },
+    width = 900 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
   const colors = [
@@ -28,7 +28,7 @@ export default function useStackedBarChart(id, data) {
     var svg = d3
       .select("#" + id)
       .append("svg")
-      .attr("width", width + margin.left + margin.right)
+      .attr("width", "100%")
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform",
@@ -48,8 +48,8 @@ export default function useStackedBarChart(id, data) {
       .attr("width", (d) => x(d.count))
       .attr("y", (d) => y(d.name) + 23)
       // .attr("y", function (d) { return (height - y(d.y)); })
-      .attr("rx", "12px")
       .attr("height", "24px")
+      .attr("rx", "12px")
       // .attr("rx", (y.bandwidth() / 2))
       // .attr("height", y.bandwidth())
       .attr("fill", (d, i) => colors[i]);

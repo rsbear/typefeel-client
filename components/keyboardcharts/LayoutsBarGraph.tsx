@@ -19,11 +19,9 @@ const LayoutsBarGraph: FC<Props> = ({ id, layoutsData }) => {
   // useBarGraph(id, layoutsData);
   useStackedBarChart(id, layoutsData);
   return (
-    <div css={margins("40px 0 ")}>
-      <div css={[flex.row]}>
-        <h2 css={graphTitle}>Layouts</h2>
-        <svg css={bg} id={id} viewBox="0 0 960 500" />
-      </div>
+    <div css={[flex.column]}>
+      <h2 css={[graphTitle]}>Layouts</h2>
+      <svg css={bg} id={id} viewBox="0 0 960 500" />
     </div>
   );
 };
@@ -31,6 +29,7 @@ const LayoutsBarGraph: FC<Props> = ({ id, layoutsData }) => {
 export default LayoutsBarGraph;
 
 const graphTitle = css`
+  margin-top: 40px;
   margin-right: 20px;
 `;
 

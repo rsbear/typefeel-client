@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import { flex, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
 import useBarGraph from "hooks/useBarGraph";
+import useStackedBarChart from "hooks/useStackedBarChart";
 
 interface PlateData {
   plateType: string;
@@ -15,14 +16,13 @@ interface Props {
 }
 
 const PlatesBarGraph: FC<Props> = ({ id, platesData }) => {
-  useBarGraph(id, platesData);
+  // useBarGraph(id, platesData);
+  useStackedBarChart(id, platesData);
 
   return (
-    <div css={margins("40px 0 ")}>
-      <div css={[flex.row]}>
-        <h2 css={graphTitle}>Plates</h2>
-        <svg css={bg} id={id} viewBox="0 0 960 500" />
-      </div>
+    <div css={[flex.column]}>
+      <h2 css={graphTitle}>Plates</h2>
+      <svg css={bg} id={id} viewBox="0 0 960 500" />
     </div>
   );
 };
@@ -35,6 +35,7 @@ const graphTitle = css`
 
 const bg = css`
   path {
-    stroke: ${colors.black10};
+    /* stroke: ${colors.black10}; */
+    stroke: transparent;
   }
 `;
