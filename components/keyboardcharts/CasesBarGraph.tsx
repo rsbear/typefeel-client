@@ -4,6 +4,7 @@ import { flex, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
 import useBarGraph from "hooks/useBarGraph";
 import useStackedBarChart from "hooks/useStackedBarChart";
+import useHorizontalBarGraph from "hooks/useHorizontalBarGraph";
 
 interface CaseData {
   caseType: string;
@@ -17,7 +18,8 @@ interface Props {
 
 const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
   // useBarGraph(id, caseData);
-  useStackedBarChart(id, caseData);
+  // useStackedBarChart(id, caseData);
+  useHorizontalBarGraph(id, caseData);
 
   return (
     <div css={[flex.column]}>
@@ -30,7 +32,8 @@ const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
 export default CasesBarGraph;
 
 const graphTitle = css`
-  margin-right: 20px;
+  /* margin-right: 20px; */
+  margin: 40px 0 0px 0;
 `;
 
 const bg = css`
