@@ -22,19 +22,20 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
   });
   const [updateKeyboard] = useUpdateKeyboardMutation();
 
-  const kb = !loading && data && data.keyboard;
+  const kb = !loading && !error && data && data.keyboard;
+  const keyboard = kb;
 
   const initValues = {
-    angle: kb.angle,
-    connector: kb.connector,
-    editions: kb.editions,
-    details: kb.details,
-    firmware: kb.firmware,
-    layouts: kb.layouts,
-    mount: kb.mount,
-    pcb: kb.pcb,
-    size: kb.size,
-    support: kb.support
+    angle: keyboard.angle,
+    connector: keyboard.connector,
+    editions: keyboard.editions,
+    details: keyboard.details,
+    firmware: keyboard.firmware,
+    layouts: keyboard.layouts,
+    mount: keyboard.mount,
+    pcb: keyboard.pcb,
+    size: keyboard.size,
+    support: keyboard.support
   };
 
   const handleSubmit = async (values: any) => {
@@ -47,7 +48,7 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
     try {
       let res = await updateKeyboard({
         variables: {
-          id: kb.id,
+          id: keyboard.id,
           data
         }
       });
@@ -62,39 +63,52 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
       {loading && <h2>Loading..</h2>}
       {!loading && data && data.keyboard && (
         <>
-          <h1 css={text.heading}>Update {data.keyboard.name}</h1>
+          <h1 css={text.heading}>Update {keyboard.name}</h1>
           <ul css={editableFields}>
             <li>
-              {kb.angle} typing angle
+              {keyboard.angle} typing angle
               <span onClick={() => setUpdateField("angle")}>Edit</span>
             </li>
             <li>
-              {kb.mount} mount
+              {keyboard.mount} mount
               <span onClick={() => setUpdateField("mount")}>Edit</span>
             </li>
             <li>
-              {kb.connector} connector
+              {keyboard.connector} connector
               <span onClick={() => setUpdateField("connector")}>Edit</span>
             </li>
             <li>
-              {kb.pcb} pcb
+              {keyboard.pcb} pcb
               <span onClick={() => setUpdateField("pcb")}>Edit</span>
             </li>
             <li>
-              {kb.firmware} firmware
+              {keyboard.firmware} firmware
               <span onClick={() => setUpdateField("firmware")}>Edit</span>
             </li>
             <li onClick={() => setShowDetails(!showDetails)}>
               Show details
               <span onClick={() => setUpdateField("details")}>EDIT</span>
               {showDetails &&
-                kb.details.map((d: string, i: number) => <p key={i}>{d}</p>)}
+                keyboard.details.map((d: string, i: number) => (
+                  <p key={i}>{d}</p>
+                ))}
             </li>
+
+            <h1>Editions</h1>
+            {keyboard.editions.map((e, i) => (
+              <>
+                <h2>{e.name}</h2>
+                <li>Cases</li>
+                <li>Plates</li>
+                <li>Layouts</li>
+              </>
+            ))}
           </ul>
           <Formik initialValues={initValues} onSubmit={() => {}}>
             {({ values }) => (
               <form onSubmit={() => handleSubmit(values)}>
-                {(updateField === "angle" || values.angle !== kb.angle) && (
+                {(updateField === "angle" ||
+                  values.angle !== keyboard.angle) && (
                   <>
                     <h5>Typing angle</h5>
                     <FormikInput
@@ -106,7 +120,8 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                     />
                   </>
                 )}
-                {(updateField === "mount" || values.mount !== kb.mount) && (
+                {(updateField === "mount" ||
+                  values.mount !== keyboard.mount) && (
                   <>
                     <h5>Mount</h5>
                     <FormikInput
@@ -119,7 +134,7 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                   </>
                 )}
                 {(updateField === "connector" ||
-                  values.connector !== kb.connector) && (
+                  values.connector !== keyboard.connector) && (
                   <>
                     <h5>Connection type</h5>
                     <FormikInput
@@ -131,7 +146,7 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                     />
                   </>
                 )}
-                {(updateField === "pcb" || values.pcb !== kb.pcb) && (
+                {(updateField === "pcb" || values.pcb !== keyboard.pcb) && (
                   <>
                     <h5>PCB</h5>
                     <FormikInput
@@ -144,7 +159,7 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                   </>
                 )}
                 {(updateField === "firmware" ||
-                  values.firmware !== kb.firmware) && (
+                  values.firmware !== keyboard.firmware) && (
                   <>
                     <h5>Firmware</h5>
                     <FormikInput
@@ -157,7 +172,7 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                   </>
                 )}
                 {(updateField === "details" ||
-                  values.details !== kb.details) && (
+                  values.details !== keyboard.details) && (
                   <>
                     <h5>Details</h5>
                     <FieldArray
@@ -204,7 +219,7 @@ const editableFields = css`
   margin-bottom: 40px;
   li {
     margin: 10px 0;
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: ${colors.black60};
 
