@@ -6,7 +6,7 @@ import { Formik, FieldArray } from "formik";
 import { text } from "styles/text";
 import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
-import { colors } from "styles/main";
+import { colors, flex } from "styles/main";
 import { Button } from "styles/buttons";
 
 interface Props {
@@ -17,6 +17,7 @@ interface Props {
 const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
   const [updateField, setUpdateField] = useState("");
   const [showDetails, setShowDetails] = useState(false);
+  const [editionIndex, setEditionIndex] = useState(0);
   const { loading, error, data, refetch } = useKeyboardQuery({
     variables: { shortId }
   });
@@ -58,52 +59,63 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
     }
   };
 
+  const handleCasesEdit = (idx: number) => {
+    setUpdateField("cases");
+    setEditionIndex(idx);
+  };
+
   return (
     <Layout title="Update keyboard" authUser={authUser}>
       {loading && <h2>Loading..</h2>}
       {!loading && data && data.keyboard && (
         <>
           <h1 css={text.heading}>Update {keyboard.name}</h1>
-          <ul css={editableFields}>
-            <li>
-              {keyboard.angle} typing angle
-              <span onClick={() => setUpdateField("angle")}>Edit</span>
-            </li>
-            <li>
-              {keyboard.mount} mount
-              <span onClick={() => setUpdateField("mount")}>Edit</span>
-            </li>
-            <li>
-              {keyboard.connector} connector
-              <span onClick={() => setUpdateField("connector")}>Edit</span>
-            </li>
-            <li>
-              {keyboard.pcb} pcb
-              <span onClick={() => setUpdateField("pcb")}>Edit</span>
-            </li>
-            <li>
-              {keyboard.firmware} firmware
-              <span onClick={() => setUpdateField("firmware")}>Edit</span>
-            </li>
-            <li onClick={() => setShowDetails(!showDetails)}>
-              Show details
-              <span onClick={() => setUpdateField("details")}>EDIT</span>
-              {showDetails &&
-                keyboard.details.map((d: string, i: number) => (
-                  <p key={i}>{d}</p>
-                ))}
-            </li>
+          <div css={flex.row}>
+            <ul css={editableFields}>
+              <li>
+                {keyboard.angle} typing angle
+                <span onClick={() => setUpdateField("angle")}>Edit</span>
+              </li>
+              <li>
+                {keyboard.mount} mount
+                <span onClick={() => setUpdateField("mount")}>Edit</span>
+              </li>
+              <li>
+                {keyboard.connector} connector
+                <span onClick={() => setUpdateField("connector")}>Edit</span>
+              </li>
+              <li>
+                {keyboard.pcb} pcb
+                <span onClick={() => setUpdateField("pcb")}>Edit</span>
+              </li>
+              <li>
+                {keyboard.firmware} firmware
+                <span onClick={() => setUpdateField("firmware")}>Edit</span>
+              </li>
+              <li onClick={() => setShowDetails(!showDetails)}>
+                Show details
+                <span onClick={() => setUpdateField("details")}>EDIT</span>
+                {showDetails &&
+                  keyboard.details.map((d: string, i: number) => (
+                    <p key={i}>{d}</p>
+                  ))}
+              </li>
+            </ul>
 
-            <h1>Editions</h1>
-            {keyboard.editions.map((e, i) => (
-              <>
-                <h2>{e.name}</h2>
-                <li>Cases</li>
-                <li>Plates</li>
-                <li>Layouts</li>
-              </>
-            ))}
-          </ul>
+            <ul css={editableFields}>
+              <h1>Editions</h1>
+              {keyboard.editions.map((e, i) => (
+                <>
+                  <h2>{e.name}</h2>
+                  <li>
+                    Cases <span onClick={() => handleCasesEdit(i)}>EDIT</span>
+                  </li>
+                  <li>Plates</li>
+                  <li>Layouts</li>
+                </>
+              ))}
+            </ul>
+          </div>
           <Formik initialValues={initValues} onSubmit={() => {}}>
             {({ values }) => (
               <form onSubmit={() => handleSubmit(values)}>
@@ -196,6 +208,34 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                     />
                   </>
                 )}
+                {(updateField === "cases" ||
+                  values.editions[editionIndex].cases !==
+                    values.editions[editionIndex].cases) && (
+                  <>
+                    <h5>Cases</h5>
+                    <FieldArray
+                      name="cases"
+                      render={({ push }) => (
+                        <>
+                          {values.editions[editionIndex].cases.map(
+                            (x: any, i: number) => (
+                              <FormikInput
+                                icon="icon ion-ios-information-circle"
+                                margins="0 0 10px 0"
+                                type="text"
+                                placeholder={x}
+                                name={`cases.${i}`}
+                              />
+                            )
+                          )}
+                          <Button small="true" onClick={() => push("")}>
+                            Add another
+                          </Button>
+                        </>
+                      )}
+                    />
+                  </>
+                )}
                 <Button type="submit" primary="true">
                   Post update
                 </Button>
@@ -217,6 +257,8 @@ export default UpdateKeyboard;
 
 const editableFields = css`
   margin-bottom: 40px;
+  width: 50%;
+
   li {
     margin: 10px 0;
     font-size: 1.25rem;
