@@ -208,34 +208,43 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                     />
                   </>
                 )}
-                {(updateField === "cases" ||
-                  values.editions[editionIndex].cases !==
-                    values.editions[editionIndex].cases) && (
-                  <>
-                    <h5>Cases</h5>
-                    <FieldArray
-                      name="cases"
-                      render={({ push }) => (
+                <FieldArray
+                  name="editions"
+                  render={helpers => (
+                    <div>
+                      <h2>{keyboard.editions[editionIndex].name}</h2>
+                      {(updateField === "cases" ||
+                        values.editions[editionIndex].cases !==
+                          keyboard.editions[editionIndex].cases) && (
                         <>
-                          {values.editions[editionIndex].cases.map(
-                            (x: any, i: number) => (
-                              <FormikInput
-                                icon="icon ion-ios-information-circle"
-                                margins="0 0 10px 0"
-                                type="text"
-                                placeholder={x}
-                                name={`cases.${i}`}
-                              />
-                            )
-                          )}
-                          <Button small="true" onClick={() => push("")}>
-                            Add another
-                          </Button>
+                          <h5>Cases</h5>
+                          <FieldArray
+                            name={`editions[${editionIndex}].cases`}
+                            render={({ push }) => (
+                              <>
+                                {values.editions[editionIndex].cases.map(
+                                  (x: any, i: number) => (
+                                    <FormikInput
+                                      icon="icon ion-ios-information-circle"
+                                      margins="0 0 10px 0"
+                                      type="text"
+                                      placeholder={x}
+                                      id={`editions[${editionIndex}].cases.${i}`}
+                                      name={`editions[${editionIndex}].cases.${i}`}
+                                    />
+                                  )
+                                )}
+                                <Button small="true" onClick={() => push("")}>
+                                  Add another
+                                </Button>
+                              </>
+                            )}
+                          />
                         </>
                       )}
-                    />
-                  </>
-                )}
+                    </div>
+                  )}
+                />
                 <Button type="submit" primary="true">
                   Post update
                 </Button>
