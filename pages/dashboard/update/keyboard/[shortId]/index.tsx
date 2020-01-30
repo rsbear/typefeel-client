@@ -207,6 +207,7 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                   name="editions"
                   render={helpers => (
                     <div>
+                      {/* {values.editions.map((ed: any, idx: number) => ( */}
                       <>
                         <h2>
                           {editionIndex !== null
@@ -227,62 +228,67 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                                   name={`editions[${editionIndex}].price`}
                                 />
                               </div>
-                              <h5>Cases</h5>
-                              <FieldArray
-                                name={`editions[${editionIndex}].cases`}
-                                render={({ push }) => (
-                                  <>
-                                    {values.editions[editionIndex].cases.map(
-                                      (x: any, i: number) => (
-                                        <FormikInput
-                                          icon="icon ion-ios-information-circle"
-                                          margins="0 0 10px 0"
-                                          type="text"
-                                          placeholder={x}
-                                          id={`editions[${editionIndex}].cases.${i}`}
-                                          name={`editions[${editionIndex}].cases.${i}`}
-                                        />
-                                      )
-                                    )}
-                                    <Button
-                                      small="true"
-                                      onClick={() => push("")}
-                                    >
-                                      Add another
-                                    </Button>
-                                  </>
-                                )}
-                              />
+                              <div css={[borderBox, margins("0 0 20px 0")]}>
+                                <h5>Cases</h5>
+                                <FieldArray
+                                  name={`editions[${editionIndex}].cases`}
+                                  render={({ push }) => (
+                                    <>
+                                      {values.editions[editionIndex].cases.map(
+                                        (x: any, i: number) => (
+                                          <FormikInput
+                                            icon="icon ion-ios-information-circle"
+                                            margins="0 0 10px 0"
+                                            type="text"
+                                            placeholder={x}
+                                            id={`editions[${editionIndex}].cases.${i}`}
+                                            name={`editions[${editionIndex}].cases.${i}`}
+                                          />
+                                        )
+                                      )}
+                                      <Button
+                                        small="true"
+                                        onClick={() => push("")}
+                                      >
+                                        Add another
+                                      </Button>
+                                    </>
+                                  )}
+                                />
+                              </div>
 
-                              <h5>Plates</h5>
-                              <FieldArray
-                                name={`editions[${editionIndex}].plates`}
-                                render={({ push }) => (
-                                  <>
-                                    {values.editions[editionIndex].plates.map(
-                                      (x: any, i: number) => (
-                                        <FormikInput
-                                          icon="icon ion-ios-information-circle"
-                                          margins="0 0 10px 0"
-                                          type="text"
-                                          placeholder={x}
-                                          id={`editions[${editionIndex}].plates.${i}`}
-                                          name={`editions[${editionIndex}].plates.${i}`}
-                                        />
-                                      )
-                                    )}
-                                    <Button
-                                      small="true"
-                                      onClick={() => push("")}
-                                    >
-                                      Add another
-                                    </Button>
-                                  </>
-                                )}
-                              />
+                              <div css={[borderBox, margins("0 0 20px 0")]}>
+                                <h5>Plates</h5>
+                                <FieldArray
+                                  name={`editions[${editionIndex}].plates`}
+                                  render={({ push }) => (
+                                    <>
+                                      {values.editions[editionIndex].plates.map(
+                                        (x: any, i: number) => (
+                                          <FormikInput
+                                            icon="icon ion-ios-information-circle"
+                                            margins="0 0 10px 0"
+                                            type="text"
+                                            placeholder={x}
+                                            id={`editions[${editionIndex}].plates.${i}`}
+                                            name={`editions[${editionIndex}].plates.${i}`}
+                                          />
+                                        )
+                                      )}
+                                      <Button
+                                        small="true"
+                                        onClick={() => push("")}
+                                      >
+                                        Add another
+                                      </Button>
+                                    </>
+                                  )}
+                                />
+                              </div>
                             </>
                           )}
                       </>
+                      {/* ))} */}
                     </div>
                   )}
                 />

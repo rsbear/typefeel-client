@@ -37,6 +37,16 @@ const KeyboardProjectTile: FC<any> = ({ keyboard }) => {
             </Button>
           </a>
         </Link>
+        <Link
+          href="/dashboard/update/keyboard/[shortId]/announcement"
+          as={`/dashboard/update/keyboard/${keyboard.shortId}/announcement`}
+        >
+          <a>
+            <Button small="true" type="button" margin="0 8px 0 0">
+              Post announcement
+            </Button>
+          </a>
+        </Link>
       </div>
     </div>
   );
