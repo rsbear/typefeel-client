@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, SetStateAction } from "react";
 import Layout from "components/layouts/Layout";
 import { GetProps } from "interfaces/GetProps";
 import { useKeyboardQuery, useUpdateKeyboardMutation } from "generated/graphql";
@@ -6,7 +6,7 @@ import { Formik, FieldArray } from "formik";
 import { text } from "styles/text";
 import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
-import { colors, flex } from "styles/main";
+import { colors, flex, borderBox, margins } from "styles/main";
 import { Button } from "styles/buttons";
 
 interface Props {
@@ -17,14 +17,13 @@ interface Props {
 const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
   const [updateField, setUpdateField] = useState("");
   const [showDetails, setShowDetails] = useState(false);
-  const [editionIndex, setEditionIndex] = useState(0);
+  const [editionIndex, setEditionIndex]: SetStateAction<any> = useState(null);
   const { loading, error, data, refetch } = useKeyboardQuery({
     variables: { shortId }
   });
   const [updateKeyboard] = useUpdateKeyboardMutation();
 
-  const kb = !loading && !error && data && data.keyboard;
-  const keyboard = kb;
+  const keyboard = !loading && !error && data && data.keyboard;
 
   const initValues = {
     angle: keyboard.angle,
@@ -59,8 +58,8 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
     }
   };
 
-  const handleCasesEdit = (idx: number) => {
-    setUpdateField("cases");
+  const handleEditionEdit = (name: string, idx: number) => {
+    setUpdateField(name);
     setEditionIndex(idx);
   };
 
@@ -105,14 +104,10 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
             <ul css={editableFields}>
               <h1>Editions</h1>
               {keyboard.editions.map((e, i) => (
-                <>
-                  <h2>{e.name}</h2>
-                  <li>
-                    Cases <span onClick={() => handleCasesEdit(i)}>EDIT</span>
-                  </li>
-                  <li>Plates</li>
-                  <li>Layouts</li>
-                </>
+                <li>
+                  <>{e.name}</>
+                  <span onClick={() => handleEditionEdit(e.name, i)}>Edit</span>
+                </li>
               ))}
             </ul>
           </div>
@@ -212,36 +207,82 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
                   name="editions"
                   render={helpers => (
                     <div>
-                      <h2>{keyboard.editions[editionIndex].name}</h2>
-                      {(updateField === "cases" ||
-                        values.editions[editionIndex].cases !==
-                          keyboard.editions[editionIndex].cases) && (
-                        <>
-                          <h5>Cases</h5>
-                          <FieldArray
-                            name={`editions[${editionIndex}].cases`}
-                            render={({ push }) => (
-                              <>
-                                {values.editions[editionIndex].cases.map(
-                                  (x: any, i: number) => (
-                                    <FormikInput
-                                      icon="icon ion-ios-information-circle"
-                                      margins="0 0 10px 0"
-                                      type="text"
-                                      placeholder={x}
-                                      id={`editions[${editionIndex}].cases.${i}`}
-                                      name={`editions[${editionIndex}].cases.${i}`}
-                                    />
-                                  )
+                      <>
+                        <h2>
+                          {editionIndex !== null
+                            ? values.editions[editionIndex].name
+                            : null}
+                        </h2>
+                        {editionIndex !== null &&
+                          updateField ===
+                            values.editions[editionIndex].name && (
+                            <>
+                              <div css={[borderBox, margins("0 0 20px 0")]}>
+                                <h5>Price</h5>
+                                <FormikInput
+                                  type="number"
+                                  icon="icon ion-logo-usd"
+                                  placeholder="Price"
+                                  id={`editions[${editionIndex}].price`}
+                                  name={`editions[${editionIndex}].price`}
+                                />
+                              </div>
+                              <h5>Cases</h5>
+                              <FieldArray
+                                name={`editions[${editionIndex}].cases`}
+                                render={({ push }) => (
+                                  <>
+                                    {values.editions[editionIndex].cases.map(
+                                      (x: any, i: number) => (
+                                        <FormikInput
+                                          icon="icon ion-ios-information-circle"
+                                          margins="0 0 10px 0"
+                                          type="text"
+                                          placeholder={x}
+                                          id={`editions[${editionIndex}].cases.${i}`}
+                                          name={`editions[${editionIndex}].cases.${i}`}
+                                        />
+                                      )
+                                    )}
+                                    <Button
+                                      small="true"
+                                      onClick={() => push("")}
+                                    >
+                                      Add another
+                                    </Button>
+                                  </>
                                 )}
-                                <Button small="true" onClick={() => push("")}>
-                                  Add another
-                                </Button>
-                              </>
-                            )}
-                          />
-                        </>
-                      )}
+                              />
+
+                              <h5>Plates</h5>
+                              <FieldArray
+                                name={`editions[${editionIndex}].plates`}
+                                render={({ push }) => (
+                                  <>
+                                    {values.editions[editionIndex].plates.map(
+                                      (x: any, i: number) => (
+                                        <FormikInput
+                                          icon="icon ion-ios-information-circle"
+                                          margins="0 0 10px 0"
+                                          type="text"
+                                          placeholder={x}
+                                          id={`editions[${editionIndex}].plates.${i}`}
+                                          name={`editions[${editionIndex}].plates.${i}`}
+                                        />
+                                      )
+                                    )}
+                                    <Button
+                                      small="true"
+                                      onClick={() => push("")}
+                                    >
+                                      Add another
+                                    </Button>
+                                  </>
+                                )}
+                              />
+                            </>
+                          )}
+                      </>
                     </div>
                   )}
                 />
