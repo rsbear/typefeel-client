@@ -61,7 +61,7 @@ class MyApp extends App<any> {
       <ApolloProvider client={apolloClient}>
         <Global styles={globalStyle} />
         <NextNprogress color="rgba(0,0,0,.8)" height="3" />
-        {/* <Query query={AUTH}>
+        <Query query={AUTH}>
           {({ loading, error, data }: any) => {
             return (
               <Component
@@ -70,8 +70,8 @@ class MyApp extends App<any> {
               />
             );
           }}
-        </Query> */}
-        <AppFunction Component={Component} pageProps={pageProps} />
+        </Query>
+        {/* <AppFunction Component={Component} pageProps={pageProps} /> */}
       </ApolloProvider>
     );
   }

@@ -6,7 +6,7 @@ import { Formik, FieldArray } from "formik";
 import { text } from "styles/text";
 import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
-import { colors } from "styles/main";
+import { colors, borderBox, margins, grid33 } from "styles/main";
 import { Button } from "styles/buttons";
 
 interface Props {
@@ -23,28 +23,23 @@ const KeysetUpdate: GetProps<Props> = ({ authUser, shortId }) => {
   const [updateKeyset] = useUpdateKeysetMutation();
 
   const keyset = !loading && data && data.keyset;
-  console.log(data);
 
   const initValues = {
-    // angle: kb.angle,
-    // connector: kb.connector,
-    // editions: kb.editions,
-    // details: kb.details,
-    // firmware: kb.firmware,
-    // layouts: kb.layouts,
-    // mount: kb.mount,
-    // pcb: kb.pcb,
-    // size: kb.size,
-    // support: kb.support
+    name: keyset.name,
+    profile: keyset.profile,
+    stem: keyset.stem,
+    kits: keyset.kits
   };
+
+  const kit = { kit: "", name: "", price: 0, suggestedPrice: null };
 
   const handleSubmit = async (values: any) => {
     event.preventDefault();
-    const editions = values.editions.map((x: any) => {
-      const { __typename, ...rest } = x;
-      return rest;
-    });
-    const data = { ...values, editions };
+    // const editions = values.editions.map((x: any) => {
+    //   const { __typename, ...rest } = x;
+    //   return rest;
+    // });
+    const data = { ...values };
     try {
       let res = await updateKeyset({
         variables: {
@@ -66,106 +61,109 @@ const KeysetUpdate: GetProps<Props> = ({ authUser, shortId }) => {
           <h1 css={text.heading}>Update {data.keyset.name}</h1>
           <ul css={editableFields}>
             <li>
-              {/* {kb.angle} typing angle
-              <span onClick={() => setUpdateField("angle")}>Edit</span> */}
+              {keyset.name}
+              <span onClick={() => setUpdateField("name")}>Edit</span>
+            </li>
+            <li>
+              {keyset.profile} profile
+              <span onClick={() => setUpdateField("profile")}>Edit</span>
+            </li>
+            <li>
+              {keyset.stem} stem
+              <span onClick={() => setUpdateField("stem")}>Edit</span>
+            </li>
+            <li>
+              Kits
+              <span onClick={() => setUpdateField("kits")}>Edit</span>
             </li>
           </ul>
-          {/* <Formik initialValues={initValues} onSubmit={() => {}}>
+          <Formik initialValues={initValues} onSubmit={() => {}}>
             {({ values }) => (
               <form onSubmit={() => handleSubmit(values)}>
-                {(updateField === "angle" || values.angle !== kb.angle) && (
-                  <>
-                    <h5>Typing angle</h5>
+                {(updateField === "name" || values.name !== keyset.name) && (
+                  <div css={[borderBox, margins("0 0 20px 0")]}>
+                    <h5>Name</h5>
                     <FormikInput
                       type="text"
-                      margins="5px 0 15px 0"
                       icon="icon ion-ios-at"
-                      name="angle"
-                      placeholder="Typing angle"
+                      placeholder={keyset.name}
+                      name="name"
                     />
-                  </>
+                  </div>
                 )}
-                {(updateField === "mount" || values.mount !== kb.mount) && (
-                  <>
-                    <h5>Mount</h5>
+                {(updateField === "profile" ||
+                  values.profile !== keyset.profile) && (
+                  <div css={[borderBox, margins("0 0 20px 0")]}>
+                    <h5>Profile</h5>
                     <FormikInput
                       type="text"
-                      margins="5px 0 15px 0"
                       icon="icon ion-ios-at"
-                      name="mount"
-                      placeholder="Mount"
+                      placeholder={keyset.profile}
+                      name="profile"
                     />
-                  </>
+                  </div>
                 )}
-                {(updateField === "connector" ||
-                  values.connector !== kb.connector) && (
-                  <>
-                    <h5>Connection type</h5>
+                {(updateField === "stem" || values.stem !== keyset.stem) && (
+                  <div css={[borderBox, margins("0 0 20px 0")]}>
+                    <h5>Stem</h5>
                     <FormikInput
                       type="text"
-                      margins="5px 0 15px 0"
                       icon="icon ion-ios-at"
-                      name="connector"
-                      placeholder="Connection type"
+                      placeholder={keyset.stem}
+                      name="stem"
                     />
-                  </>
+                  </div>
                 )}
-                {(updateField === "pcb" || values.pcb !== kb.pcb) && (
-                  <>
-                    <h5>PCB</h5>
-                    <FormikInput
-                      type="text"
-                      margins="5px 0 15px 0"
-                      icon="icon ion-ios-at"
-                      name="pcb"
-                      placeholder="PCB"
-                    />
-                  </>
-                )}
-                {(updateField === "firmware" ||
-                  values.firmware !== kb.firmware) && (
-                  <>
-                    <h5>Firmware</h5>
-                    <FormikInput
-                      type="text"
-                      margins="5px 0 15px 0"
-                      icon="icon ion-ios-at"
-                      name="firmware"
-                      placeholder="Firmware"
-                    />
-                  </>
-                )}
-                {(updateField === "details" ||
-                  values.details !== kb.details) && (
-                  <>
-                    <h5>Details</h5>
-                    <FieldArray
-                      name="details"
-                      render={({ push }) => (
-                        <>
-                          {values.details.map((x: any, i: number) => (
-                            <FormikArea
-                              icon="icon ion-ios-information-circle"
-                              margins="0 0 10px 0"
-                              type="text"
-                              placeholder={`The story part ${i + 1}`}
-                              name={`details.${i}`}
-                            />
+                {(updateField === "kits" || values.kits !== keyset.kits) && (
+                  <FieldArray
+                    name="kits"
+                    render={({ push }) => (
+                      <>
+                        <div css={[borderBox, margins("10px 0 20px 0")]}>
+                          <h5>Kits available</h5>
+                          {values.kits.map((k: any, i: number) => (
+                            <div css={grid33}>
+                              <FormikInput
+                                margins="0 0 10px 0"
+                                type="text"
+                                icon="icon ion-ios-at"
+                                name={`kits.${i}.kit`}
+                                placeholder="Type of kit"
+                              />
+                              <FormikInput
+                                margins="0 0 10px 0"
+                                type="text"
+                                icon="icon ion-ios-at"
+                                name={`kits.${i}.name`}
+                                placeholder="Name of the kit"
+                              />
+                              <FormikInput
+                                margins="0 0 10px 0"
+                                type="number"
+                                icon="icon ion-logo-usd"
+                                name={`kits.${i}.price`}
+                                placeholder="price of the kit"
+                              />
+                            </div>
                           ))}
-                          <Button small="true" onClick={() => push("")}>
-                            Add another
+                          <Button
+                            small="true"
+                            type="button"
+                            onClick={() => push(kit)}
+                          >
+                            Add another kit
                           </Button>
-                        </>
-                      )}
-                    />
-                  </>
+                        </div>
+                      </>
+                    )}
+                  />
                 )}
                 <Button type="submit" primary="true">
                   Post update
                 </Button>
               </form>
             )}
-          </Formik> */}
+          </Formik>
         </>
       )}
     </Layout>
