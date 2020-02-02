@@ -23,6 +23,7 @@ interface Props {
 const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
   const [images, setImages] = React.useState([]);
   const [multiEditions, setMultiEditions]: SetStateAction<any> = useState(null);
+  const [processing, setProcessing] = useState(false);
   const router = useRouter();
   const initValues = {
     angle: "",
@@ -62,6 +63,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
 
   const handleMakeKeyboard = async (data: KeyboardInput) => {
     event.preventDefault();
+    setProcessing(true);
     try {
       const response = await makeKeyboard({ variables: { data, images } });
       if (response && response.data) {
@@ -70,6 +72,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
         });
       }
     } catch (err) {
+      setProcessing(false);
       console.log(err);
     }
   };
@@ -480,9 +483,19 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
                         <Upload images={images} setImages={setImages} />
                         <UploadPreview images={images} setImages={setImages} />
 
-                        <Button primary="true" type="submit">
-                          Submit keyboard post
-                        </Button>
+                        {!processing ? (
+                          <Button primary="true" type="submit" margin="40px 0">
+                            Submit keyboard post
+                          </Button>
+                        ) : (
+                          <Button
+                            type="button"
+                            secondary="true"
+                            margin="40px 0"
+                          >
+                            Submitting
+                          </Button>
+                        )}
                       </>
                     </>
                   )}
