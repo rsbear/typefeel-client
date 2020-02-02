@@ -27,8 +27,8 @@ const CreateKeyset: FC<any> = ({ authUser }) => {
 
   const [makeKeyset] = useMakeKeysetMutation();
 
-  const handleSubmit = async (e: any, data: KeysetInput) => {
-    e.preventDefault();
+  const handleSubmit = async (data: KeysetInput) => {
+    event.preventDefault();
     try {
       let res = await makeKeyset({ variables: { data, images } });
       console.log(res);
@@ -42,7 +42,7 @@ const CreateKeyset: FC<any> = ({ authUser }) => {
       <h1 css={[text.heading, margins("20px 0")]}>Create a keyset</h1>
       <Formik initialValues={initValues} onSubmit={() => {}}>
         {({ values }) => (
-          <form onSubmit={e => handleSubmit(e, values)}>
+          <form onSubmit={() => handleSubmit(values)}>
             <div css={borderBox}>
               <h5>Project name</h5>
               <FormikInput

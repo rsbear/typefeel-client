@@ -6,7 +6,7 @@ import { Formik, FieldArray } from "formik";
 import { text } from "styles/text";
 import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
-import { colors, borderBox, margins, grid33 } from "styles/main";
+import { colors, borderBox, margins, grid33, grid50 } from "styles/main";
 import { Button } from "styles/buttons";
 
 interface Props {
@@ -25,21 +25,27 @@ const KeysetUpdate: GetProps<Props> = ({ authUser, shortId }) => {
   const keyset = !loading && data && data.keyset;
 
   const initValues = {
+    colors: keyset.colors,
+    details: keyset.details,
+    kits: keyset.kits,
     name: keyset.name,
     profile: keyset.profile,
-    stem: keyset.stem,
-    kits: keyset.kits
+    stem: keyset.stem
   };
 
   const kit = { kit: "", name: "", price: 0, suggestedPrice: null };
 
   const handleSubmit = async (values: any) => {
     event.preventDefault();
-    // const editions = values.editions.map((x: any) => {
-    //   const { __typename, ...rest } = x;
-    //   return rest;
-    // });
-    const data = { ...values };
+    const kits = values.kits.map((x: any) => {
+      const { __typename, id, ...rest } = x;
+      return rest;
+    });
+    const colors = values.colors.map((x: any) => {
+      const { __typename, id, ...rest } = x;
+      return rest;
+    });
+    const data = { ...values, kits, colors };
     try {
       let res = await updateKeyset({
         variables: {
@@ -75,6 +81,10 @@ const KeysetUpdate: GetProps<Props> = ({ authUser, shortId }) => {
             <li>
               Kits
               <span onClick={() => setUpdateField("kits")}>Edit</span>
+            </li>
+            <li>
+              Colors
+              <span onClick={() => setUpdateField("colors")}>Edit</span>
             </li>
           </ul>
           <Formik initialValues={initValues} onSubmit={() => {}}>
@@ -155,6 +165,58 @@ const KeysetUpdate: GetProps<Props> = ({ authUser, shortId }) => {
                           </Button>
                         </div>
                       </>
+                    )}
+                  />
+                )}
+                {(updateField === "colors" ||
+                  values.colors !== keyset.colors) && (
+                  <FieldArray
+                    name="colors"
+                    render={({ push }) => (
+                      <div css={[borderBox, margins("20px 0")]}>
+                        <h5>
+                          {values.colors.length > 0
+                            ? "Colors"
+                            : "Do you want to provide colors?"}
+                        </h5>
+                        {values.colors && values.colors.length > 0 ? (
+                          <>
+                            {values.colors.map((c: any, i: number) => (
+                              <div css={grid50}>
+                                <FormikInput
+                                  type="text"
+                                  margins="0 0 10px 0"
+                                  icon="icon ion-ios-color-palette"
+                                  name={`colors.${i}.hex`}
+                                  placeholder="Hex code without the #"
+                                />
+                                <FormikInput
+                                  type="text"
+                                  margins="0 0 10px 0"
+                                  icon="icon ion-ios-color-fill"
+                                  name={`colors.${i}.ral`}
+                                  placeholder="RAL color chip"
+                                />
+                              </div>
+                            ))}
+                            <Button
+                              type="button"
+                              small="true"
+                              onClick={() => push({ hex: "", ral: "" })}
+                            >
+                              Add a color
+                            </Button>
+                          </>
+                        ) : (
+                          <Button
+                            type="button"
+                            small="true"
+                            onClick={() => push({ hex: "", ral: "" })}
+                          >
+                            Add a color
+                          </Button>
+                        )}
+                      </div>
                     )}
                   />
                 )}
