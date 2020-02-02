@@ -189,7 +189,7 @@ export type KeysetInput = {
   profile: Scalars['String'],
   stem: Scalars['String'],
   kits: Array<KitInput>,
-  colors: Array<ColorInput>,
+  colors?: Maybe<Array<ColorInput>>,
   details: Array<Scalars['String']>,
   interestCheck?: Maybe<Scalars['Boolean']>,
   groupBuy?: Maybe<Scalars['Boolean']>,
@@ -201,7 +201,6 @@ export type KeysetInput = {
 export type Kit = {
    __typename?: 'Kit',
   id: Scalars['String'],
-  shortId: Scalars['String'],
   kit?: Maybe<Scalars['String']>,
   price?: Maybe<Scalars['Int']>,
   suggestedPrice?: Maybe<Scalars['Int']>,
@@ -231,7 +230,7 @@ export type Mutation = {
   generateSignupAuth: SuccessResponse,
   generateAuth: Scalars['Boolean'],
   deleteAuth: Scalars['Boolean'],
-  makeKeyboard: Scalars['Boolean'],
+  makeKeyboard: SuccessResponse,
   updateKeyboardStage: Scalars['Boolean'],
   updateKeyboard: Scalars['Boolean'],
   keyboardAnnouncement: Scalars['Boolean'],
@@ -240,6 +239,7 @@ export type Mutation = {
   updateKeyset: Scalars['Boolean'],
   updateKeysetStage: Scalars['Boolean'],
   deleteKeyset: Scalars['Boolean'],
+  deleteKit: Scalars['Boolean'],
   deleteEdition: Scalars['Boolean'],
   voteKeyboardUp: Scalars['Boolean'],
   voteKeyboardDown: Scalars['Boolean'],
@@ -347,6 +347,11 @@ export type MutationDeleteKeysetArgs = {
 };
 
 
+export type MutationDeleteKitArgs = {
+  id: Scalars['String']
+};
+
+
 export type MutationDeleteEditionArgs = {
   id: Scalars['String']
 };
@@ -444,6 +449,7 @@ export type Query = {
   keysets: Array<Keyset>,
   keyset: Keyset,
   sortKeysets: Array<Keyset>,
+  kits: Array<Kit>,
   editions: Array<Edition>,
   votes: Array<Vote>,
   joinss: Array<JoinKeyboard>,
@@ -772,7 +778,10 @@ export type MakeKeyboardMutationVariables = {
 
 export type MakeKeyboardMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'makeKeyboard'>
+  & { makeKeyboard: (
+    { __typename?: 'SuccessResponse' }
+    & Pick<SuccessResponse, 'success' | 'message'>
+  ) }
 );
 
 export type MakeKeysetMutationVariables = {
@@ -1680,7 +1689,10 @@ export type LogoutMutationResult = ApolloReactCommon.MutationResult<LogoutMutati
 export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<LogoutMutation, LogoutMutationVariables>;
 export const MakeKeyboardDocument = gql`
     mutation makeKeyboard($data: KeyboardInput!, $images: [Upload!]!) {
-  makeKeyboard(data: $data, images: $images)
+  makeKeyboard(data: $data, images: $images) {
+    success
+    message
+  }
 }
     `;
 export type MakeKeyboardMutationFn = ApolloReactCommon.MutationFunction<MakeKeyboardMutation, MakeKeyboardMutationVariables>;

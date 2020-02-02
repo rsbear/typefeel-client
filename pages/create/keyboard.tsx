@@ -14,6 +14,7 @@ import { GetProps } from "interfaces/GetProps";
 import { AuthUser } from "interfaces/AuthUser";
 
 import { Formik, FieldArray } from "formik";
+import { useRouter } from "next/router";
 
 interface Props {
   authUser: AuthUser;
@@ -22,6 +23,7 @@ interface Props {
 const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
   const [images, setImages] = React.useState([]);
   const [multiEditions, setMultiEditions]: SetStateAction<any> = useState(null);
+  const router = useRouter();
   const initValues = {
     angle: "",
     brand: "",
@@ -51,7 +53,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
     plates: [""]
   };
 
-  const [makeKeyboard] = useMakeKeyboardMutation();
+  const [makeKeyboard, { client }] = useMakeKeyboardMutation();
 
   const handlePushEdition = (values: any, multi: boolean) => {
     setMultiEditions(multi);
@@ -62,7 +64,11 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
     event.preventDefault();
     try {
       const response = await makeKeyboard({ variables: { data, images } });
-      console.log(response);
+      if (response && response.data) {
+        await client!.resetStore().then(() => {
+          router.push(`/keyboard/${response.data.makeKeyboard.message}`);
+        });
+      }
     } catch (err) {
       console.log(err);
     }
