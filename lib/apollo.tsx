@@ -67,7 +67,7 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
           const response = await fetch(
             process.env.NODE_ENV !== "production"
               ? "http://localhost:4000/refresh_token"
-              : "https://type-api.now.sh/refresh_token",
+              : "https://typefeel-server.herokuapp.com/refresh_token",
             {
               method: "POST",
               credentials: "include",
@@ -172,7 +172,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
     uri:
       process.env.NODE_ENV !== "production"
         ? "http://localhost:4000/graphql"
-        : "https://type-api.now.sh/graphql",
+        : "https://typefeel-server.herokuapp.com/graphql",
     credentials: "include",
     fetch
     // fetchOptions
@@ -202,7 +202,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
       return fetch(
         process.env.NODE_ENV !== "production"
           ? "http://localhost:4000/refresh_token"
-          : "https://type-api.now.sh/refresh_token",
+          : "https://typefeel-server.herokuapp.com/refresh_token",
         {
           method: "POST",
           credentials: "include"
