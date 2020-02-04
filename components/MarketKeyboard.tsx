@@ -29,7 +29,8 @@ const MarketKeyboard: FC<Props> = ({
   const [index, setIndex] = useState(0);
   const [message, setMessage] = useState("");
   const [voteUp] = useVoteKeyboardUpMutation({
-    variables: { id: editions[index].id }
+    variables: { id: editions[index].id },
+    refetchQueries: [""]
   });
 
   const [voteDown] = useVoteKeyboardDownMutation({
@@ -98,7 +99,11 @@ const MarketKeyboard: FC<Props> = ({
       <h4 css={priceTitle}>Preoder price</h4>
       <h1>${editions[index].price}</h1>
       <h4 css={priceTitle}>Suggested price</h4>
-      <h1 css={text.heading}>${editions[index].suggestedPrice}</h1>
+      <h1 css={text.heading}>
+        {!editions[index].suggestedPrice
+          ? `$${editions[index].price}`
+          : `$${editions[index].suggestedPrice}`}
+      </h1>
 
       {message && <span css={voteSpan}>{message}</span>}
       <div css={[flex.row, voteContainer]}>

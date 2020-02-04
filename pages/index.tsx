@@ -2,11 +2,12 @@ import React, { FC } from "react";
 import Layout from "components/layouts/Layout";
 import { GetProps } from "interfaces/GetProps";
 import Link from "next/link";
-import { text } from "styles/text";
+import { text, fontSize } from "styles/text";
 import { flex, grid50, colors, margins } from "styles/main";
 import { css } from "@emotion/core";
 import { useSortKeyboardsQuery, useSortKeysetsQuery } from "generated/graphql";
 import Tile from "components/Tile";
+import { RoundButton } from "styles/buttons";
 
 const Landing: GetProps<any> = ({ authUser }) => {
   const keyboards = useSortKeyboardsQuery({
@@ -18,23 +19,19 @@ const Landing: GetProps<any> = ({ authUser }) => {
   return (
     <Layout title="Home" authUser={authUser}>
       {!authUser && (
-        <div css={[flex.row, grid50]}>
-          <div css={linkBox}>
-            <Link href="/login">
-              <a>
-                <h1>Log in</h1>
-                <p>To do stuff..</p>
-              </a>
-            </Link>
-          </div>
-          <div css={linkBox}>
-            <Link href="/signup">
-              <a>
-                <h1>Sign up</h1>
-                <p>So you can log in...</p>
-              </a>
-            </Link>
-          </div>
+        <div css={[flex.column, flex.itemscenter, margins("40px 0 40px 0")]}>
+          <h1 css={text.heading}>Artisan keyboards at your finger tips.</h1>
+          <p css={tagline}>
+            Share your innovations with the community or be a part of their
+            growth.
+          </p>
+          <Link href="/signup">
+            <a>
+              <RoundButton type="button" margins="40px 0" css={buttonWide}>
+                Get started
+              </RoundButton>
+            </a>
+          </Link>
         </div>
       )}
       {keyboards.loading || (keysets.loading && <h2>Loading</h2>)}
@@ -95,12 +92,11 @@ const Landing: GetProps<any> = ({ authUser }) => {
 
 export default Landing;
 
-const linkBox = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  border: solid 1px ${colors.black05};
-  border-radius: 4px;
+const buttonWide = css`
+  padding: 0 120px;
+`;
+
+const tagline = css`
+  font-size: ${fontSize.large};
+  color: ${colors.black60};
 `;
