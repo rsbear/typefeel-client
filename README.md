@@ -1,6 +1,7 @@
 # typefeel.com
 
 typefeel.com is a web application for keyboard enthusiasts to share and get involved in projects.
+This repo is only the client and is built with React/NextJS, Apollo GraphQL, and Emotion.js
 
 Prerequisites: [https://github.com/rsbear/type-api](https://github.com/rsbear/type-api)
 You will need to have the back end up and running in order to start development for the client.
