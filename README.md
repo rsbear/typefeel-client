@@ -15,6 +15,9 @@ yarn && yarn install && yarn dev
 ```
 
 ### To generate new useQuery or useMutation hook
+Codegen introspects the GraphQL schema of the API. In order to generate the query or mutation
+for the frontend it must first exist in the schema. So once you have created the query or mutation on type-api, you're ready to generate it for the frontend.
+
 Make a new .graphql file
 ```
 cd graphql
@@ -22,7 +25,7 @@ touch newMutation.graphql
 ```
 please note newMutation is just a substitute; please name your file accordingly
 Here is an examples of how `newMutation.graphql` might look
-```
+```graphql
 mutation NewMutation($input: NewDataInput) {
   newMutation(input: $input) {
     success
@@ -30,9 +33,25 @@ mutation NewMutation($input: NewDataInput) {
   }
 }
 ```
-Then run
-``yarn generate``
+Then run ```yarn generate```, and it will create a custom hook in 
+- /generated
+  - graphql.tsx
 
-### About using graphql codegen and generating custom queries and mutations
-Codegen introspects the GraphQL schema of the API. In order to generate the query or mutation
-for the frontend it must first exist in the schema.
+### Using the new query or mutation hook
+Open whichever component or page you want the hook and implement it.
+Example of your newMutation
+
+```javascript
+  const [newMutation] = useNewMutationMutation({ variables: { input: { fake: "", fake2: "" } }})
+
+  const handleMutation = () => {
+    event.preventDefault()
+    try {
+      const response = await newMutation()
+      // then do something with the response
+      console.log(response)
+    } catch (err) {
+      // fail gracefully
+    }
+  }
+```
