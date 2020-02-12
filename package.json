@@ -8,7 +8,6 @@
     "build": "next build",
     "start": "NODE_ENV='production' next start",
     "tsc": "tsc",
-    "deploy": "now --prod && now alias https://typefeel.rsbear.now.sh typefeel.com",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
