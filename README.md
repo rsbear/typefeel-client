@@ -19,9 +19,19 @@ Make a new .graphql file
 ```
 cd graphql
 touch newMutation.graphql
-yarn generate
 ```
 please note newMutation is just a substitute; please name your file accordingly
+Here is an examples of how `newMutation.graphql` might look
+```
+mutation NewMutation($input: NewDataInput) {
+  newMutation(input: $input) {
+    success
+    message
+  }
+}
+```
+Then run
+``yarn generate``
 
 ### About using graphql codegen and generating custom queries and mutations
 Codegen introspects the GraphQL schema of the API. In order to generate the query or mutation
