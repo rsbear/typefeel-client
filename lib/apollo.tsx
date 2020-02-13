@@ -182,6 +182,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
     accessTokenField: "accessToken",
     isTokenValidOrUndefined: () => {
       const token = getAccessToken();
+      console.log(`refreshLink token ${token}`);
 
       if (!token) {
         return true;
@@ -220,6 +221,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
 
   const authLink = setContext((_request, { headers }) => {
     const token = isServer() ? serverAccessToken : getAccessToken();
+    console.log(`authLink token ${token}`);
     return {
       headers: {
         ...headers,
