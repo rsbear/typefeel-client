@@ -15,12 +15,12 @@ import { AuthUser } from "interfaces/AuthUser";
 
 import { Formik, FieldArray } from "formik";
 import { useRouter } from "next/router";
+import { useAppContext } from "hooks/useAppContext";
 
-interface Props {
-  authUser: AuthUser;
-}
+interface Props {}
 
-const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
+const CreateKeyboard: GetProps<Props> = () => {
+  const { authUser } = useAppContext();
   const [images, setImages] = React.useState([]);
   const [multiEditions, setMultiEditions]: SetStateAction<any> = useState(null);
   const [processing, setProcessing] = useState(false);
@@ -78,7 +78,7 @@ const CreateKeyboard: GetProps<Props> = ({ authUser }) => {
   };
 
   return (
-    <Layout title="Create Keyboard" authUser={authUser}>
+    <Layout title="Create Keyboard">
       <h1 css={[text.heading, margins("20px 0")]}>Create a keyboard</h1>
       <Formik initialValues={initValues} onSubmit={() => {}}>
         {({ values }) => (

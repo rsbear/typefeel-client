@@ -6,8 +6,10 @@ import { text } from "styles/text";
 import CasesBarGraph from "components/keyboardcharts/CasesBarGraph";
 import PlatesBarGraph from "components/keyboardcharts/PlatesBarGraph";
 import LayoutsBarGraph from "components/keyboardcharts/LayoutsBarGraph";
+import { useAppContext } from "hooks/useAppContext";
 
-const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
+const KeyboardData: GetProps<any> = ({ shortId }) => {
+  const { authUser } = useAppContext();
   const [totalJoins, setTotalJoins] = useState("");
   const [caseData, setCaseData] = useState([]);
   const [platesData, setPlatesData] = useState([]);
@@ -71,7 +73,7 @@ const KeyboardData: GetProps<any> = ({ authUser, shortId }) => {
   };
 
   return (
-    <Layout title="Data" authUser={authUser} dynamicNav={dynamicNav}>
+    <Layout title="Data" dynamicNav={dynamicNav}>
       {loading && <h2 />}
       {!loading && !error && data && data.keyboard && (
         <div>

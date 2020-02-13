@@ -5,14 +5,17 @@ import { AuthUser } from "interfaces/AuthUser";
 import { flex } from "styles/main";
 import { RoundButton } from "styles/buttons";
 import { css } from "@emotion/core";
+import { useAppContext } from "hooks/useAppContext";
 
 interface Props {
   authUser: AuthUser;
 }
 
-const CreateIndex: FC<Props> = ({ authUser }) => {
+const CreateIndex: FC<Props> = () => {
+  const { authUser } = useAppContext();
+
   return (
-    <Layout title="Create a project" authUser={authUser}>
+    <Layout title="Create a project">
       <div css={[flex.column, flex.itemscenter]}>
         <h1>Create a project</h1>
         <div css={buttonContainer}>

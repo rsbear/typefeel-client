@@ -9,11 +9,13 @@ import css from "@emotion/css";
 import Tile from "components/Tile";
 import { useKeyboardsQuery } from "generated/graphql";
 
-const Keyboards: GetProps<any> = ({ authUser }) => {
+interface Props {}
+
+const Keyboards: GetProps<Props> = () => {
   const { loading, error, data } = useKeyboardsQuery();
 
   return (
-    <Layout title="Keyboards" authUser={authUser}>
+    <Layout title="Keyboards">
       <h1 css={text.heading}>Keyboards</h1>
       {!loading && data && data.keyboards && (
         <div css={grid50}>

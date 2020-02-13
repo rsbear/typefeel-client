@@ -9,8 +9,10 @@ import { colors } from "styles/main";
 import PieChart from "components/shared/PieChart";
 import * as d3 from "d3";
 import KeysetChart from "components/KeysetChart";
+import { useAppContext } from "hooks/useAppContext";
 
-const KeysetData: GetProps<any> = ({ authUser, shortId }) => {
+const KeysetData: GetProps<any> = ({ shortId }) => {
+  const { authUser } = useAppContext();
   const [keysetData, setKeysetData] = useState([]);
   const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
 

@@ -9,13 +9,15 @@ import css from "@emotion/css";
 import Tile from "components/Tile";
 import { useSortKeyboardsQuery } from "generated/graphql";
 
-const MarketKeyboards: GetProps<any> = ({ authUser }) => {
+interface Props {}
+
+const MarketKeyboards: GetProps<Props> = () => {
   const { loading, error, data } = useSortKeyboardsQuery({
     variables: { where: { market: true } }
   });
 
   return (
-    <Layout title="Keyboards" authUser={authUser}>
+    <Layout title="Keyboards">
       <h1 css={text.heading}>Keyboards</h1>
       {!loading && data && (
         <div css={grid50}>

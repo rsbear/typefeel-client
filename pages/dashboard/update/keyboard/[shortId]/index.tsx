@@ -8,13 +8,17 @@ import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
 import { colors, flex, borderBox, margins } from "styles/main";
 import { Button } from "styles/buttons";
+import { useAppContext } from "hooks/useAppContext";
+import useAuthChecker from "hooks/useAuthChecker";
 
 interface Props {
   authUser?: any;
   shortId: string;
 }
 
-const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
+const UpdateKeyboard: GetProps<Props> = ({ shortId }) => {
+  const { authUser } = useAppContext();
+  useAuthChecker(authUser);
   const [updateField, setUpdateField] = useState("");
   const [showDetails, setShowDetails] = useState(false);
   const [editionIndex, setEditionIndex]: SetStateAction<any> = useState(null);
@@ -64,7 +68,7 @@ const UpdateKeyboard: GetProps<Props> = ({ authUser, shortId }) => {
   };
 
   return (
-    <Layout title="Update keyboard" authUser={authUser}>
+    <Layout title="Update keyboard">
       {loading && <h2>Loading..</h2>}
       {!loading && data && data.keyboard && (
         <>

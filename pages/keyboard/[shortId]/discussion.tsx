@@ -11,8 +11,11 @@ import { flex, colors } from "styles/main";
 import { Button } from "styles/buttons";
 import { ReplyBox } from "styles/inputs";
 import PostBox from "components/shared/PostBox";
+import { useAppContext } from "hooks/useAppContext";
+import Link from "next/link";
 
-const KeyboardDiscussion: GetProps<any> = ({ shortId, authUser }) => {
+const KeyboardDiscussion: GetProps<any> = ({ shortId }) => {
+  const { authUser } = useAppContext();
   const [body, setBody] = useState("");
   const { loading, error, data, refetch } = useKeyboardPostsQuery({
     variables: { shortId }
@@ -40,7 +43,7 @@ const KeyboardDiscussion: GetProps<any> = ({ shortId, authUser }) => {
   };
 
   return (
-    <Layout title="Discussion" authUser={authUser} dynamicNav={dynamicNav}>
+    <Layout title="Discussion" dynamicNav={dynamicNav}>
       {loading && <h2>Loading...</h2>}
       {!loading && !error && data && (
         <div css={flex.row}>
@@ -65,9 +68,15 @@ const KeyboardDiscussion: GetProps<any> = ({ shortId, authUser }) => {
               placeholder="Reply"
               onChange={e => setBody(e.target.value)}
             ></ReplyBox>
-            <Button primary="true" onClick={e => handleCreatePost(e)}>
-              Submit reply
-            </Button>
+            {!authUser ? (
+              <Link href="login">
+                <Button type="button">Log in to reply</Button>
+              </Link>
+            ) : (
+              <Button primary="true" onClick={e => handleCreatePost(e)}>
+                Submit reply
+              </Button>
+            )}
           </div>
         </div>
       )}

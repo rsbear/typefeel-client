@@ -8,16 +8,14 @@ import Tile from "components/Tile";
 import { text } from "styles/text";
 import { grid50 } from "styles/main";
 
-interface Props {
-  authUser?: any;
-}
+interface Props {}
 
-const MarketKeysets: FC<Props> = ({ authUser }) => {
+const MarketKeysets: FC<Props> = () => {
   const { loading, error, data } = useSortKeysetsQuery({
     variables: { where: { market: true } }
   });
   return (
-    <Layout title="Keysets catalog" authUser={authUser}>
+    <Layout title="Keysets catalog">
       <h1 css={text.heading}>Keysets</h1>
       {loading && <h2>Loading...</h2>}
       {error && <h2>{error.message}</h2>}

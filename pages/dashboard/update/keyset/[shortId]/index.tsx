@@ -8,13 +8,17 @@ import { FormikInput, FormikArea } from "styles/inputs";
 import css from "@emotion/css";
 import { colors, borderBox, margins, grid33, grid50 } from "styles/main";
 import { Button } from "styles/buttons";
+import { useAppContext } from "hooks/useAppContext";
+import useAuthChecker from "hooks/useAuthChecker";
 
 interface Props {
   authUser?: any;
   shortId: string;
 }
 
-const KeysetUpdate: GetProps<Props> = ({ authUser, shortId }) => {
+const KeysetUpdate: GetProps<Props> = ({ shortId }) => {
+  const { authUser } = useAppContext();
+  useAuthChecker(authUser);
   const [updateField, setUpdateField] = useState("");
   const [showDetails, setShowDetails] = useState(false);
   const { loading, error, data, refetch } = useKeysetQuery({

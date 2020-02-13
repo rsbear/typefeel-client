@@ -9,7 +9,7 @@ import css from "@emotion/css";
 import Tile from "components/Tile";
 import { useSortKeyboardsQuery } from "generated/graphql";
 
-const InterestCheckKeyboards: GetProps<any> = ({ authUser }) => {
+const InterestCheckKeyboards: GetProps<any> = () => {
   const { loading, error, data } = useSortKeyboardsQuery({
     variables: { where: { interestCheck: true } }
   });
@@ -17,7 +17,7 @@ const InterestCheckKeyboards: GetProps<any> = ({ authUser }) => {
   console.log(data);
 
   return (
-    <Layout title="Keyboards" authUser={authUser}>
+    <Layout title="Keyboards">
       <h1 css={text.heading}>Keyboards</h1>
       {!loading && data && (
         <div css={grid50}>

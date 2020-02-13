@@ -10,8 +10,10 @@ import { Button } from "styles/buttons";
 import MarketKeyset from "components/MarketKeyset";
 import InterestCheckKeyset from "components/InterestCheckKeyset";
 import FollowButton from "components/shared/FollowButton";
+import { useAppContext } from "hooks/useAppContext";
 
-const Keyset: GetProps<any> = ({ authUser, shortId }) => {
+const Keyset: GetProps<any> = ({ shortId }) => {
+  const { authUser } = useAppContext();
   const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
 
   const dynamicNav = {

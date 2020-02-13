@@ -12,8 +12,10 @@ import { flex, colors } from "styles/main";
 import PostBox from "components/shared/PostBox";
 import { ReplyBox } from "styles/inputs";
 import { Button } from "styles/buttons";
+import { useAppContext } from "hooks/useAppContext";
 
-const KeysetDiscussion: GetProps<any> = ({ authUser, shortId }) => {
+const KeysetDiscussion: GetProps<any> = ({ shortId }) => {
+  const { authUser } = useAppContext();
   const [body, setBody] = useState("");
   const { loading, error, data, refetch } = useKeysetPostsQuery({
     variables: { shortId }

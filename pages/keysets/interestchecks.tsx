@@ -7,13 +7,13 @@ import { useSortKeysetsQuery } from "generated/graphql";
 import { text } from "styles/text";
 import { grid50 } from "styles/main";
 
-const KeysetInterestChecks: FC<any> = ({ authUser }) => {
+const KeysetInterestChecks: FC<any> = () => {
   const { loading, error, data } = useSortKeysetsQuery({
     variables: { where: { interestCheck: true } }
   });
 
   return (
-    <Layout title="Keyset interest checks" authUser={authUser}>
+    <Layout title="Keyset interest checks">
       <h1 css={text.heading}>Keysets</h1>
       {!loading && data && (
         <div css={grid50}>

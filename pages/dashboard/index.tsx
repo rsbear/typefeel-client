@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import Layout from "components/layouts/Layout";
-import useCheckAuth from "hooks/useCheckAuth";
+import useCheckAuth from "hooks/useAuthChecker";
 import { useRouter } from "next/router";
 import { useUserDashboardQuery } from "generated/graphql";
 
@@ -10,14 +10,16 @@ import AccountPageNavigation from "components/shared/AccountPageNavigation";
 import FollowTile from "components/dashboard/FollowTile";
 import { flex } from "styles/main";
 import JoinTile from "components/dashboard/JoinTile";
+import { useAppContext } from "hooks/useAppContext";
 
-const Dashboard: FC<any> = ({ authUser }) => {
+const Dashboard: FC<any> = () => {
+  const { authUser } = useAppContext();
   useCheckAuth(authUser);
   const router = useRouter();
   const { loading, error, data } = useUserDashboardQuery();
 
   return (
-    <Layout title="Dashboard" authUser={authUser}>
+    <Layout title="Dashboard">
       {loading && <h1>Loading...</h1>}
       {error && <h2>Oops, something went wrong.</h2>}
       {!loading && data && data.me && (

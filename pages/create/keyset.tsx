@@ -8,8 +8,10 @@ import { Button } from "styles/buttons";
 import { margins, borderBox, grid50, grid33, colors } from "styles/main";
 import { FormikInput, FormikArea } from "styles/inputs";
 import { text } from "styles/text";
+import { useAppContext } from "hooks/useAppContext";
 
-const CreateKeyset: FC<any> = ({ authUser }) => {
+const CreateKeyset: FC<any> = () => {
+  const { authUser } = useAppContext();
   const [images, setImages] = useState([]);
   const initValues = {
     name: "",
@@ -38,7 +40,7 @@ const CreateKeyset: FC<any> = ({ authUser }) => {
   };
 
   return (
-    <Layout title="Create keyset" authUser={authUser}>
+    <Layout title="Create keyset">
       <h1 css={[text.heading, margins("20px 0")]}>Create a keyset</h1>
       <Formik initialValues={initValues} onSubmit={() => {}}>
         {({ values }) => (

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState, useEffect } from "react";
+import React, { FC, useRef, useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import DynamicNav from "./DynamicNav";
@@ -6,8 +6,10 @@ import DynamicNav from "./DynamicNav";
 import css from "@emotion/css";
 import { colors } from "styles/main";
 import { fontSize } from "styles/text";
+import { useAppContext } from "hooks/useAppContext";
 
-const Navigation: FC<any> = ({ authUser, dynamicNav }) => {
+const Navigation: FC<any> = ({ dynamicNav }) => {
+  const { authUser } = useAppContext();
   const [isSticky, setSticky] = useState(false);
   const ref = useRef(null);
   const router = useRouter();

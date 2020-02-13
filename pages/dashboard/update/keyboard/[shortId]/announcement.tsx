@@ -9,8 +9,10 @@ import {
 import { Formik } from "formik";
 import { FormikInput, FormikArea } from "styles/inputs";
 import { Button } from "styles/buttons";
+import { useAppContext } from "hooks/useAppContext";
 
-const KeyboardMessage: GetProps<any> = ({ authUser, shortId }) => {
+const KeyboardMessage: GetProps<any> = ({ shortId }) => {
+  const { authUser } = useAppContext();
   const { loading, error, data } = useKeyboardQuery({ variables: { shortId } });
   const [keyboardAnnouncement] = useKeyboardAnnouncementMutation();
   const kb = !loading && data && data.keyboard;
@@ -30,7 +32,7 @@ const KeyboardMessage: GetProps<any> = ({ authUser, shortId }) => {
     }
   };
   return (
-    <Layout title="Announcement" authUser={authUser}>
+    <Layout title="Announcement">
       {loading && <h2>Loading...</h2>}
       {error && <h2>Oops, an error occured</h2>}
       {!loading && data && data.keyboard && (

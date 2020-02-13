@@ -8,8 +8,10 @@ import { css } from "@emotion/core";
 import { useSortKeyboardsQuery, useSortKeysetsQuery } from "generated/graphql";
 import Tile from "components/Tile";
 import { RoundButton } from "styles/buttons";
+import { useAppContext } from "hooks/useAppContext";
 
-const Landing: GetProps<any> = ({ authUser }) => {
+const Landing: GetProps<any> = () => {
+  const { authUser } = useAppContext();
   const keyboards = useSortKeyboardsQuery({
     variables: { where: { interestCheck: true } }
   });
@@ -17,7 +19,7 @@ const Landing: GetProps<any> = ({ authUser }) => {
     variables: { where: { interestCheck: true } }
   });
   return (
-    <Layout title="Home" authUser={authUser}>
+    <Layout title="Home">
       {!authUser && (
         <div css={[flex.column, flex.itemscenter, margins("40px 0 40px 0")]}>
           <h1 css={text.heading}>Artisan keyboards at your finger tips.</h1>

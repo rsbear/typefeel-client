@@ -9,11 +9,11 @@ import { text } from "styles/text";
 import css from "@emotion/css";
 import Tile from "components/Tile";
 
-const Keysets: GetProps<any> = ({ authUser }) => {
+const Keysets: GetProps<any> = () => {
   const { loading, error, data } = useKeysetsQuery();
 
   return (
-    <Layout title="Keyboards" authUser={authUser}>
+    <Layout title="Keyboards">
       <h1 css={text.heading}>Keysets</h1>
       {!loading && data && (
         <div css={grid50}>

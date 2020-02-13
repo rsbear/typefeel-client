@@ -7,11 +7,13 @@ import css from "@emotion/css";
 import { text } from "styles/text";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import useCheckAuth from "hooks/useCheckAuth";
+import useCheckAuth from "hooks/useAuthChecker";
 import KeyboardProjectTile from "components/dashboard/KeyboardProjectTile";
 import { flex } from "styles/main";
+import { useAppContext } from "hooks/useAppContext";
 
-const Dashboard: FC<any> = ({ authUser }) => {
+const Dashboard: FC<any> = () => {
+  const { authUser } = useAppContext();
   useCheckAuth(authUser);
   const router = useRouter();
   const { loading, error, data } = useUserDashboardQuery();

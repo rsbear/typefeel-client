@@ -8,8 +8,10 @@ import { text } from "styles/text";
 import { colors, grid50, margins } from "styles/main";
 import MarketKeyboard from "components/MarketKeyboard";
 import InterestCheckKeyboard from "components/InterestCheckKeyboard";
+import { useAppContext } from "hooks/useAppContext";
 
-const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
+const KeyboardPage: GetProps<any> = ({ shortId }) => {
+  const { authUser } = useAppContext();
   const { loading, error, data, refetch } = useKeyboardQuery({
     variables: { shortId }
   });
@@ -23,7 +25,7 @@ const KeyboardPage: GetProps<any> = ({ authUser, shortId }) => {
   const title = !loading && data && data.keyboard ? data.keyboard.name : "...";
 
   return (
-    <Layout title={title} authUser={authUser} dynamicNav={dynamicNav}>
+    <Layout title={title} dynamicNav={dynamicNav}>
       {loading && <h2></h2>}
       {!loading && data && (
         <>
