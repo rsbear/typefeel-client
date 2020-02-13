@@ -14,6 +14,7 @@ const Login: FC<any> = () => {
   const [stateEmail, setEmail] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const [generateAuth] = useGenerateAuthMutation();
@@ -21,12 +22,14 @@ const Login: FC<any> = () => {
 
   async function handleGenerateAuth(e: any, { email }) {
     e.preventDefault();
+    setIsLoading(true);
     try {
       let res = await generateAuth({ variables: { email } });
 
       if (res && !res.data.generateAuth) {
         setError(`${email} is invalid.`);
         setConfirm(false);
+        setIsLoading(false);
       } else {
         setEmail(email);
         setConfirm(true);
@@ -34,11 +37,13 @@ const Login: FC<any> = () => {
     } catch (err) {
       console.log(err);
       setError("Something went wrong");
+      setIsLoading(false);
     }
   }
 
   async function handleLogin(e: any, { secret }) {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await login({
         variables: {
@@ -55,6 +60,7 @@ const Login: FC<any> = () => {
       }
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   }
 
@@ -107,7 +113,7 @@ const Login: FC<any> = () => {
               name="secret"
             />
             <Button type="submit" primary="true">
-              Log me in
+              {!isLoading ? "Log in" : "Processing..."}
             </Button>
           </form>
         )}
