@@ -66,9 +66,6 @@ const KeyboardPage: GetProps<any> = ({ shortId }) => {
                 layouts={data.keyboard.layouts}
                 id={data.keyboard.id}
                 refresh={refetch}
-                authUserJoins={authUser ? authUser.keyboardjoins : []}
-                follows={authUser ? authUser.follows : []}
-                authUser={authUser}
               />
             )}
           </div>

@@ -45,15 +45,12 @@ const Keyset: GetProps<any> = ({ shortId }) => {
                   kits={data.keyset.kits}
                   authUser={authUser}
                   id={data.keyset.id}
-                  follows={authUser ? authUser.follows : []}
                 />
               )}
               {data.keyset.interestCheck && (
                 <InterestCheckKeyset
                   kits={data.keyset.kits}
                   id={data.keyset.id}
-                  joins={authUser ? authUser.keysetjoins : []}
-                  follows={authUser ? authUser.follows : []}
                   authUser={authUser}
                 />
               )}

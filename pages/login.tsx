@@ -33,6 +33,7 @@ const Login: FC<any> = () => {
       } else {
         setEmail(email);
         setConfirm(true);
+        setIsLoading(false);
       }
     } catch (err) {
       console.log(err);

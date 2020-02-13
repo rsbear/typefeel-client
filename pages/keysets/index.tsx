@@ -10,7 +10,9 @@ import css from "@emotion/css";
 import Tile from "components/Tile";
 
 const Keysets: GetProps<any> = () => {
-  const { loading, error, data } = useKeysetsQuery();
+  const { loading, error, data } = useKeysetsQuery({
+    variables: { where: { market: true } }
+  });
 
   return (
     <Layout title="Keyboards">
@@ -34,6 +36,8 @@ const Keysets: GetProps<any> = () => {
               </a>
             </Link>
           ))}
+
+          {!loading && !error && data && <div css={grid50}></div>}
         </div>
       )}
     </Layout>

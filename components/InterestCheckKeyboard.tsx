@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useReducer } from "react";
 
 import css from "@emotion/css";
 import { flex, grid50, margins, colors } from "styles/main";
@@ -7,50 +7,57 @@ import { useJoinKeyboardMutation } from "generated/graphql";
 import FollowButton from "./shared/FollowButton";
 import { AuthUser } from "interfaces/AuthUser";
 import Link from "next/link";
+import { useAppContext } from "hooks/useAppContext";
+import JoinButton from "./buttons/JoinButton";
+import { useRouter } from "next/router";
 
 interface Props {
   id?: string;
   editions?: any;
   refresh?: any;
   layouts?: string[];
-  authUserJoins?: any;
-  follows?: any;
-  authUser: AuthUser;
 }
 
-const InterestCheckKeyboard: FC<Props> = ({
-  editions,
-  layouts,
-  id,
-  authUserJoins,
-  follows,
-  authUser
-}) => {
-  const [index, setIndex] = useState(0);
-  const [caseSelect, setCaseSelect] = useState("");
-  const [plateSelect, setPlateSelect] = useState("");
-  const [layoutSelect, setLayoutSelect] = useState("");
-  const [alreadyJoined, setAlreadyJoined] = useState(false);
+const initState = {
+  caseChoice: "",
+  plateChoice: "",
+  layoutChoice: ""
+};
 
-  const [joinKeyboard, res] = useJoinKeyboardMutation();
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "caseChoice":
+      return { ...state, caseChoice: action.payload };
+    case "plateChoice":
+      return { ...state, plateChoice: action.payload };
+    case "layoutChoice":
+      return { ...state, layoutChoice: action.payload };
+    default:
+      return state;
+  }
+};
+
+const InterestCheckKeyboard: FC<Props> = ({ editions, layouts, id }) => {
+  const { authUser } = useAppContext();
+  const [index, setIndex] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initState);
+  const [joined, setJoined] = useState(false);
+
+  const [joinKeyboard] = useJoinKeyboardMutation();
 
   React.useEffect(() => {
-    for (let j of authUserJoins) {
-      if (j.keyboardId !== id) {
-        setAlreadyJoined(false);
-      } else {
-        setAlreadyJoined(true);
+    if (authUser) {
+      for (let j of authUser.keyboardjoins) {
+        if (j.id === id) {
+          setJoined(true);
+        }
       }
     }
-  }, []);
+  }, [authUser]);
 
-  const handleJoin = async (e: any) => {
-    e.preventDefault();
-    let data = {
-      caseChoice: caseSelect,
-      plateChoice: plateSelect,
-      layoutChoice: layoutSelect
-    };
+  const handleJoin = async () => {
+    event.preventDefault();
+    let data = state;
     try {
       let response = await joinKeyboard({
         variables: { id, data }
@@ -84,10 +91,10 @@ const InterestCheckKeyboard: FC<Props> = ({
       <div css={grid50}>
         {editions[index].cases.map((c: string, i: number) => (
           <Button
-            className={caseSelect !== c ? undefined : "active"}
+            className={state.caseChoice !== c ? undefined : "active"}
             secondary="true"
             key={i}
-            onClick={() => setCaseSelect(c)}
+            onClick={() => dispatch({ type: "caseChoice", payload: c })}
           >
             {c}
           </Button>
@@ -97,10 +104,10 @@ const InterestCheckKeyboard: FC<Props> = ({
       <div css={grid50}>
         {editions[index].plates.map((p: string, i: number) => (
           <Button
-            className={plateSelect !== p ? undefined : "active"}
+            className={state.plateChoice !== p ? undefined : "active"}
             secondary="true"
             key={i}
-            onClick={() => setPlateSelect(p)}
+            onClick={() => dispatch({ type: "plateChoice", payload: p })}
           >
             {p}
           </Button>
@@ -110,44 +117,19 @@ const InterestCheckKeyboard: FC<Props> = ({
       <div css={grid50}>
         {layouts.map((l: string, i: number) => (
           <Button
-            className={layoutSelect !== l ? undefined : "active"}
+            className={state.layoutChoice !== l ? undefined : "active"}
             secondary="true"
             key={i}
-            onClick={() => setLayoutSelect(l)}
+            onClick={() => dispatch({ type: "layoutChoice", payload: l })}
           >
             {l}
           </Button>
         ))}
       </div>
-      {!authUser ? (
-        <div css={joinFollowContainer}>
-          <Link href="/login">
-            <a>
-              <RoundButton large="true" primary="true" margins="0 0 15px 0">
-                Log in to join or follow
-              </RoundButton>
-            </a>
-          </Link>
-        </div>
-      ) : (
-        <div css={joinFollowContainer}>
-          {!alreadyJoined ? (
-            <RoundButton
-              large="true"
-              primary="true"
-              margins="0 0 15px 0"
-              onClick={e => handleJoin(e)}
-            >
-              Join it
-            </RoundButton>
-          ) : (
-            <RoundButton large="true" disabled="true" margins="0 0 15px 0">
-              You're in
-            </RoundButton>
-          )}
-          <FollowButton id={id} follows={follows} />
-        </div>
-      )}
+      <div css={joinFollowContainer}>
+        {authUser && <JoinButton joined={joined} onClick={handleJoin} />}
+        <FollowButton id={id} />
+      </div>
     </div>
   );
 };

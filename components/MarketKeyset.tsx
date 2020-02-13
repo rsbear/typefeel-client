@@ -23,10 +23,9 @@ interface Props {
   kits?: Kit[];
   authUser: AuthUser;
   id: string;
-  follows?: any;
 }
 
-const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
+const MarketKeyset: FC<Props> = ({ kits, authUser, id }) => {
   const [index, setIndex] = useState(0);
   const [message, setMessage] = useState("");
 
@@ -114,17 +113,7 @@ const MarketKeyset: FC<Props> = ({ kits, authUser, follows, id }) => {
       <div css={[flex.column, buttonContainer]}>
         {/* <Button primary="true">Buy now</Button>
         <Button primary="true">Sell now</Button> */}
-        {!authUser ? (
-          <Link href="/login">
-            <a>
-              <RoundButton large="true" primary="true" margins="0 0 15px 0">
-                Log in to join or follow
-              </RoundButton>
-            </a>
-          </Link>
-        ) : (
-          <FollowButton id={id} follows={follows} />
-        )}
+        <FollowButton id={id} />
         <Link href="/faq">
           <a className="faq">FAQ</a>
         </Link>

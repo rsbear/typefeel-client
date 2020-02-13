@@ -1,17 +1,20 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useContext } from "react";
 import { Button, RoundButton } from "styles/buttons";
 import {
   useCreateFollowMutation,
   useUnfollowMutation
 } from "generated/graphql";
 import css from "@emotion/css";
+import Link from "next/link";
+import { useAppContext } from "hooks/useAppContext";
 
 interface Props {
   id: string;
   follows?: any;
 }
 
-const FollowButton: FC<Props> = ({ id, follows }) => {
+const FollowButton: FC<Props> = ({ id }) => {
+  const { authUser } = useAppContext();
   const [following, setFollowing] = useState(false);
   const [followId, setFollowId] = useState("");
 
@@ -19,13 +22,15 @@ const FollowButton: FC<Props> = ({ id, follows }) => {
   const [unfollowMut] = useUnfollowMutation();
 
   useEffect(() => {
-    for (let f of follows) {
-      if (f.productId === id) {
-        setFollowing(true);
-        setFollowId(f.id);
+    if (authUser) {
+      for (let f of authUser.follows) {
+        if (f.productId === id) {
+          setFollowing(true);
+          setFollowId(f.id);
+        }
       }
     }
-  }, [follows]);
+  }, [authUser]);
 
   const handleFollow = async () => {
     event.preventDefault();
@@ -54,14 +59,23 @@ const FollowButton: FC<Props> = ({ id, follows }) => {
     }
   };
 
-  return !following ? (
-    <RoundButton secondary="true" onClick={handleFollow}>
-      Follow <i className="icon ion-ios-heart-empty" css={heartIcon} />
-    </RoundButton>
+  return !authUser ? (
+    <Link href="/login">
+      <a>
+        <RoundButton large="true" primary="true" margins="0 0 15px 0">
+          Log in to join or follow
+        </RoundButton>
+      </a>
+    </Link>
   ) : (
     <RoundButton secondary="true" onClick={handleFollow}>
-      Following{" "}
-      <i className="icon ion-ios-heart" css={[heartIcon, heartIconFull]} />
+      {!following ? "Follow" : "Following"}
+      <i
+        className={
+          !following ? "icon ion-ios-heart-empty" : "icon ion-ios-heart"
+        }
+        css={heartIcon}
+      />
     </RoundButton>
   );
 };
@@ -73,5 +87,6 @@ const heartIcon = css`
 `;
 
 const heartIconFull = css`
+  margin-left: 5px;
   color: pink;
 `;
