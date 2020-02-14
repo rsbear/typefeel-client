@@ -4,11 +4,14 @@ import { GetProps } from "interfaces/GetProps";
 import { useKeyboardQuery } from "generated/graphql";
 
 import css from "@emotion/css";
-import { text } from "styles/text";
+import { text, fontSize } from "styles/text";
 import { colors, grid50, margins } from "styles/main";
 import MarketKeyboard from "components/MarketKeyboard";
 import InterestCheckKeyboard from "components/InterestCheckKeyboard";
 import { useAppContext } from "hooks/useAppContext";
+import KeyboardSummary from "components/KeyboardSummary";
+import KeyboardInterestCheck from "components/KeyboardInterestCheck";
+import KeyboardMarket from "components/KeyboardMarket";
 
 const KeyboardPage: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
@@ -34,44 +37,34 @@ const KeyboardPage: GetProps<any> = ({ shortId }) => {
               <p>PSA: {data.keyboard.announcement}</p>
             </div>
           )}
-          <h1 css={text.heading}>
-            {data.keyboard.brand} {data.keyboard.name}
-          </h1>
-          <h2 css={specs}>
-            {data.keyboard.size}, {data.keyboard.mount} mount,{" "}
-            {data.keyboard.angle}&deg; typing angle
-          </h2>
-          <h2 css={specs}>
-            {data.keyboard.connector}, {data.keyboard.pcb} PCB,{" "}
-            {data.keyboard.firmware} support
-          </h2>
-          <div css={[contentBox, grid50]}>
-            <img
-              css={mainImg}
-              src={data.keyboard.images1500[0]}
-              alt={data.keyboard.name}
+          <KeyboardSummary
+            id={data.keyboard.id}
+            name={data.keyboard.name}
+            brand={data.keyboard.brand}
+            size={data.keyboard.size}
+            mount={data.keyboard.mount}
+            angle={data.keyboard.angle}
+            connector={data.keyboard.connector}
+            pcb={data.keyboard.pcb}
+            firmware={data.keyboard.firmware}
+            bannerImg={data.keyboard.images1500[0]}
+          />
+          {data.keyboard.interestCheck && (
+            <KeyboardInterestCheck
+              id={data.keyboard.id}
+              editions={data.keyboard.editions}
+              layouts={data.keyboard.layouts}
             />
-            {data.keyboard.market && (
-              <MarketKeyboard
-                editions={data.keyboard.editions}
-                id={data.keyboard.id}
-                refresh={refetch}
-                follows={authUser ? authUser.follows : []}
-                authUser={authUser}
-              />
-            )}
-            {data.keyboard.interestCheck && (
-              <InterestCheckKeyboard
-                editions={data.keyboard.editions}
-                layouts={data.keyboard.layouts}
-                id={data.keyboard.id}
-                refresh={refetch}
-              />
-            )}
-          </div>
+          )}
+          {data.keyboard.market && (
+            <KeyboardMarket
+              editions={data.keyboard.editions}
+              refresh={refetch}
+            />
+          )}
 
-          <div>
-            <h4 css={margins("0 0 15px 0")}>Details</h4>
+          <div css={[detailsContainer]}>
+            <h3 css={[margins("0 0 15px 0")]}>About</h3>
             {data.keyboard.details.map((d: string, i: number) => (
               <p key={i}>{d}</p>
             ))}
@@ -114,9 +107,14 @@ const contentBox = css`
   margin: 60px 0;
 `;
 
+const joinContainer = css`
+  padding: 0 20px;
+`;
+
 const mainImg = css`
   height: 500px;
   width: 90%;
+  border-radius: 10px;
   object-fit: cover;
   object-position: center;
 `;
@@ -127,5 +125,15 @@ const imagesWrapper = css`
     width: 100%;
     height: 600px;
     margin: 20px 0;
+  }
+`;
+
+const detailsContainer = css`
+  width: 700px;
+  margin: 60px auto;
+
+  h3 {
+    font-size: ${fontSize[24]};
+    color: ${colors.black60};
   }
 `;

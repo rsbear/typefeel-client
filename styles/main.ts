@@ -11,7 +11,8 @@ export const colors = {
   black20: 'rgba(0,0,0,.2)',
   black10: 'rgba(0,0,0,.1)',
   black05: 'rgba(0,0,0,.05)',
-  white: 'rgba(255,255,255,1)'
+  white: 'rgba(255,255,255,1)',
+  lightgray: '#f5f5f5'
 };
 
 const row = css`
@@ -52,6 +53,11 @@ export const grid33 = css`
   display: grid;
   grid-template-columns: calc(33% - 6px) calc(33% - 6px) calc(33% - 6px);
   grid-column-gap: 12px;
+`
+export const grid25 = css`
+  display: grid;
+  grid-template-columns: calc(25% - 4px) calc(25% - 4px) calc(25% - 4px) calc(25% - 4px) calc(25% - 4px);
+  grid-column-gap: 8px;
 `
 
 export const flex = {

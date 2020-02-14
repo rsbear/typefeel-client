@@ -21,5 +21,5 @@ export default Layout;
 const mainContent = css`
   position: relative;
   padding-top: 50px;
-  width: 900px;
+  width: 928px;
 `;

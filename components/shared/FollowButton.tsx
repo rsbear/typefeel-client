@@ -1,5 +1,4 @@
-import React, { FC, useState, useEffect, useContext } from "react";
-import { Button, RoundButton } from "styles/buttons";
+import React, { FC, useState, useEffect } from "react";
 import {
   useCreateFollowMutation,
   useUnfollowMutation
@@ -7,6 +6,7 @@ import {
 import css from "@emotion/css";
 import Link from "next/link";
 import { useAppContext } from "hooks/useAppContext";
+import { fontSize } from "styles/text";
 
 interface Props {
   id: string;
@@ -62,21 +62,18 @@ const FollowButton: FC<Props> = ({ id }) => {
   return !authUser ? (
     <Link href="/login">
       <a>
-        <RoundButton large="true" primary="true" margins="0 0 15px 0">
+        <button css={followButton} type="button">
           Log in to join or follow
-        </RoundButton>
+        </button>
       </a>
     </Link>
   ) : (
-    <RoundButton secondary="true" onClick={handleFollow}>
+    <button
+      css={!following ? followButton : [followButton, followingButton]}
+      onClick={handleFollow}
+    >
       {!following ? "Follow" : "Following"}
-      <i
-        className={
-          !following ? "icon ion-ios-heart-empty" : "icon ion-ios-heart"
-        }
-        css={heartIcon}
-      />
-    </RoundButton>
+    </button>
   );
 };
 
@@ -89,4 +86,23 @@ const heartIcon = css`
 const heartIconFull = css`
   margin-left: 5px;
   color: pink;
+`;
+
+const followButton = css`
+  outline: 0;
+  padding: 0 40px;
+  margin-right: 15px;
+  height: 40px;
+  border-radius: 20px;
+  border: solid 1px #4b6787;
+  background-color: #4b6787;
+
+  color: white;
+  font-size: ${fontSize[14]};
+  font-weight: 600;
+`;
+
+const followingButton = css`
+  background: transparent;
+  color: #4b6787;
 `;

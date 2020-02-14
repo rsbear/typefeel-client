@@ -1,3 +1,10 @@
+//
+//
+//
+// DEPRECATED as of 2-14-20
+//
+//
+//
 import React, { FC, useState, useEffect } from "react";
 import { useAppContext } from "hooks/useAppContext";
 import { RoundButton } from "styles/buttons";
@@ -26,9 +33,10 @@ export default JoinButton;
 
 const def = css`
   height: 48px;
+  width: 100%;
   border-radius: 24px;
-  border: solid 1px ${colors.black90};
   outline: 0;
+  border: 0;
   background-color: ${colors.black90};
   color: white;
   margin-bottom: 15px;
@@ -39,9 +47,10 @@ const def = css`
 
 const secondary = css`
   height: 48px;
+  width: 100%;
   border-radius: 24px;
-  border: solid 3px rgba(40, 230, 160, 1);
-  background-color: transparent;
+  border: 0;
+  background-color: rgba(40, 230, 160, 0.1);
   font-weight: 300;
   font-size: 14px;
   transition: all 200ms ease;

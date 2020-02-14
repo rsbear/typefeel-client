@@ -1,3 +1,8 @@
+//
+//
+// DEPRECATED as of 2-14-19
+// Please refer to KeyboardInterestCheck
+
 import React, { FC, useState, useReducer } from "react";
 
 import css from "@emotion/css";

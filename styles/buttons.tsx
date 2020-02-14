@@ -5,12 +5,12 @@ import { fontSize } from "./text";
 
 export const btn = css`
   width: 100%;
-  height: 36px;
+  height: 32px;
   outline: none;
   border: solid 1px ${colors.black70};
   border-radius: 4px;
   background-color: ${colors.black70};
-  font-size: ${fontSize.small};
+  font-size: ${fontSize.tiny};
   color: ${colors.white};
   transition: all 200ms ease;
 `;

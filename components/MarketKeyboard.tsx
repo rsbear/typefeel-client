@@ -1,3 +1,9 @@
+//
+//
+//
+// DEPRECATED as of 2-24-20
+// please refer to KeyboardMarket
+//
 import React, { FC, useState } from "react";
 import { flex, colors, hundo } from "styles/main";
 import { text } from "styles/text";
