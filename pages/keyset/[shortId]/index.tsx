@@ -11,6 +11,8 @@ import MarketKeyset from "components/MarketKeyset";
 import InterestCheckKeyset from "components/InterestCheckKeyset";
 import FollowButton from "components/shared/FollowButton";
 import { useAppContext } from "hooks/useAppContext";
+import KeysetSummary from "components/KeysetSummary";
+import KeysetInterestCheck from "components/KeysetInterestCheck";
 
 const Keyset: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
@@ -26,7 +28,7 @@ const Keyset: GetProps<any> = ({ shortId }) => {
     <Layout title="keyset" authUser={authUser} dynamicNav={dynamicNav}>
       {!loading && data && data.keyset && (
         <div>
-          <h1 css={text.heading}>
+          {/* <h1 css={text.heading}>
             {data.keyset.profile} {data.keyset.name}
           </h1>
           <h2 css={specs}>
@@ -55,8 +57,20 @@ const Keyset: GetProps<any> = ({ shortId }) => {
                 />
               )}
             </div>
-          </div>
-          <div>
+          </div> */}
+          <KeysetSummary
+            id={data.keyset.id}
+            name={data.keyset.name}
+            profile={data.keyset.profile}
+            stem={data.keyset.stem}
+            kitsAvailable={data.keyset.kits.length}
+            bannerImg={data.keyset.images1500[0]}
+            colors={data.keyset.colors}
+          />
+          {data.keyset.interestCheck && (
+            <KeysetInterestCheck id={data.keyset.id} kits={data.keyset.kits} />
+          )}
+          {/* <div>
             {data.keyset.colors.length <= 0 ? null : (
               <div css={[flex.row, margins("40px 0")]}>
                 {data.keyset.colors.map(({ id, hex, ral }) => (
@@ -67,7 +81,7 @@ const Keyset: GetProps<any> = ({ shortId }) => {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
           {data.keyset.details.map((d: string, i: number) => (
             <p key={i} css={margins("10px 0")}>
               {d}
