@@ -49,19 +49,6 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
     }
   }, [authUser]);
 
-  const handleKit = (kit: string) => {
-    if (selectedKits.includes(kit)) {
-      console.log(`included`);
-      setSelectedKits((prevKits: any) => {
-        return prevKits.filter(y => y !== kit);
-      });
-    } else {
-      setSelectedKits((prevKits: any) => {
-        return [...prevKits, kit];
-      });
-    }
-  };
-
   function handleSelect(kit) {
     if (state.includes(kit)) {
       dispatch({ type: "remove", payload: kit });
@@ -113,7 +100,7 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
           ) : (
             <>
               {!joined ? (
-                <button css={joinButton} type="button">
+                <button css={joinButton} onClick={handleMutation} type="button">
                   Join in
                 </button>
               ) : (

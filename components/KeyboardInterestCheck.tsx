@@ -52,7 +52,6 @@ const KeyboardInterestCheck: FC<Props> = ({ id, editions, layouts }) => {
   useEffect(() => {
     if (authUser) {
       for (let j of authUser.keyboardjoins) {
-        console.log(j);
         if (j.keyboardId === id) {
           setJoined(true);
         }
@@ -89,17 +88,19 @@ const KeyboardInterestCheck: FC<Props> = ({ id, editions, layouts }) => {
         <div css={optionWrapper}>
           {/* <div css={optionContainer}> */}
           <h3 css={choiceTitle}>Choose a case</h3>
-          <div css={grid25}>
+          <div css={gridbythree}>
             {editions[index].cases.map((c: string, idx: number) => (
-              <button
-                className={state.caseChoice !== c ? null : "active"}
-                css={selectButton}
-                type="button"
-                onClick={() => dispatch({ type: "caseChoice", payload: c })}
-                key={idx}
-              >
-                {c}
-              </button>
+              <div css={gridCell} key={idx}>
+                <button
+                  className={state.caseChoice !== c ? null : "active"}
+                  css={selectButton}
+                  type="button"
+                  onClick={() => dispatch({ type: "caseChoice", payload: c })}
+                  key={idx}
+                >
+                  {c}
+                </button>
+              </div>
             ))}
           </div>
           {/* </div> */}
@@ -107,17 +108,19 @@ const KeyboardInterestCheck: FC<Props> = ({ id, editions, layouts }) => {
         <div css={optionWrapper}>
           {/* <div css={optionContainer}> */}
           <h3 css={choiceTitle}>Choose a plate</h3>
-          <div css={grid25}>
+          <div css={gridbythree}>
             {editions[index].plates.map((p: string, idx: number) => (
-              <button
-                css={selectButton}
-                className={state.plateChoice !== p ? null : "active"}
-                onClick={() => dispatch({ type: "plateChoice", payload: p })}
-                type="button"
-                key={idx}
-              >
-                {p}
-              </button>
+              <div css={gridCell}>
+                <button
+                  css={selectButton}
+                  className={state.plateChoice !== p ? null : "active"}
+                  onClick={() => dispatch({ type: "plateChoice", payload: p })}
+                  type="button"
+                  key={idx}
+                >
+                  {p}
+                </button>
+              </div>
             ))}
           </div>
           {/* </div> */}
@@ -125,17 +128,19 @@ const KeyboardInterestCheck: FC<Props> = ({ id, editions, layouts }) => {
         <div css={optionWrapper}>
           {/* <div css={optionContainer}> */}
           <h3 css={choiceTitle}>Choose a layout</h3>
-          <div css={grid25}>
+          <div css={gridbythree}>
             {layouts.map((l: string, idx: number) => (
-              <button
-                className={state.layoutChoice !== l ? null : "active"}
-                css={selectButton}
-                onClick={() => dispatch({ type: "layoutChoice", payload: l })}
-                type="button"
-                key={idx}
-              >
-                {l}
-              </button>
+              <div css={gridCell}>
+                <button
+                  className={state.layoutChoice !== l ? null : "active"}
+                  css={selectButton}
+                  onClick={() => dispatch({ type: "layoutChoice", payload: l })}
+                  type="button"
+                  key={idx}
+                >
+                  {l}
+                </button>
+              </div>
             ))}
           </div>
           {/* </div> */}
@@ -214,7 +219,7 @@ const optionContainer = css`
 const choiceTitle = css`
   margin-bottom: 10px;
   margin-top: 30px;
-  margin-left: 40px;
+  margin-left: 20px;
   font-size: ${fontSize[18]};
   font-weight: 500;
 `;
@@ -231,11 +236,12 @@ const selectButton = css`
   border-radius: 4px;
   border: solid 1px transparent;
   background-color: transparent;
-  padding: 0 10px;
+  padding: 8 16px;
 
   color: black;
-  font-size: ${fontSize[14]};
-  font-weight: 600;
+  font-size: ${fontSize[18]};
+  font-weight: 500;
+  text-transform: uppercase;
   white-space: nowrap;
 
   outline: 0;
@@ -275,5 +281,55 @@ const imageButton = css`
   padding-bottom: 2px;
   i {
     font-size: ${fontSize[18]};
+  }
+`;
+
+const gridbythree = css`
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: calc(33% - 6px) calc(33% - 6px) calc(33% - 6px);
+  grid-column-gap: 12px;
+  grid-row-gap: 20px;
+`;
+
+const gridCell = css`
+  height: 100%;
+  width: 100%;
+`;
+
+const pStyle = css`
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: transparent;
+  border-radius: 4px;
+
+  font-size: ${fontSize[18]};
+  font-weight: 500;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${colors.black80};
+    color: white;
+  }
+
+  &:hover span {
+    color: white;
+    opacity: 0.6;
+  }
+
+  span {
+    font-size: ${fontSize[12]};
+    color: ${colors.black60};
+  }
+
+  &.active {
+    background-color: ${colors.black80};
+    color: white;
+  }
+  &.active span {
+    color: white;
+    opacity: 0.6;
   }
 `;
