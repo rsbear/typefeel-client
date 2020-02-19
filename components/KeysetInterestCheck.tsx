@@ -82,7 +82,7 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
                 className={state.includes(k.name) ? "active" : undefined}
                 onClick={() => handleSelect(k.name)}
               >
-                {k.name} <span>{k.kit} kit</span>
+                {k.name} <br /> <span>{k.kit} kit</span>
               </p>
             </div>
           ))}
