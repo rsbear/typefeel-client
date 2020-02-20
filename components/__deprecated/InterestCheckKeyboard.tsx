@@ -13,7 +13,7 @@ import FollowButton from "../shared/FollowButton";
 import { AuthUser } from "interfaces/AuthUser";
 import Link from "next/link";
 import { useAppContext } from "hooks/useAppContext";
-import JoinButton from "../buttons/JoinButton";
+import JoinButton from "./JoinButton";
 import { useRouter } from "next/router";
 
 interface Props {

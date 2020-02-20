@@ -7,7 +7,7 @@ import { css } from "@emotion/core";
 import FollowButton from "./shared/FollowButton";
 import Link from "next/link";
 import { useAppContext } from "hooks/useAppContext";
-import JoinButton from "./buttons/JoinButton";
+import JoinButton from "./__deprecated/JoinButton";
 
 interface Props {
   kits?: any;

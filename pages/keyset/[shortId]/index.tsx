@@ -13,7 +13,7 @@ import FollowButton from "components/shared/FollowButton";
 import { useAppContext } from "hooks/useAppContext";
 import KeysetSummary from "components/KeysetSummary";
 import KeysetInterestCheck from "components/KeysetInterestCheck";
-import MarketKeysetInfo from "components/MarketKeysetInfo";
+import KeysetMarket from "components/KeysetMarket";
 
 const Keyset: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
@@ -72,7 +72,7 @@ const Keyset: GetProps<any> = ({ shortId }) => {
             <KeysetInterestCheck id={data.keyset.id} kits={data.keyset.kits} />
           )}
           {data.keyset.market && (
-            <MarketKeysetInfo id={data.keyset.id} kits={data.keyset.kits} />
+            <KeysetMarket id={data.keyset.id} kits={data.keyset.kits} />
           )}
           {/* <div>
             {data.keyset.colors.length <= 0 ? null : (

@@ -18,7 +18,7 @@ interface Props {
   kits: any;
 }
 
-const MarketKeysetInfo: FC<Props> = ({ id, kits }) => {
+const KeysetMarket: FC<Props> = ({ id, kits }) => {
   const { authUser } = useAppContext();
   const [index, setIndex] = useState(0);
   const [message, setMessage] = useState("");
@@ -70,31 +70,26 @@ const MarketKeysetInfo: FC<Props> = ({ id, kits }) => {
 
   return (
     <div css={[wrapper]}>
+      <h3 css={choiceTitle}>All kits</h3>
       <div css={[flex.row, container]}>
         <div css={[flex.column, fiftyContainer]}>
-          <h3 css={choiceTitle}>All kits</h3>
           {kits.map((k: Kit, idx: number) => (
-            // <div css={gridCell} key={k.id}>
-            <p css={pStyle} key={k.id} onClick={() => setIndex(idx)}>
-              {k.name} <br /> <span>{k.kit} kit</span>
-            </p>
-            // </div>
+            <div css={gridCell} key={k.id}>
+              <p
+                css={pStyle}
+                className={index !== idx ? null : "active"}
+                key={k.id}
+                onClick={() => setIndex(idx)}
+              >
+                {k.name} <br /> <span>{k.kit} kit</span>
+              </p>
+            </div>
           ))}
         </div>
-        {/* <div css={pricesContainer}>
-          <h4>Preorder</h4>
-          <h2>${kits[index].price}</h2>
-          <h3>Suggested</h3>
-          <h1>
-            $
-            {!kits[index].suggestedPrice
-              ? kits[index].price
-              : kits[index].suggestedPrice}
-          </h1>
-        </div> */}
         <div
           css={[flex.column, flex.itemscenter, fiftyContainer, pricesContainer]}
         >
+          <h5>{kits[index].name}</h5>
           <h4 css={preorderPriceTitle}>Preorder</h4>
           <h1>
             <span css={dollarSignPreorder}>&#36;</span>
@@ -124,7 +119,7 @@ const MarketKeysetInfo: FC<Props> = ({ id, kits }) => {
   );
 };
 
-export default MarketKeysetInfo;
+export default KeysetMarket;
 
 const wrapper = css`
   border-bottom: solid 2px ${colors.black10};
@@ -140,18 +135,19 @@ const fiftyContainer = css`
 `;
 
 const choiceTitle = css`
-  margin-bottom: 40px;
-  margin-top: 30px;
-  margin-left: 15px;
+  width: 800px;
+  margin: 60px auto 40px auto;
   font-size: ${fontSize[24]};
   font-weight: 500;
 `;
 
+const gridCell = css`
+  display: inline-block;
+`;
+
 const pStyle = css`
   display: inline-block;
-  padding: 8px 16px;
-  background-color: transparent;
-  border-radius: 4px;
+  padding: 8px 0px;
 
   font-size: ${fontSize[18]};
   font-weight: 500;
@@ -160,14 +156,16 @@ const pStyle = css`
 
   cursor: pointer;
 
+  opacity: 0.8;
+  transition: all 180ms ease;
+
   &:hover {
-    background-color: ${colors.black80};
-    color: white;
+    opacity: 1;
+    color: ${colors.black70};
   }
 
   &:hover span {
-    color: white;
-    opacity: 0.6;
+    /* opacity: 0.6; */
   }
 
   span {
@@ -176,12 +174,10 @@ const pStyle = css`
   }
 
   &.active {
-    background-color: ${colors.black80};
-    color: white;
+    opacity: 1;
+    color: ${colors.black90};
   }
   &.active span {
-    color: white;
-    opacity: 0.6;
   }
 `;
 
