@@ -2,7 +2,7 @@ import React, { FC, useState, SetStateAction } from "react";
 import Layout from "components/layouts/Layout";
 
 import css from "@emotion/css";
-import { TextArea, FormikInput, FormikArea } from "styles/inputs";
+import { FormikInput, FormikArea } from "styles/inputs";
 import { flex, borderBox, grid50, grid33, margins } from "styles/main";
 import { Button, DeleteButton } from "styles/buttons";
 import { text } from "styles/text";
@@ -19,40 +19,42 @@ import { useAppContext } from "hooks/useAppContext";
 
 interface Props {}
 
+const initValues = {
+  angle: "",
+  brand: "",
+  connector: "",
+  firmware: "",
+  mount: "",
+  pcb: "",
+  name: "",
+  size: "",
+  editions: [],
+  details: [""],
+  layouts: [""],
+  support: [""],
+  market: false,
+  interestCheck: true,
+  groupBuy: false,
+  groupBuySoon: false,
+  closed: false
+};
+
+const editionObj = {
+  price: 0,
+  suggestedPrice: null,
+  name: "",
+  cases: [""],
+  colors: [],
+  plates: [""]
+};
+
 const CreateKeyboard: GetProps<Props> = () => {
   const { authUser } = useAppContext();
-  const [images, setImages] = React.useState([]);
+  const [images, setImages] = useState([]);
+  const [errors, setErrors]: SetStateAction<any> = useState(null);
   const [multiEditions, setMultiEditions]: SetStateAction<any> = useState(null);
   const [processing, setProcessing] = useState(false);
   const router = useRouter();
-  const initValues = {
-    angle: "",
-    brand: "",
-    connector: "",
-    firmware: "",
-    mount: "",
-    pcb: "",
-    name: "",
-    size: "",
-    editions: [],
-    details: [""],
-    layouts: [""],
-    support: [""],
-    market: false,
-    interestCheck: true,
-    groupBuy: false,
-    groupBuySoon: false,
-    closed: false
-  };
-
-  const editionObj = {
-    price: 0,
-    suggestedPrice: null,
-    name: "",
-    cases: [""],
-    colors: [],
-    plates: [""]
-  };
 
   const [makeKeyboard, { client }] = useMakeKeyboardMutation();
 
@@ -61,19 +63,93 @@ const CreateKeyboard: GetProps<Props> = () => {
     values.editions.push(editionObj);
   };
 
-  const handleMakeKeyboard = async (data: KeyboardInput) => {
-    event.preventDefault();
-    setProcessing(true);
-    try {
-      const response = await makeKeyboard({ variables: { data, images } });
-      if (response && response.data) {
-        await client!.resetStore().then(() => {
-          router.push(`/keyboard/${response.data.makeKeyboard.message}`);
-        });
+  const validator = values => {
+    const errObj = {};
+
+    // basic entries from values
+    Object.entries(values).forEach(([key, value]) => {
+      if (value === "" || value === 0) {
+        errObj[key] = `${key} must have something`;
       }
-    } catch (err) {
-      setProcessing(false);
-      console.log(err);
+    });
+
+    for (let v of values.details) {
+      if (v.length <= 0) {
+        errObj["details"] =
+          "Surely you have something to say about this project";
+      }
+    }
+
+    for (let l of values.layouts) {
+      if (l.length <= 0) {
+        errObj["layouts"] = "Please add a layout i.e HHKB";
+      }
+    }
+
+    for (let s of values.support) {
+      if (s.length <= 0) {
+        errObj["support"] = "Please add supported layouts i.e ISO";
+      }
+    }
+
+    let editionErrs = [];
+    let editionObj = {};
+    values.editions.map((ed, idx) => {
+      if (multiEditions) {
+        if (ed.name.length <= 0) {
+          editionObj["name"] = "You must set a name for your editions";
+        }
+      }
+      if (ed.price <= 0) {
+        editionObj["price"] = `a price must be set`;
+      }
+      for (let c of ed.cases) {
+        if (c.length <= 0) {
+          editionObj["cases"] = "Please add a case material";
+        }
+      }
+      for (let p of ed.plates) {
+        if (p.length <= 0) {
+          editionObj["plates"] = "Please add a plate material";
+        }
+      }
+
+      if (Object.entries(editionObj).length > 0) {
+        editionErrs.push(editionObj);
+      }
+    });
+
+    if (editionErrs.length > 0) {
+      errObj["editions"] = editionErrs;
+    }
+
+    if (images.length < 5) {
+      errObj["images"] = "You must provide at least 5 pictures";
+    }
+
+    if (Object.entries(errObj).length > 0) {
+      setErrors(errObj);
+    } else {
+      setErrors(null);
+    }
+  };
+
+  const handleMakeKeyboard = async (data: KeyboardInput, errors: any) => {
+    event.preventDefault();
+    validator(data);
+    setProcessing(true);
+    if (!errors) {
+      try {
+        const response = await makeKeyboard({ variables: { data, images } });
+        if (response && response.data) {
+          await client!.resetStore().then(() => {
+            router.push(`/keyboard/${response.data.makeKeyboard.message}`);
+          });
+        }
+      } catch (err) {
+        setProcessing(false);
+        console.log(err);
+      }
     }
   };
 
@@ -81,8 +157,8 @@ const CreateKeyboard: GetProps<Props> = () => {
     <Layout title="Create Keyboard">
       <h1 css={[text.heading, margins("20px 0")]}>Create a keyboard</h1>
       <Formik initialValues={initValues} onSubmit={() => {}}>
-        {({ values }) => (
-          <form onSubmit={() => handleMakeKeyboard(values)}>
+        {({ values, errors }) => (
+          <form onSubmit={() => handleMakeKeyboard(values, errors)}>
             <h2 css={margins("10px 0")}>Specs</h2>
             <div css={[borderBox, margins("0 0 20px 0")]}>
               <h5>Brand and keyboard name</h5>
