@@ -11,7 +11,7 @@ import { text } from "styles/text";
 import { AuthUser } from "interfaces/AuthUser";
 import Link from "next/link";
 import { RoundButton } from "styles/buttons";
-import FollowButton from "./shared/FollowButton";
+import FollowButton from "../shared/FollowButton";
 import {
   useVoteKitUpMutation,
   useVoteKitDownMutation

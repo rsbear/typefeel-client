@@ -7,7 +7,7 @@ import css from "@emotion/css";
 import { text } from "styles/text";
 import { grid50, margins, colors, flex } from "styles/main";
 import { Button } from "styles/buttons";
-import MarketKeyset from "components/MarketKeyset";
+import MarketKeyset from "components/__deprecated/MarketKeyset";
 import InterestCheckKeyset from "components/InterestCheckKeyset";
 import FollowButton from "components/shared/FollowButton";
 import { useAppContext } from "hooks/useAppContext";

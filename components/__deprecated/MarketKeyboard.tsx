@@ -14,7 +14,7 @@ import {
 } from "generated/graphql";
 import { Button, RoundButton } from "styles/buttons";
 import Link from "next/link";
-import FollowButton from "./shared/FollowButton";
+import FollowButton from "../shared/FollowButton";
 import { AuthUser } from "interfaces/AuthUser";
 
 interface Props {

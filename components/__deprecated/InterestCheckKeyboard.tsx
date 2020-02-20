@@ -9,11 +9,11 @@ import css from "@emotion/css";
 import { flex, grid50, margins, colors } from "styles/main";
 import { Button, RoundButton } from "styles/buttons";
 import { useJoinKeyboardMutation } from "generated/graphql";
-import FollowButton from "./shared/FollowButton";
+import FollowButton from "../shared/FollowButton";
 import { AuthUser } from "interfaces/AuthUser";
 import Link from "next/link";
 import { useAppContext } from "hooks/useAppContext";
-import JoinButton from "./buttons/JoinButton";
+import JoinButton from "../buttons/JoinButton";
 import { useRouter } from "next/router";
 
 interface Props {
