@@ -8,7 +8,7 @@ import { text } from "styles/text";
 import { grid50, margins, colors, flex } from "styles/main";
 import { Button } from "styles/buttons";
 import MarketKeyset from "components/__deprecated/MarketKeyset";
-import InterestCheckKeyset from "components/InterestCheckKeyset";
+import InterestCheckKeyset from "components/__deprecated/InterestCheckKeyset";
 import FollowButton from "components/shared/FollowButton";
 import { useAppContext } from "hooks/useAppContext";
 import KeysetSummary from "components/KeysetSummary";
@@ -29,36 +29,6 @@ const Keyset: GetProps<any> = ({ shortId }) => {
     <Layout title="keyset" authUser={authUser} dynamicNav={dynamicNav}>
       {!loading && data && data.keyset && (
         <div>
-          {/* <h1 css={text.heading}>
-            {data.keyset.profile} {data.keyset.name}
-          </h1>
-          <h2 css={specs}>
-            {JSON.stringify(data.keyset.kits.length)} kits available,{" "}
-            {data.keyset.stem}
-          </h2>
-          <div css={[contentBox, grid50]}>
-            <img
-              css={mainImg}
-              src={data.keyset.images1500[0]}
-              alt={data.keyset.name}
-            />
-            <div>
-              {data.keyset.market && (
-                <MarketKeyset
-                  kits={data.keyset.kits}
-                  authUser={authUser}
-                  id={data.keyset.id}
-                />
-              )}
-              {data.keyset.interestCheck && (
-                <InterestCheckKeyset
-                  kits={data.keyset.kits}
-                  id={data.keyset.id}
-                  authUser={authUser}
-                />
-              )}
-            </div>
-          </div> */}
           <KeysetSummary
             id={data.keyset.id}
             name={data.keyset.name}
