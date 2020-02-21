@@ -69,7 +69,7 @@ const CreateKeyboard: GetProps<Props> = () => {
     // basic entries from values
     Object.entries(values).forEach(([key, value]) => {
       if (value === "" || value === 0) {
-        errObj[key] = `${key} must have something`;
+        errObj[key] = `Please provide a ${key}`;
       }
     });
 
@@ -130,15 +130,20 @@ const CreateKeyboard: GetProps<Props> = () => {
     if (Object.entries(errObj).length > 0) {
       setErrors(errObj);
     } else {
-      setErrors(null);
+      setErrors(false);
     }
   };
 
-  const handleMakeKeyboard = async (data: KeyboardInput, errors: any) => {
+  const handleMakeKeyboard = async (data: KeyboardInput) => {
     event.preventDefault();
     validator(data);
     setProcessing(true);
-    if (!errors) {
+
+    if (errors) {
+      setProcessing(false);
+    }
+
+    if (errors === false) {
       try {
         const response = await makeKeyboard({ variables: { data, images } });
         if (response && response.data) {
@@ -146,82 +151,130 @@ const CreateKeyboard: GetProps<Props> = () => {
             router.push(`/keyboard/${response.data.makeKeyboard.message}`);
           });
         }
+        console.log(response);
       } catch (err) {
         setProcessing(false);
         console.log(err);
       }
     }
+    setProcessing(false);
   };
 
   return (
     <Layout title="Create Keyboard">
       <h1 css={[text.heading, margins("20px 0")]}>Create a keyboard</h1>
       <Formik initialValues={initValues} onSubmit={() => {}}>
-        {({ values, errors }) => (
-          <form onSubmit={() => handleMakeKeyboard(values, errors)}>
+        {({ values }) => (
+          <form onSubmit={() => handleMakeKeyboard(values)}>
             <h2 css={margins("10px 0")}>Specs</h2>
             <div css={[borderBox, margins("0 0 20px 0")]}>
               <h5>Brand and keyboard name</h5>
               <div css={grid50}>
-                <FormikInput
-                  type="text"
-                  autoFocus
-                  icon="icon ion-ios-at"
-                  placeholder="Brand"
-                  name="brand"
-                />
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-at"
-                  placeholder="Name"
-                  name="name"
-                />
+                <div>
+                  {errors && errors.brand && (
+                    <h5 css={errText}>{errors.brand}</h5>
+                  )}
+                  <FormikInput
+                    autoFocus
+                    type="text"
+                    className={errors && errors.brand ? "error" : null}
+                    icon="icon ion-ios-at"
+                    placeholder="Brand"
+                    name="brand"
+                  />
+                </div>
+                <div>
+                  {errors && errors.name && (
+                    <h5 css={errText}>{errors.name}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-at"
+                    className={errors && errors.name ? "error" : null}
+                    placeholder="Name"
+                    name="name"
+                  />
+                </div>
               </div>
             </div>
             <div css={[borderBox, margins("0 0 20px 0")]}>
               <h5>Size, Mount, and Typing angle</h5>
               <div css={grid33}>
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-albums"
-                  placeholder="Size"
-                  name="size"
-                />
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-apps"
-                  placeholder="Mount"
-                  name="mount"
-                />
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-resize"
-                  placeholder="angle"
-                  name="angle"
-                />
+                <div>
+                  {errors && errors.size && (
+                    <h5 css={errText}>{errors.size}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-albums"
+                    className={errors && errors.size ? "error" : null}
+                    placeholder="Size"
+                    name="size"
+                  />
+                </div>
+                <div>
+                  {errors && errors.mount && (
+                    <h5 css={errText}>{errors.mount}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-apps"
+                    className={errors && errors.mount ? "error" : null}
+                    placeholder="Mount"
+                    name="mount"
+                  />
+                </div>
+                <div>
+                  {errors && errors.angle && (
+                    <h5 css={errText}>{errors.angle}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-resize"
+                    className={errors && errors.angle ? "error" : null}
+                    placeholder="angle"
+                    name="angle"
+                  />
+                </div>
               </div>
             </div>
             <div css={[borderBox, margins("0 0 20px 0")]}>
               <h5>Connection, PCB, and Firmware</h5>
               <div css={grid33}>
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-flash"
-                  placeholder="eg. USB Type-C"
-                  name="connector"
-                />
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-git-branch"
-                  placeholder="PCB"
-                  name="pcb"
-                />
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-git-pull-request"
-                  placeholder="Firmware eg. QMK"
-                  name="firmware"
-                />
+                <div>
+                  {errors && errors.connector && (
+                    <h5 css={errText}>{errors.connector}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-flash"
+                    className={errors && errors.connector ? "error" : null}
+                    placeholder="eg. USB Type-C"
+                    name="connector"
+                  />
+                </div>
+                <div>
+                  {errors && errors.pcb && <h5 css={errText}>{errors.pcb}</h5>}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-git-branch"
+                    className={errors && errors.pcb ? "error" : null}
+                    placeholder="PCB"
+                    name="pcb"
+                  />
+                </div>
+                <div>
+                  {errors && errors.firmware && (
+                    <h5 css={errText}>{errors.firmware}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-git-pull-request"
+                    className={errors && errors.firmware ? "error" : null}
+                    placeholder="Firmware eg. QMK"
+                    name="firmware"
+                  />
+                </div>
               </div>
             </div>
 
@@ -439,6 +492,9 @@ const CreateKeyboard: GetProps<Props> = () => {
                             <>
                               <div css={[borderBox, margins("0 0 20px 0")]}>
                                 <h5>Layouts</h5>
+                                {errors && errors.layouts && (
+                                  <h5 css={errText}>{errors.layouts}</h5>
+                                )}
                                 {values.layouts.map(
                                   (l: any, lIndex: number) => (
                                     <div
@@ -480,6 +536,9 @@ const CreateKeyboard: GetProps<Props> = () => {
                             <>
                               <div css={[borderBox, margins("0 0 20px 0")]}>
                                 <h5>Layout support</h5>
+                                {errors && errors.support && (
+                                  <h5 css={errText}>{errors.support}</h5>
+                                )}
                                 {values.support.map(
                                   (s: any, sIndex: number) => (
                                     <div
@@ -521,6 +580,9 @@ const CreateKeyboard: GetProps<Props> = () => {
                             <>
                               <div css={[borderBox, margins("0 0 20px 0")]}>
                                 <h5>Details</h5>
+                                {errors && errors.details && (
+                                  <h5 css={errText}>{errors.details}</h5>
+                                )}
                                 {values.details.map(
                                   (d: any, dIndex: number) => (
                                     <div
@@ -602,4 +664,8 @@ const wide = css`
 `;
 const multiInputMargin = css`
   margin-bottom: 10px;
+`;
+
+const errText = css`
+  color: red;
 `;

@@ -33,6 +33,12 @@ export const inputBox = css`
     box-shadow: 0px 0px 0px 2px rgba(20, 240, 160, 0.5);
     border: solid 1px rgba(20, 240, 160, 0.5);
   }
+
+  .error {
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 2px rgba(240, 40, 60, 0.3);
+    border: solid 1px rgba(240, 40, 60, 0.3);
+  }
 `;
 
 export const Input: FC<any> = (props: any) => {
