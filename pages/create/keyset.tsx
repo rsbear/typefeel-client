@@ -1,41 +1,92 @@
-import React, { FC, useState, useEffect } from "react";
-import Layout from "components/layouts/Layout";
-import { Formik, FieldArray } from "formik";
+import React, { FC, useState, useEffect, SetStateAction } from "react";
+
+import { useAppContext } from "hooks/useAppContext";
+import { useRouter } from "next/router";
 import { useMakeKeysetMutation, KeysetInput } from "generated/graphql";
+
+import Layout from "components/layouts/Layout";
 import Upload from "components/shared/Upload";
 import UploadPreview from "components/shared/UploadPreview";
+
+import { Formik, FieldArray } from "formik";
 import { Button } from "styles/buttons";
 import { margins, borderBox, grid50, grid33, colors } from "styles/main";
 import { FormikInput, FormikArea } from "styles/inputs";
 import { text } from "styles/text";
-import { useAppContext } from "hooks/useAppContext";
+
+const initValues = {
+  name: "",
+  profile: "",
+  stem: "",
+  kits: [{ kit: "", name: "", price: 0, suggestedPrice: null }],
+  colors: [],
+  details: [""],
+  interestCheck: true,
+  market: false,
+  groupBuy: false,
+  groupBuySoon: false,
+  closed: false
+};
 
 const CreateKeyset: FC<any> = () => {
   const { authUser } = useAppContext();
   const [images, setImages] = useState([]);
-  const initValues = {
-    name: "",
-    profile: "",
-    stem: "",
-    kits: [{ kit: "", name: "", price: 0, suggestedPrice: null }],
-    colors: [],
-    details: [""],
-    interestCheck: true,
-    market: false,
-    groupBuy: false,
-    groupBuySoon: false,
-    closed: false
-  };
+  const [errors, setErrors]: SetStateAction<any> = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const [makeKeyset] = useMakeKeysetMutation();
+  const router = useRouter();
+
+  const [makeKeyset, { client }] = useMakeKeysetMutation();
+
+  const validator = (values: any) => {
+    const errObj = {};
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (value === "" || value === 0) {
+        errObj[key] = `Please provide a ${key}`;
+      }
+    });
+
+    for (let v of values.details) {
+      if (v.length <= 0) {
+        errObj["details"] =
+          "Surely you have something to say about this project";
+      }
+    }
+
+    if (images.length < 5) {
+      errObj["images"] = "You must provide at least 5 pictures";
+    }
+
+    if (Object.entries(errObj).length > 0) {
+      setErrors(errObj);
+    } else {
+      setErrors(false);
+    }
+  };
 
   const handleSubmit = async (data: KeysetInput) => {
     event.preventDefault();
-    try {
-      let res = await makeKeyset({ variables: { data, images } });
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+    validator(data);
+    setLoading(true);
+
+    if (errors) {
+      setLoading(false);
+    }
+
+    if (errors === false) {
+      try {
+        let res = await makeKeyset({ variables: { data, images } });
+        if (res && res.data) {
+          await client!.resetStore().then(() => {
+            router.push(`/keyset/${res.data.makeKeyset.message}`);
+          });
+        }
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
     }
   };
 

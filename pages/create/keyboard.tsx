@@ -3,7 +3,7 @@ import Layout from "components/layouts/Layout";
 
 import css from "@emotion/css";
 import { FormikInput, FormikArea } from "styles/inputs";
-import { flex, borderBox, grid50, grid33, margins } from "styles/main";
+import { flex, borderBox, grid50, grid33, margins, colors } from "styles/main";
 import { Button, DeleteButton } from "styles/buttons";
 import { text } from "styles/text";
 
@@ -162,7 +162,10 @@ const CreateKeyboard: GetProps<Props> = () => {
 
   return (
     <Layout title="Create Keyboard">
-      <h1 css={[text.heading, margins("20px 0")]}>Create a keyboard</h1>
+      <h1 css={[text.heading, margins("20px 0 0 0")]}>Create a keyboard</h1>
+      <h3 css={hintTextBelowHeader}>
+        All fields required except for colors. Minimum of 5 images.
+      </h3>
       <Formik initialValues={initValues} onSubmit={() => {}}>
         {({ values }) => (
           <form onSubmit={() => handleMakeKeyboard(values)}>
@@ -333,6 +336,11 @@ const CreateKeyboard: GetProps<Props> = () => {
                           )}
                           <div css={[borderBox, margins("0 0 20px 0")]}>
                             <h5>Price</h5>
+                            {errors && errors.editions[eIdx].price && (
+                              <h5 css={errText}>
+                                Price must be set greater than 0
+                              </h5>
+                            )}
                             <FormikInput
                               type="number"
                               icon="icon ion-logo-usd"
@@ -618,6 +626,9 @@ const CreateKeyboard: GetProps<Props> = () => {
                         />
                         {/* image management */}
                         <h2 css={margins("60px 0 10px 0")}>Image gallery</h2>
+                        {errors && errors.images && (
+                          <h5 css={errText}>{errors.images}</h5>
+                        )}
                         <Upload images={images} setImages={setImages} />
                         <UploadPreview images={images} setImages={setImages} />
 
@@ -648,6 +659,12 @@ const CreateKeyboard: GetProps<Props> = () => {
 };
 
 export default CreateKeyboard;
+
+const hintTextBelowHeader = css`
+  margin-bottom: 20px;
+  color: ${colors.black60};
+  font-weight: 400;
+`;
 
 const editionQuestionContainer = css`
   width: 100%;

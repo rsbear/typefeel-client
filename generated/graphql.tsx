@@ -235,13 +235,14 @@ export type Mutation = {
   updateKeyboard: Scalars['Boolean'],
   keyboardAnnouncement: Scalars['Boolean'],
   deleteKeyboard: Scalars['Boolean'],
-  makeKeyset: Scalars['Boolean'],
+  makeKeyset: SuccessResponse,
   updateKeyset: Scalars['Boolean'],
   updateKeysetStage: Scalars['Boolean'],
   deleteKeyset: Scalars['Boolean'],
   deleteKit: Scalars['Boolean'],
   deleteEdition: Scalars['Boolean'],
   voteKeyboardUp: Scalars['Boolean'],
+  setSuggestedPriceNull: Scalars['Boolean'],
   voteKeyboardDown: Scalars['Boolean'],
   voteKitUp: Scalars['Boolean'],
   voteKitDown: Scalars['Boolean'],
@@ -358,6 +359,11 @@ export type MutationDeleteEditionArgs = {
 
 
 export type MutationVoteKeyboardUpArgs = {
+  id: Scalars['String']
+};
+
+
+export type MutationSetSuggestedPriceNullArgs = {
   id: Scalars['String']
 };
 
@@ -792,7 +798,10 @@ export type MakeKeysetMutationVariables = {
 
 export type MakeKeysetMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'makeKeyset'>
+  & { makeKeyset: (
+    { __typename?: 'SuccessResponse' }
+    & Pick<SuccessResponse, 'success' | 'message'>
+  ) }
 );
 
 export type MeQueryVariables = {};
@@ -1723,7 +1732,10 @@ export type MakeKeyboardMutationResult = ApolloReactCommon.MutationResult<MakeKe
 export type MakeKeyboardMutationOptions = ApolloReactCommon.BaseMutationOptions<MakeKeyboardMutation, MakeKeyboardMutationVariables>;
 export const MakeKeysetDocument = gql`
     mutation makeKeyset($data: KeysetInput!, $images: [Upload!]!) {
-  makeKeyset(data: $data, images: $images)
+  makeKeyset(data: $data, images: $images) {
+    success
+    message
+  }
 }
     `;
 export type MakeKeysetMutationFn = ApolloReactCommon.MutationFunction<MakeKeysetMutation, MakeKeysetMutationVariables>;
