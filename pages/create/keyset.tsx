@@ -9,13 +9,15 @@ import Upload from "components/shared/Upload";
 import UploadPreview from "components/shared/UploadPreview";
 
 import { Formik, FieldArray } from "formik";
-import { Button } from "styles/buttons";
-import { margins, borderBox, grid50, grid33, colors } from "styles/main";
 import { FormikInput, FormikArea } from "styles/inputs";
+import css from "@emotion/css";
+import { Button, DeleteButton } from "styles/buttons";
+import { margins, borderBox, grid50, grid33, colors, flex } from "styles/main";
 import { text } from "styles/text";
 
 const initValues = {
   name: "",
+  manufacturer: "",
   profile: "",
   stem: "",
   kits: [{ kit: "", name: "", price: 0, suggestedPrice: null }],
@@ -26,6 +28,18 @@ const initValues = {
   groupBuy: false,
   groupBuySoon: false,
   closed: false
+};
+
+const kit = {
+  kit: "",
+  name: "",
+  price: 0,
+  suggestedPrice: null
+};
+
+const color = {
+  hex: "",
+  ral: ""
 };
 
 const CreateKeyset: FC<any> = () => {
@@ -98,6 +112,7 @@ const CreateKeyset: FC<any> = () => {
           <form onSubmit={() => handleSubmit(values)}>
             <div css={borderBox}>
               <h5>Project name</h5>
+              {errors && errors.name && <h5 css={errText}>{errors.name}</h5>}
               <FormikInput
                 autoFocus
                 type="text"
@@ -107,94 +122,112 @@ const CreateKeyset: FC<any> = () => {
               />
             </div>
             <div css={[margins("20px 0"), borderBox]}>
-              <h5>Profile and stem</h5>
-              <div css={grid50}>
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-cube"
-                  name="profile"
-                  placeholder="e.g. GMK, SA, DSA, KAT ...."
-                />
-                <FormikInput
-                  type="text"
-                  icon="icon ion-ios-add-circle-outline"
-                  name="stem"
-                  placeholder="Cherry MX, Topre, Alps, whatever"
-                />
+              <h5>Manufacturer, profile, and stem</h5>
+              <div css={grid33}>
+                <div>
+                  {errors && errors.manufacturer && (
+                    <h5 css={errText}>{errors.manufacturer}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-settings"
+                    name="manufacturer"
+                    placeholder="e.g. GMK, DSA, KAT, SA"
+                  />
+                </div>
+                <div>
+                  {errors && errors.profile && (
+                    <h5 css={errText}>{errors.profile}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-cube"
+                    name="profile"
+                    placeholder="e.g. Cherry, SA, DSA, KAT"
+                  />
+                </div>
+                <div>
+                  {errors && errors.stem && (
+                    <h5 css={errText}>{errors.stem}</h5>
+                  )}
+                  <FormikInput
+                    type="text"
+                    icon="icon ion-ios-add-circle-outline"
+                    name="stem"
+                    placeholder="e.g. Cherry MX, Topre, Alps"
+                  />
+                </div>
               </div>
             </div>
             <h3 css={margins("40px 0 0 0")}>Add available kits</h3>
             <FieldArray
               name="kits"
-              render={({ push }) => (
+              render={({ push, remove }) => (
                 <>
                   <div css={[borderBox, margins("10px 0 20px 0")]}>
                     <h5>Kits available</h5>
-                    {values.kits.map((k: any, i: number) => (
-                      <div css={grid33}>
-                        <FormikInput
-                          margins="0 0 10px 0"
-                          type="text"
-                          icon="icon ion-ios-at"
-                          name={`kits.${i}.kit`}
-                          placeholder="Type of kit"
-                        />
-                        <FormikInput
-                          margins="0 0 10px 0"
-                          type="text"
-                          icon="icon ion-ios-at"
-                          name={`kits.${i}.name`}
-                          placeholder="Name of the kit"
-                        />
-                        <FormikInput
-                          margins="0 0 10px 0"
-                          type="number"
-                          icon="icon ion-logo-usd"
-                          name={`kits.${i}.price`}
-                          placeholder="price of the kit"
-                        />
-                      </div>
-                    ))}
-                    <Button
-                      small="true"
-                      type="button"
-                      onClick={() => push(values.kits[0])}
-                    >
-                      Add another kit
-                    </Button>
+                    {!values.kits && (
+                      <Button
+                        small="true"
+                        type="button"
+                        onClick={() => push(kit)}
+                      >
+                        Add a kit
+                      </Button>
+                    )}
+                    {values.kits &&
+                      values.kits.length > 0 &&
+                      values.kits.map((_: any, idx: number) => (
+                        <>
+                          <div css={flex.row}>
+                            <div css={[grid33, test]}>
+                              <FormikInput
+                                margins="0 0 10px 0"
+                                type="text"
+                                icon="icon ion-ios-at"
+                                name={`kits.${idx}.kit`}
+                                placeholder="Type of kit"
+                              />
+                              <FormikInput
+                                margins="0 0 10px 0"
+                                type="text"
+                                icon="icon ion-ios-at"
+                                name={`kits.${idx}.name`}
+                                placeholder="Name of the kit"
+                              />
+                              <FormikInput
+                                margins="0 0 10px 0"
+                                type="number"
+                                icon="icon ion-logo-usd"
+                                name={`kits.${idx}.price`}
+                                placeholder="price of the kit"
+                              />
+                            </div>
+                            <DeleteButton
+                              icon="icon ion-ios-trash"
+                              onClick={() => remove(idx)}
+                            />
+                          </div>
+                          <Button
+                            small="true"
+                            type="button"
+                            onClick={() => push(values.kits[0])}
+                          >
+                            Add another kit
+                          </Button>
+                        </>
+                      ))}
                   </div>
                 </>
               )}
             />
             <FieldArray
               name="colors"
-              render={({ push }) => (
+              render={({ push, remove }) => (
                 <div css={[borderBox, margins("20px 0")]}>
-                  <h5>
-                    {values.colors.length > 0
-                      ? "Colors"
-                      : "Do you want to provide colors?"}
-                  </h5>
-                  {values.colors && values.colors.length > 0 ? (
+                  {!values.colors || values.colors.length <= 0 ? (
                     <>
-                      {values.colors.map((c: any, i: number) => (
-                        <div css={grid50}>
-                          <FormikInput
-                            type="text"
-                            margins="0 0 10px 0"
-                            icon="icon ion-ios-color-palette"
-                            name={`colors.${i}.hex`}
-                            placeholder="Hex code without the #"
-                          />
-                          <FormikInput
-                            type="text"
-                            margins="0 0 10px 0"
-                            icon="icon ion-ios-color-fill"
-                            name={`colors.${i}.ral`}
-                            placeholder="RAL color chip"
-                          />
-                        </div>
-                      ))}
+                      <h5>Do you want to provide colors?</h5>
                       <Button
                         type="button"
                         small="true"
@@ -204,13 +237,42 @@ const CreateKeyset: FC<any> = () => {
                       </Button>
                     </>
                   ) : (
-                    <Button
-                      type="button"
-                      small="true"
-                      onClick={() => push({ hex: "", ral: "" })}
-                    >
-                      Add a color
-                    </Button>
+                    <h5>Colors</h5>
+                  )}
+                  {values.colors && values.colors.length > 0 && (
+                    <>
+                      {values.colors.map((c: any, idx: number) => (
+                        <div css={flex.row}>
+                          <div css={[grid50, test]}>
+                            <FormikInput
+                              type="text"
+                              margins="0 0 10px 0"
+                              icon="icon ion-ios-color-palette"
+                              name={`colors.${idx}.hex`}
+                              placeholder="Hex code without the #"
+                            />
+                            <FormikInput
+                              type="text"
+                              margins="0 0 10px 0"
+                              icon="icon ion-ios-color-fill"
+                              name={`colors.${idx}.ral`}
+                              placeholder="RAL color chip"
+                            />
+                          </div>
+                          <DeleteButton
+                            icon="icon ion-ios-trash"
+                            onClick={() => remove(idx)}
+                          />
+                        </div>
+                      ))}
+                      <Button
+                        type="button"
+                        small="true"
+                        onClick={() => push(color)}
+                      >
+                        Add a color
+                      </Button>
+                    </>
                   )}
                 </div>
               )}
@@ -238,6 +300,7 @@ const CreateKeyset: FC<any> = () => {
               />
             </div>
             <h2 css={margins("60px 0 10px 0")}>Image gallery</h2>
+            {errors && errors.images && <h5 css={errText}>{errors.images}</h5>}
             <Upload images={images} setImages={setImages} />
             <UploadPreview images={images} setImages={setImages} />
 
@@ -252,3 +315,11 @@ const CreateKeyset: FC<any> = () => {
 };
 
 export default CreateKeyset;
+
+const errText = css`
+  color: red;
+`;
+
+const test = css`
+  width: 100%;
+`;
