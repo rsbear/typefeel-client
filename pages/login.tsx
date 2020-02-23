@@ -46,15 +46,15 @@ const Login: FC<any> = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await login({
+      const res = await login({
         variables: {
           email: stateEmail,
           secret
         }
       });
 
-      if (response && response.data) {
-        setAccessToken(response.data.login.accessToken);
+      if (res && res.data) {
+        setAccessToken(res.data.login.accessToken);
         await client!.resetStore().then(() => {
           router.push("/");
         });
