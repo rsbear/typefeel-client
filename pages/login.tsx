@@ -6,7 +6,12 @@ import { btn, Button } from "styles/buttons";
 import Link from "next/link";
 import { setAccessToken } from "lib/accessToken";
 import Header from "components/layouts/Header";
-import { useGenerateAuthMutation, useLoginMutation } from "generated/graphql";
+import {
+  useGenerateAuthMutation,
+  useLoginMutation,
+  MeQuery,
+  MeDocument
+} from "generated/graphql";
 import { useRouter } from "next/router";
 import { Formik } from "formik";
 
@@ -51,6 +56,18 @@ const Login: FC<any> = () => {
           email: stateEmail,
           secret
         }
+        // update: (store, { data }) => {
+        //   if (!data) {
+        //     return null;
+        //   }
+
+        //   store.writeQuery<MeQuery>({
+        //     query: MeDocument,
+        //     data: {
+        //       me: data.login.user
+        //     }
+        //   });
+        // }
       });
 
       if (res && res.data) {

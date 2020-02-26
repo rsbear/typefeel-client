@@ -41,4 +41,5 @@ class MyApp extends App<any> {
   }
 }
 
+// export default withApollo(MyApp);
 export default withApollo(MyApp);

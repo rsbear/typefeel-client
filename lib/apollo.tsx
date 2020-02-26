@@ -13,11 +13,18 @@ import { ApolloLink } from "apollo-link";
 import cookie from "cookie";
 
 const isServer = () => typeof window === "undefined";
+const dev = process.env.NODE_ENV !== "production";
+const refreshLink =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:4000/refresh_token"
+    : "https://typefeel-server.herokuapp.com/refresh_token";
+
+const gqlLink =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:4000/graphql"
+    : "https://tyefeel-server.herokuapp.com/graphql";
 
 /**
- * Creates and provides the apolloContext
- * to a next.js PageTree. Use it by wrapping
- * your PageComponent via HOC pattern.
  * @param {Function|Class} PageComponent
  * @param {Object} [config]
  * @param {Boolean} [config.ssr=true]
@@ -35,6 +42,11 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
     const client = apolloClient || initApolloClient(apolloState);
     return <PageComponent {...pageProps} apolloClient={client} />;
   };
+
+  if (process.env.NODE_ENV === "production") {
+    console.log(`refresh link log`);
+    console.log(process.env.REFRESHLINK);
+  }
 
   if (process.env.NODE_ENV !== "production") {
     // Find correct display name
@@ -67,7 +79,7 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
           const response = await fetch(
             process.env.NODE_ENV !== "production"
               ? "http://localhost:4000/refresh_token"
-              : "https://typefeel-server.herokuapp.com/refresh_token",
+              : process.env.REFRESHLINK,
             {
               method: "POST",
               credentials: "include",
@@ -102,7 +114,6 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
 
         if (ssr) {
           try {
-            // Run all GraphQL queries
             const { getDataFromTree } = await import("@apollo/react-ssr");
             await getDataFromTree(
               <AppTree
@@ -115,8 +126,6 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
             );
           } catch (error) {
             // Prevent Apollo Client GraphQL errors from crashing SSR.
-            // Handle them in components via the data.error prop:
-            // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error
             console.error("Error while running `getDataFromTree`", error);
           }
         }
@@ -172,7 +181,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
     uri:
       process.env.NODE_ENV !== "production"
         ? "http://localhost:4000/graphql"
-        : "https://typefeel-server.herokuapp.com/graphql",
+        : process.env.GRAPHQL_API,
     credentials: "include",
     fetch
   });
@@ -201,7 +210,7 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
       return fetch(
         process.env.NODE_ENV !== "production"
           ? "http://localhost:4000/refresh_token"
-          : "https://typefeel-server.herokuapp.com/refresh_token",
+          : process.env.REFRESHLINK,
         {
           method: "POST",
           credentials: "include"

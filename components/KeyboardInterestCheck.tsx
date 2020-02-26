@@ -211,11 +211,6 @@ const optionWrapper = css`
   margin: 20px 0;
 `;
 
-const optionContainer = css`
-  display: inline-block;
-  margin-top: 40px;
-`;
-
 const choiceTitle = css`
   margin-bottom: 10px;
   margin-top: 30px;
@@ -232,11 +227,10 @@ const buttonWrapper = css`
 
 const selectButton = css`
   margin: 10px;
-  height: 28px;
   border-radius: 4px;
   border: solid 1px transparent;
   background-color: transparent;
-  padding: 8 16px;
+  padding: 5px 16px;
 
   color: black;
   font-size: ${fontSize[18]};
@@ -244,7 +238,14 @@ const selectButton = css`
   text-transform: uppercase;
   white-space: nowrap;
 
+  transition: all 120ms ease;
+
   outline: 0;
+
+  &:hover {
+    color: ${colors.white};
+    background-color: ${colors.black70};
+  }
 
   &.active {
     color: white;
@@ -295,41 +296,4 @@ const gridbythree = css`
 const gridCell = css`
   height: 100%;
   width: 100%;
-`;
-
-const pStyle = css`
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: transparent;
-  border-radius: 4px;
-
-  font-size: ${fontSize[18]};
-  font-weight: 500;
-  text-transform: uppercase;
-
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${colors.black80};
-    color: white;
-  }
-
-  &:hover span {
-    color: white;
-    opacity: 0.6;
-  }
-
-  span {
-    font-size: ${fontSize[12]};
-    color: ${colors.black60};
-  }
-
-  &.active {
-    background-color: ${colors.black80};
-    color: white;
-  }
-  &.active span {
-    color: white;
-    opacity: 0.6;
-  }
 `;
