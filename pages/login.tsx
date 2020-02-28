@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
 import { css } from "@emotion/core";
-import { inputBox, Input, FormikInput } from "styles/inputs";
-import { margins } from "styles/main";
-import { btn, Button } from "styles/buttons";
+import { FormikInput } from "styles/inputs";
+import { Button } from "styles/buttons";
 import Link from "next/link";
 import { setAccessToken } from "lib/accessToken";
 import Header from "components/layouts/Header";
@@ -14,6 +13,8 @@ import {
 } from "generated/graphql";
 import { useRouter } from "next/router";
 import { Formik } from "formik";
+
+import redirect from "lib/redirect";
 
 const Login: FC<any> = () => {
   const [stateEmail, setEmail] = useState("");
@@ -71,9 +72,11 @@ const Login: FC<any> = () => {
       });
 
       if (res && res.data) {
-        setAccessToken(res.data.login.accessToken);
+        const { accessToken } = res.data.login;
+        setAccessToken(accessToken);
         await client!.resetStore().then(() => {
-          router.push("/");
+          // router.push("/");
+          redirect({}, "/");
         });
       }
     } catch (err) {

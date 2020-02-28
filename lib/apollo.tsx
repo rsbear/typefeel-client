@@ -13,16 +13,15 @@ import { ApolloLink } from "apollo-link";
 import cookie from "cookie";
 
 const isServer = () => typeof window === "undefined";
-const dev = process.env.NODE_ENV !== "production";
 const refreshLink =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:4000/refresh_token"
-    : "https://typefeel-server.herokuapp.com/refresh_token";
+    : "https://api.typefeel.com/refresh_token";
 
 const gqlLink =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:4000/graphql"
-    : "https://tyefeel-server.herokuapp.com/graphql";
+    : "https://api.typefeel.com/graphql";
 
 /**
  * @param {Function|Class} PageComponent
@@ -42,11 +41,6 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
     const client = apolloClient || initApolloClient(apolloState);
     return <PageComponent {...pageProps} apolloClient={client} />;
   };
-
-  if (process.env.NODE_ENV === "production") {
-    console.log(`refresh link log`);
-    console.log(process.env.REFRESHLINK);
-  }
 
   if (process.env.NODE_ENV !== "production") {
     // Find correct display name
@@ -75,19 +69,14 @@ export function withApollo(PageComponent: any, { ssr = true } = {}) {
         const cookies = cookie.parse(
           req.headers.cookie ? req.headers.cookie : ""
         );
-        if (cookies.rfs) {
-          const response = await fetch(
-            process.env.NODE_ENV !== "production"
-              ? "http://localhost:4000/refresh_token"
-              : "https://typefeel-server.herokuapp.com/refresh_token",
-            {
-              method: "POST",
-              credentials: "include",
-              headers: {
-                cookie: "rfs=" + cookies.rfs
-              }
+        if (cookies.typefeel_sesh) {
+          const response = await fetch(refreshLink, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              cookie: "typefeel_sesh=" + cookies.typefeel_sesh
             }
-          );
+          });
           const data = await response.json();
           serverAccessToken = data.accessToken;
         }
@@ -177,13 +166,14 @@ function initApolloClient(initState: any, serverAccessToken?: string) {
  * @param  {Object} config
  */
 function createApolloClient(initialState = {}, serverAccessToken?: string) {
+  const fetchOptions = {
+    "Access-Control-Allow-Origin": "https://api.typefeel.com"
+  };
   const uploadLink = createUploadLink({
-    uri:
-      process.env.NODE_ENV !== "production"
-        ? "http://localhost:4000/graphql"
-        : "https://typefeel-server.herokuapp.com/graphql",
+    uri: gqlLink,
     credentials: "include",
-    fetch
+    fetch,
+    fetchOptions
   });
 
   const refreshLink = new TokenRefreshLink({
@@ -207,15 +197,10 @@ function createApolloClient(initialState = {}, serverAccessToken?: string) {
       }
     },
     fetchAccessToken: () => {
-      return fetch(
-        process.env.NODE_ENV !== "production"
-          ? "http://localhost:4000/refresh_token"
-          : "https://typefeel-server.herokuapp.com/refresh_token",
-        {
-          method: "POST",
-          credentials: "include"
-        }
-      );
+      return fetch(refreshLink, {
+        method: "POST",
+        credentials: "include"
+      });
     },
     handleFetch: accessToken => {
       setAccessToken(accessToken);

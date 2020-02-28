@@ -78,6 +78,7 @@ const KeyboardData: GetProps<any> = ({ shortId }) => {
       {!loading && !error && data && data.keyboard && (
         <div>
           <h1 css={text.heading}>{data.keyboard.name}</h1>
+          <h3>all data</h3>
           <h2>
             {data.keyboard.joins.length > 0
               ? `${totalJoins} supporters`
