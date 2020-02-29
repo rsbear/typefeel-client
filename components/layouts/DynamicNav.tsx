@@ -31,18 +31,18 @@ const DynamicNav: FC<Props> = ({ dynamicNav }) => {
       </Link>
       <p css={ppp}>
         <Link
-          href={`/${productType}/[shortId]/discussion`}
-          as={`/${productType}/${shortId}/discussion`}
+          href={`/${productType}/[shortId]`}
+          as={`/${productType}/${shortId}`}
         >
-          <a>Discussion</a>
+          <a>Project</a>
         </Link>
       </p>
       <p css={ppp}>
         <Link
-          href={`/${productType}/[shortId]/data`}
-          as={`/${productType}/${shortId}/data`}
+          href={`/${productType}/[shortId]/feedback`}
+          as={`/${productType}/${shortId}/feedback`}
         >
-          <a>Data</a>
+          <a>Data &amp; Discussion</a>
         </Link>
       </p>
     </div>

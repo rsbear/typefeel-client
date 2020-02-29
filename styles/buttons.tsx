@@ -141,4 +141,9 @@ export const Button: FC<any> = (props: any) => {
       </>
     );
   }
+  return (
+    <button {...props} css={[btn]}>
+      {props.children}
+    </button>
+  );
 };

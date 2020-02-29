@@ -163,6 +163,7 @@ export type Keyset = {
   id: Scalars['String'],
   shortId: Scalars['String'],
   name: Scalars['String'],
+  manufacturer?: Maybe<Scalars['String']>,
   profile: Scalars['String'],
   stem: Scalars['String'],
   kits?: Maybe<Array<Kit>>,
@@ -186,6 +187,7 @@ export type Keyset = {
 
 export type KeysetInput = {
   name: Scalars['String'],
+  manufacturer: Scalars['String'],
   profile: Scalars['String'],
   stem: Scalars['String'],
   kits: Array<KitInput>,
@@ -451,6 +453,7 @@ export type Query = {
   auths: Array<Auth>,
   keyboards: Array<Keyboard>,
   keyboard: Keyboard,
+  keyboardPosts: Keyboard,
   sortKeyboards: Array<Keyboard>,
   keysets: Array<Keyset>,
   keyset: Keyset,
@@ -466,6 +469,12 @@ export type Query = {
 
 
 export type QueryKeyboardArgs = {
+  shortId: Scalars['String']
+};
+
+
+export type QueryKeyboardPostsArgs = {
+  limit: Scalars['Float'],
   shortId: Scalars['String']
 };
 
@@ -649,7 +658,7 @@ export type KeyboardDataQuery = (
   { __typename?: 'Query' }
   & { keyboard: (
     { __typename?: 'Keyboard' }
-    & Pick<Keyboard, 'closed' | 'connector' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'name' | 'shortId' | 'size'>
+    & Pick<Keyboard, 'closed' | 'angle' | 'connector' | 'brand' | 'mount' | 'pcb' | 'firmware' | 'groupBuy' | 'groupBuySoon' | 'id' | 'images1500' | 'interestCheck' | 'name' | 'shortId' | 'size'>
     & { editions: Maybe<Array<(
       { __typename?: 'Edition' }
       & Pick<Edition, 'id' | 'name' | 'price' | 'suggestedPrice' | 'cases' | 'plates'>
@@ -661,13 +670,14 @@ export type KeyboardDataQuery = (
 );
 
 export type KeyboardPostsQueryVariables = {
-  shortId: Scalars['String']
+  shortId: Scalars['String'],
+  limit: Scalars['Float']
 };
 
 
 export type KeyboardPostsQuery = (
   { __typename?: 'Query' }
-  & { keyboard: (
+  & { keyboardPosts: (
     { __typename?: 'Keyboard' }
     & Pick<Keyboard, 'id' | 'shortId' | 'images600' | 'name'>
     & { posts: Maybe<Array<(
@@ -1353,7 +1363,12 @@ export const KeyboardDataDocument = gql`
     query KeyboardData($shortId: String!) {
   keyboard(shortId: $shortId) {
     closed
+    angle
     connector
+    brand
+    mount
+    pcb
+    firmware
     editions {
       id
       name
@@ -1406,8 +1421,8 @@ export type KeyboardDataQueryHookResult = ReturnType<typeof useKeyboardDataQuery
 export type KeyboardDataLazyQueryHookResult = ReturnType<typeof useKeyboardDataLazyQuery>;
 export type KeyboardDataQueryResult = ApolloReactCommon.QueryResult<KeyboardDataQuery, KeyboardDataQueryVariables>;
 export const KeyboardPostsDocument = gql`
-    query keyboardPosts($shortId: String!) {
-  keyboard(shortId: $shortId) {
+    query KeyboardPosts($shortId: String!, $limit: Float!) {
+  keyboardPosts(shortId: $shortId, limit: $limit) {
     id
     shortId
     images600
@@ -1437,6 +1452,7 @@ export const KeyboardPostsDocument = gql`
  * const { data, loading, error } = useKeyboardPostsQuery({
  *   variables: {
  *      shortId: // value for 'shortId'
+ *      limit: // value for 'limit'
  *   },
  * });
  */

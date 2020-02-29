@@ -1,5 +1,5 @@
-query keyboardPosts($shortId: String!) {
-  keyboard(shortId: $shortId) {
+query KeyboardPosts($shortId: String!, $limit: Float!) {
+  keyboardPosts(shortId: $shortId, limit: $limit) {
     id
     shortId
     images600

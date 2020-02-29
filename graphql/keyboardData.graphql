@@ -1,7 +1,12 @@
 query KeyboardData($shortId: String!) {
   keyboard(shortId: $shortId) {
     closed
+    angle
     connector
+    brand
+    mount
+    pcb
+    firmware
     editions {
       id
       name
