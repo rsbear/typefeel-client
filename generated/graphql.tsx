@@ -727,6 +727,39 @@ export type KeysetQuery = (
   ) }
 );
 
+export type KeysetDataQueryVariables = {
+  shortId: Scalars['String']
+};
+
+
+export type KeysetDataQuery = (
+  { __typename?: 'Query' }
+  & { keyset: (
+    { __typename?: 'Keyset' }
+    & Pick<Keyset, 'created' | 'details' | 'id' | 'images1500' | 'name' | 'profile' | 'shortId' | 'stem' | 'interestCheck' | 'groupBuy' | 'groupBuySoon' | 'market' | 'closed'>
+    & { colors: Maybe<Array<(
+      { __typename?: 'Color' }
+      & Pick<Color, 'id' | 'hex' | 'ral'>
+    )>>, kits: Maybe<Array<(
+      { __typename?: 'Kit' }
+      & Pick<Kit, 'id' | 'kit' | 'name' | 'price' | 'suggestedPrice'>
+    )>>, joins: Maybe<Array<(
+      { __typename?: 'JoinKeyset' }
+      & Pick<JoinKeyset, 'id' | 'kits'>
+    )>>, maker: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'username'>
+    )>, posts: Maybe<Array<(
+      { __typename?: 'Post' }
+      & Pick<Post, 'id' | 'created' | 'body'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'username'>
+      ) }
+    )>> }
+  ) }
+);
+
 export type KeysetPostsQueryVariables = {
   shortId: Scalars['String']
 };
@@ -1564,6 +1597,79 @@ export function useKeysetLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookO
 export type KeysetQueryHookResult = ReturnType<typeof useKeysetQuery>;
 export type KeysetLazyQueryHookResult = ReturnType<typeof useKeysetLazyQuery>;
 export type KeysetQueryResult = ApolloReactCommon.QueryResult<KeysetQuery, KeysetQueryVariables>;
+export const KeysetDataDocument = gql`
+    query KeysetData($shortId: String!) {
+  keyset(shortId: $shortId) {
+    colors {
+      id
+      hex
+      ral
+    }
+    created
+    details
+    id
+    images1500
+    kits {
+      id
+      kit
+      name
+      price
+      suggestedPrice
+    }
+    joins {
+      id
+      kits
+    }
+    maker {
+      username
+    }
+    name
+    profile
+    shortId
+    stem
+    interestCheck
+    groupBuy
+    groupBuySoon
+    market
+    closed
+    posts {
+      id
+      created
+      body
+      user {
+        id
+        username
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useKeysetDataQuery__
+ *
+ * To run a query within a React component, call `useKeysetDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useKeysetDataQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useKeysetDataQuery({
+ *   variables: {
+ *      shortId: // value for 'shortId'
+ *   },
+ * });
+ */
+export function useKeysetDataQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<KeysetDataQuery, KeysetDataQueryVariables>) {
+        return ApolloReactHooks.useQuery<KeysetDataQuery, KeysetDataQueryVariables>(KeysetDataDocument, baseOptions);
+      }
+export function useKeysetDataLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<KeysetDataQuery, KeysetDataQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<KeysetDataQuery, KeysetDataQueryVariables>(KeysetDataDocument, baseOptions);
+        }
+export type KeysetDataQueryHookResult = ReturnType<typeof useKeysetDataQuery>;
+export type KeysetDataLazyQueryHookResult = ReturnType<typeof useKeysetDataLazyQuery>;
+export type KeysetDataQueryResult = ApolloReactCommon.QueryResult<KeysetDataQuery, KeysetDataQueryVariables>;
 export const KeysetPostsDocument = gql`
     query keysetPosts($shortId: String!) {
   keyset(shortId: $shortId) {

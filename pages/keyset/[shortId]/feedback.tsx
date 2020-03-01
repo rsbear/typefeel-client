@@ -5,7 +5,8 @@ import Link from "next/link";
 import {
   useKeysetQuery,
   useKeysetPostsQuery,
-  useCreatePostMutation
+  useCreatePostMutation,
+  useKeysetDataQuery
 } from "generated/graphql";
 
 import KeysetSummary from "components/KeysetSummary";
@@ -23,27 +24,22 @@ const KeysetFeedback: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
   const [body, setBody] = useState("");
   const [limit, setLimit] = useState(20);
-  const { loading, error, data } = useKeysetQuery({ variables: { shortId } });
-  const posts = useKeysetPostsQuery({ variables: { shortId } });
+  const { loading, error, data, refetch } = useKeysetDataQuery({
+    variables: { shortId }
+  });
 
   const [createPost] = useCreatePostMutation();
 
   const handleCreatePost = async (e: any) => {
     e.preventDefault();
     try {
-      let response = await createPost({
+      await createPost({
         variables: { id: data.keyset.id, body }
       });
-      console.log(response);
-      posts.refetch();
+      refetch();
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleFetchMore = () => {
-    event.preventDefault();
-    setLimit(limit + 20);
   };
 
   const dynamicNav = {
@@ -71,27 +67,22 @@ const KeysetFeedback: GetProps<any> = ({ shortId }) => {
             <div css={postsWrapper}>
               <h2>Discussion</h2>
               <ul>
-                {!loading &&
-                  !error &&
-                  posts.data &&
-                  posts.data.keyset.posts
-                    .slice(0, limit)
-                    .map((p: PostInterface) => (
-                      <Post
-                        key={p.id}
-                        id={p.id}
-                        body={p.body}
-                        created={p.created}
-                        username={p.user.username}
-                      />
-                    ))}
+                {data.keyset.posts.slice(0, limit).map((p: PostInterface) => (
+                  <Post
+                    key={p.id}
+                    id={p.id}
+                    body={p.body}
+                    created={p.created}
+                    username={p.user.username}
+                  />
+                ))}
               </ul>
-              {posts.data.keyset.posts.length >= 20 && (
+              {data.keyset.posts.length >= 20 && (
                 <div css={[btnContainer]}>
                   <button
                     css={[btnOverride, showMoreButton]}
                     type="button"
-                    onClick={() => setLimit(posts.data.keyset.posts.length)}
+                    onClick={() => setLimit(data.keyset.posts.length)}
                   >
                     Show latest
                   </button>
