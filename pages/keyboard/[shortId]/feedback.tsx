@@ -144,7 +144,7 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
                     )
                   )}
               </ul>
-              {postsQuery.data.keyboardPosts.posts.length > 20 && (
+              {postsQuery.data.keyboardPosts.posts.length >= 20 && (
                 <div css={[btnContainer]}>
                   <button
                     css={[btnOverride, showMoreButton]}
