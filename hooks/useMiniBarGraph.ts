@@ -36,7 +36,7 @@ export default function useMiniBarGraph(id, data, colors) {
       .attr("y", d => y(d.count))
       .attr("width", x.bandwidth())
       .attr("height", d => height - y(d.count))
-      .attr("rx", "4px")
+      .attr("rx", "3px")
       .attr("fill", (d, i) => colors[i])
     // .text(d => d.count)
 

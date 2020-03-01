@@ -670,14 +670,13 @@ export type KeyboardDataQuery = (
 );
 
 export type KeyboardPostsQueryVariables = {
-  shortId: Scalars['String'],
-  limit: Scalars['Float']
+  shortId: Scalars['String']
 };
 
 
 export type KeyboardPostsQuery = (
   { __typename?: 'Query' }
-  & { keyboardPosts: (
+  & { keyboard: (
     { __typename?: 'Keyboard' }
     & Pick<Keyboard, 'id' | 'shortId' | 'images600' | 'name'>
     & { posts: Maybe<Array<(
@@ -1421,8 +1420,8 @@ export type KeyboardDataQueryHookResult = ReturnType<typeof useKeyboardDataQuery
 export type KeyboardDataLazyQueryHookResult = ReturnType<typeof useKeyboardDataLazyQuery>;
 export type KeyboardDataQueryResult = ApolloReactCommon.QueryResult<KeyboardDataQuery, KeyboardDataQueryVariables>;
 export const KeyboardPostsDocument = gql`
-    query KeyboardPosts($shortId: String!, $limit: Float!) {
-  keyboardPosts(shortId: $shortId, limit: $limit) {
+    query KeyboardPosts($shortId: String!) {
+  keyboard(shortId: $shortId) {
     id
     shortId
     images600
@@ -1452,7 +1451,6 @@ export const KeyboardPostsDocument = gql`
  * const { data, loading, error } = useKeyboardPostsQuery({
  *   variables: {
  *      shortId: // value for 'shortId'
- *      limit: // value for 'limit'
  *   },
  * });
  */

@@ -34,7 +34,7 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
     variables: { shortId }
   });
 
-  const postsQuery = useKeyboardPostsQuery({ variables: { shortId, limit } });
+  const postsQuery = useKeyboardPostsQuery({ variables: { shortId } });
 
   useEffect(() => {
     if (!loading && !error && data) {
@@ -132,8 +132,9 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
                 {!loading &&
                   !error &&
                   postsQuery.data &&
-                  postsQuery.data.keyboardPosts.posts.map(
-                    (p: PostInterface) => (
+                  postsQuery.data.keyboard.posts
+                    .slice(0, limit)
+                    .map((p: PostInterface) => (
                       <Post
                         key={p.id}
                         id={p.id}
@@ -141,11 +142,19 @@ const KeyboardFeedback: GetProps<any> = ({ shortId }) => {
                         created={p.created}
                         username={p.user.username}
                       />
-                    )
-                  )}
+                    ))}
               </ul>
-              {postsQuery.data.keyboardPosts.posts.length >= 20 && (
+              {postsQuery.data.keyboard.posts.length >= 20 && (
                 <div css={[btnContainer]}>
+                  <button
+                    css={[btnOverride, showMoreButton]}
+                    type="button"
+                    onClick={() =>
+                      setLimit(postsQuery.data.keyboard.posts.length)
+                    }
+                  >
+                    Show latest
+                  </button>
                   <button
                     css={[btnOverride, showMoreButton]}
                     type="button"
