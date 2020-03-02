@@ -51,11 +51,10 @@ const KeysetSummary: FC<Props> = ({
               </li>
             ))}
         </ul>
-        <div css={[flex.row, buttonContainer]}>
+        <div css={[flex.row, flex.itemscenter, buttonContainer]}>
           <FollowButton id={id} />
-          <button css={imageButton} type="button">
-            <i className="icon ion-ios-image" />
-          </button>
+          {/* <i className="icon ion-ios-heart" css={heartIcon} />
+          <span>12</span> */}
         </div>
       </div>
       <img css={bannerStyle} src={bannerImg} alt={`${name} banner image`} />
@@ -130,6 +129,11 @@ const imageButton = css`
   i {
     font-size: ${fontSize[18]};
   }
+`;
+
+const heartIcon = css`
+  font-size: ${fontSize[24]};
+  color: pink;
 `;
 
 const bannerStyle = css`

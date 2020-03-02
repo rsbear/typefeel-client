@@ -90,19 +90,20 @@ const heartIconFull = css`
 
 const followButton = css`
   outline: 0;
-  padding: 0 40px;
+  padding-left: 30px;
+  padding-right: 30px;
   margin-right: 15px;
   height: 40px;
-  border-radius: 20px;
-  border: solid 1px #4b6787;
-  background-color: #4b6787;
+  border-radius: 4px;
+  border: solid 1px #dbdbdb;
+  /* background-color: #4b6787; */
 
-  color: white;
+  /* color: white; */
   font-size: ${fontSize[14]};
   font-weight: 600;
 `;
 
 const followingButton = css`
   background: transparent;
-  color: #4b6787;
+  color: dodgerblue;
 `;

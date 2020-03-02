@@ -33,7 +33,6 @@ const reducer = (state, action) => {
 const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
   const { authUser } = useAppContext();
   const [joined, setJoined] = useState(false);
-  const [selectedKits, setSelectedKits] = useState([]);
   const [state, dispatch] = useReducer(reducer, []);
 
   const [joinMutation] = useJoinKeysetMutation();
@@ -43,7 +42,7 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
       if (authUser.keysetjoins)
         for (let i of authUser.keysetjoins) {
           if (i.keysetId === id) {
-            setJoined(true);
+            setJoined(false);
           }
         }
     }
@@ -61,10 +60,12 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
     event.preventDefault();
     try {
       const res = await joinMutation({
-        variables: { id, data: { kits: selectedKits } }
+        variables: { id, data: { kits: state } }
       });
       console.log(res);
-      setJoined(true);
+      if (res && res.data) {
+        setJoined(false);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -195,31 +196,50 @@ const pStyle = css`
 const joinButton = css`
   margin-top: 40px;
   padding: 0 80px;
-  height: 40px;
-  border-radius: 20px;
-  border: solid 1px dodgerblue;
-  background-color: dodgerblue;
+  height: 48px;
+  border-radius: 6px;
+  border: solid 1px #dbdbdb;
+  background-color: transparent;
 
-  color: white;
+  /* color: white; */
   font-weight: 600;
-  font-size: ${fontSize[14]};
+  font-size: ${fontSize[18]};
   outline: 0;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:hover {
+    background-color: ${colors.black70};
+    color: white;
+  }
 `;
 
 const imageButton = css`
   margin-top: 40px;
   margin-left: 20px;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  border: solid 1px #f49b0b;
-  background-color: #f49b0b;
-
-  color: white;
+  height: 48px;
+  width: 48px;
+  border-radius: 6px;
+  border: solid 1px #dbdbdb;
+  background-color: transparent;
   font-weight: 600;
+  transition: all 200ms ease;
 
   padding-bottom: 2px;
+
   i {
     font-size: ${fontSize[18]};
+  }
+
+  &:hover {
+    background-color: ${colors.black70};
+    color: white;
+  }
+
+  &:hover:after {
+    content: "reset";
+    opacity: 1;
   }
 `;

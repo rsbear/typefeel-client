@@ -12,7 +12,7 @@ interface CaseData {
 
 interface Props {
   id: string;
-  caseData?: CaseData[];
+  kitsData?: any;
 }
 
 const graphColors = [
@@ -26,8 +26,8 @@ const graphColors = [
   "#EF476F"
 ];
 
-const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
-  useMiniBarGraph(id, caseData, graphColors);
+const KitsBarGraph: FC<Props> = ({ id, kitsData }) => {
+  useMiniBarGraph(id, kitsData, graphColors);
   // useStackedBarChart(id, caseData);
   // useHorizontalBarGraph(id, caseData);
 
@@ -37,7 +37,7 @@ const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
 
       <svg css={bg} id={id} viewBox="0 0 200 100" />
       <ul css={list}>
-        {caseData.map((c: any, idx: number) => (
+        {kitsData.map((c: any, idx: number) => (
           <li key={idx} css={flex.row}>
             <div
               className="circle"
@@ -51,7 +51,7 @@ const CasesBarGraph: FC<Props> = ({ id, caseData }) => {
   );
 };
 
-export default CasesBarGraph;
+export default KitsBarGraph;
 
 const container = css`
   position: relative;

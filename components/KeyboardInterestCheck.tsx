@@ -161,7 +161,7 @@ const KeyboardInterestCheck: FC<Props> = ({ id, editions, layouts }) => {
                   Join in
                 </button>
               ) : (
-                <button css={joinButton} type="button">
+                <button css={joinButton} type="button" disabled>
                   You're in
                 </button>
               )}
@@ -230,7 +230,7 @@ const selectButton = css`
   border-radius: 4px;
   border: solid 1px transparent;
   background-color: transparent;
-  padding: 5px 16px;
+  padding: 8px 16px;
 
   color: black;
   font-size: ${fontSize[18]};
@@ -256,32 +256,52 @@ const selectButton = css`
 const joinButton = css`
   margin-top: 40px;
   padding: 0 80px;
-  height: 40px;
-  border-radius: 20px;
-  border: solid 1px dodgerblue;
-  background-color: dodgerblue;
+  height: 48px;
+  border-radius: 6px;
+  border: solid 1px #dbdbdb;
+  background-color: transparent;
+  transition: all 200ms ease;
 
-  color: white;
+  /* color: white; */
   font-weight: 600;
-  font-size: ${fontSize[14]};
+  font-size: ${fontSize[18]};
   outline: 0;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:hover {
+    background-color: ${colors.black70};
+    color: white;
+  }
 `;
 
 const imageButton = css`
   margin-top: 40px;
   margin-left: 20px;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  border: solid 1px #f49b0b;
-  background-color: #f49b0b;
-
-  color: white;
+  height: 48px;
+  width: 48px;
+  border-radius: 6px;
+  border: solid 1px #dbdbdb;
+  background-color: transparent;
   font-weight: 600;
+  transition: all 200ms ease;
 
   padding-bottom: 2px;
+
   i {
     font-size: ${fontSize[18]};
+  }
+
+  &:hover {
+    background-color: ${colors.black70};
+    color: white;
+  }
+
+  &:hover:after {
+    content: "reset";
+    opacity: 1;
   }
 `;
 

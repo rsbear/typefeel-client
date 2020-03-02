@@ -19,9 +19,11 @@ import { Button } from "styles/buttons";
 import { flex, colors } from "styles/main";
 import { fontSize } from "styles/text";
 import { useAppContext } from "hooks/useAppContext";
+import KitsBarGraph from "components/keysetcharts/KitsBarGraph";
 
 const KeysetFeedback: GetProps<any> = ({ shortId }) => {
   const { authUser } = useAppContext();
+  const [kitsData, setKitsData] = useState([]);
   const [body, setBody] = useState("");
   const [limit, setLimit] = useState(20);
   const { loading, error, data, refetch } = useKeysetDataQuery({
@@ -47,6 +49,27 @@ const KeysetFeedback: GetProps<any> = ({ shortId }) => {
     shortId: shortId,
     productType: "keyset"
   };
+
+  React.useEffect(() => {
+    if (!loading && !error && data) {
+      const kitsArr = [];
+      for (let j of data.keyset.joins) {
+        kitsArr.push(...j.kits);
+      }
+
+      const kitsObj = {};
+      kitsArr.forEach(x => {
+        kitsObj[x] = (kitsObj[x] || 0) + 1;
+      });
+
+      const countedKits = [];
+      Object.entries(kitsObj).forEach(k => {
+        countedKits.push({ name: k[0], count: k[1] });
+      });
+
+      setKitsData(countedKits);
+    }
+  }, [loading]);
 
   return (
     <Layout title="Feedback" dynamicNav={dynamicNav}>
@@ -117,6 +140,9 @@ const KeysetFeedback: GetProps<any> = ({ shortId }) => {
                 )}
               </div>
             </div>
+            <div css={graphsWrapper}>
+              <KitsBarGraph id="kitschart" kitsData={kitsData} />
+            </div>
           </div>
         </div>
       )}
@@ -156,7 +182,7 @@ const btnContainer = css`
 `;
 
 const btnOverride = css`
-  margin-left: auto;
+  margin-left: 15px;
   margin-top: 10px;
   padding: 12px 18px;
   background-color: dodgerblue;
