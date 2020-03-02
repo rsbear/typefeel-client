@@ -42,7 +42,7 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
       if (authUser.keysetjoins)
         for (let i of authUser.keysetjoins) {
           if (i.keysetId === id) {
-            setJoined(false);
+            setJoined(true);
           }
         }
     }
@@ -64,7 +64,7 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
       });
       console.log(res);
       if (res && res.data) {
-        setJoined(false);
+        setJoined(true);
       }
     } catch (err) {
       console.log(err);
@@ -105,7 +105,7 @@ const KeysetInterestCheck: FC<Props> = ({ id, kits }) => {
                   Join in
                 </button>
               ) : (
-                <button css={joinButton} type="button">
+                <button css={joinButton} type="button" disabled>
                   You're in
                 </button>
               )}
@@ -206,13 +206,18 @@ const joinButton = css`
   font-size: ${fontSize[18]};
   outline: 0;
 
+  &:hover {
+    background-color: ${colors.black70};
+    color: white;
+  }
+
   &:disabled {
     cursor: default;
   }
 
-  &:hover {
-    background-color: ${colors.black70};
-    color: white;
+  &:hover:disabled {
+    background-color: transparent;
+    color: ${colors.black60};
   }
 `;
 

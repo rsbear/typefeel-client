@@ -275,6 +275,10 @@ const joinButton = css`
     background-color: ${colors.black70};
     color: white;
   }
+  &:hover:disabled {
+    background-color: transparent;
+    color: ${colors.black60};
+  }
 `;
 
 const imageButton = css`
