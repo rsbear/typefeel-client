@@ -16,14 +16,12 @@ const AppFunction = ({ Component, pageProps }) => {
   });
   const authUser = !loading && !error && data && data.me;
 
-  const value = useMemo(() => ({ authUser }), [authUser]);
+  // const value = useMemo(() => ({ authUser }), [authUser]);
+  console.log("mmono repo");
 
   return (
-    <AppContext.Provider value={value}>
-      <Component
-        authUser={!loading && !error && data ? data.me : null}
-        {...pageProps}
-      />
+    <AppContext.Provider value={{ authUser }}>
+      <Component {...pageProps} />
     </AppContext.Provider>
   );
 };

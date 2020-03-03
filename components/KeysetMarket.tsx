@@ -38,7 +38,7 @@ const KeysetMarket: FC<Props> = ({ id, kits }) => {
     try {
       const response = await voteKitUp();
       console.log(response);
-      if (response.data.voteKitUp) {
+      if (response.data && response.data.voteKitUp) {
         setMessage("Voted up");
       } else {
         setMessage("You already voted");

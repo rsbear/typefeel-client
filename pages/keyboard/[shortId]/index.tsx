@@ -20,7 +20,7 @@ const KeyboardPage: GetProps<any> = ({ shortId }) => {
   });
 
   const dynamicNav = {
-    name: !loading ? data.keyboard.name : "",
+    name: !loading && !error ? data.keyboard.name : "",
     productType: "keyboard",
     shortId: shortId
   };
@@ -83,6 +83,7 @@ const KeyboardPage: GetProps<any> = ({ shortId }) => {
 
 KeyboardPage.getInitialProps = async (context: any) => {
   const { shortId } = context.query;
+  console.log(shortId);
   return { shortId };
 };
 
